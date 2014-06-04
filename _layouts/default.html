@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title> {% if page.title %} {{ page.title }} | {% endif %} Computer Science Academy @ Galileo</title>
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <link rel="stylesheet" href="/stylesheets/styles.css">
+    <link rel="stylesheet" href="/stylesheets/pygment_trac.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -17,31 +17,35 @@
 <body>
   <div class="wrapper">
     <header>
-        <h1><a href="index.html">Computer Science Academy</a></h1>
+	<nav>
+        <h1><a href="/">Computer Science Academy</a></h1>
         <h2>Creative Problem Solving for the 21st Century</h2>
         <p><strong>@ Galileo Academy of Science and Technology</strong></p>
         
         <hr>
         <h3><strong>
-        <p><a href="ecs.html">Exploring Computer Science</a></p>
-        <p><a href="compprog.html">Computer Programming</a></p>
-        <p><a href="apcsa.html">AP Computer Science A</a></p>
+        <p><a href="/ecs/">Exploring Computer Science</a></p>
+        <p><a href="/compprog/">Computer Programming</a></p>
+        <p><a href="/apcsa/">AP Computer Science A</a></p>
     	</strong></h3>
         
         <hr>
         
         <h4><strong>
         <p>
-        <a href="resources.html">Resources</a>
+        <a href="/resources/">Resources</a>
         <br>
-        <a href="tand.html">About Mr. Tan</a>
+        <a href="/tand.html">About Mr. Tan</a>
         </p>
 	</strong></h4>
-        
+        </nav>
+
     </header>
+    <section>
  
     {{ content }}
  
+    </section>
     <footer>
     </footer>
  
