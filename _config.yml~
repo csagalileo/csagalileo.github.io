@@ -1,0 +1,13 @@
+name: "Computer Science Academy @ Galileo"
+description: "Computer Science Academy @ Galileo"
+
+url: "http://csagalileo.github.io"
+
+markdown: rdiscount
+permalink: none
+
+timezone: US/Pacific
+auto: true
+
+pygments: true
+github: [Repository metadata]
