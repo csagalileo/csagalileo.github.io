@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Computer Programming
+title: Computer Programming - About
 ---
 
 <h2>
@@ -8,16 +8,11 @@ title: Computer Programming
 
 <p><a href="about.html">About Computer Programming</a> | <a href="allposts.html">All posts</a> | <a href="postlist.html">Post list</a></p>
 
-{% for post in site.categories.compprog offset:0 limit:10 %}
 <section>
 <p>
-    <a href="{{ post.url }}">
-      <h3>{{ post.title }}</h3>
-    </a>
-	{{ post.content }} 
+
 </p>
 </section>
-{% endfor %}
 
 <p><a href="allposts.html">All posts</a> | <a href="postlist.html">Post list</a></p>
 

@@ -19,7 +19,5 @@ title: Exploring Computer Science
 </section>
 {% endfor %}
 
-<footer>
 <p><a href="allposts.html">All posts</a> | <a href="postlist.html">Post list</a></p>
-</footer>
 
