@@ -96,7 +96,7 @@ img {
 }
 
 header {
-  width:200px;
+  width:270px;
   float:left;
   position:fixed;
 }
@@ -163,6 +163,7 @@ section {
   width:570px;
   float:right;
   padding-bottom:50px;
+  border: 1px;
 }
 
 small {
@@ -177,7 +178,7 @@ hr {
 }
 
 footer {
-  width:200px;
+  width:270px;
   float:left;
   position:fixed;
   bottom:50px;

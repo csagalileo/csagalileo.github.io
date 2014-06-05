@@ -6,18 +6,18 @@ title: AP Computer Science A
 <h2>
 <a name="{{ page.title }}" class="anchor" href="#{{ page.title }}"><span class="octicon octicon-link"></span></a>{{ page.title }}</h2>
 
-<p><a href="about.html">About {{ page.title }}</a> | <a href="allposts.html">All posts in {{ page.title }}</a></p>
+<p><a href="about.html">About {{ page.title }}</a> | <a href="allposts.html">All posts</a> | <a href="postlist.html">Post list</a></p>
 
-{% for post in site.posts %}
+{% for post in site.categories.apcsa offset:0 limit:10 %}
 <section>
-{{ post.url }} {{ post.title }} {{ post.content }} {{ post.categories }} {{ site.categories }}
-{% if post.categories == "apcsa" %}
-hello<p>
+<p>
     <a href="{{ post.url }}">
       <h3>{{ post.title }}</h3>
     </a>
 	{{ post.content }}
 </p>
-{% endif %}
 </section>
 {% endfor %}
+
+<p><a href="allposts.html">All posts</a> | <a href="postlist.html">Post list</a></p>
+

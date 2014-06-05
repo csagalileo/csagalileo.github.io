@@ -1,6 +1,6 @@
 ---
 layout: default
-title: AP Computer Science A
+title: AP Computer Science A - Post list
 ---
 
 <h2>
@@ -8,16 +8,11 @@ title: AP Computer Science A
 
 <p><a href="about.html">About AP Computer Science A</a> | <a href="allposts.html">All posts</a> | <a href="postlist.html">Post list</a></p>
 
-{% for post in site.categories.apcsa offset:0 limit:10 %}
-<section>
-<p>
-    <a href="{{ post.url }}">
-      <h3>{{ post.title }}</h3>
-    </a>
-	{{ post.content }}
-</p>
-</section>
+<ul>
+{% for post in site.categories.apcsa %}
+<li><a href="{{ post.url }}">{{ post.title }}</a> - {{ post.date | date: "%Y-%m-%d"}}</li>
 {% endfor %}
+</ul>
 
 <p><a href="allposts.html">All posts</a> | <a href="postlist.html">Post list</a></p>
 
