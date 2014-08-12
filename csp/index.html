@@ -1,14 +1,14 @@
 ---
 layout: default
-title: Computer Programming - All posts
+title: Computer Science Principles
 ---
 
 <h2>
 <a name="{{ page.title }}" class="anchor" href="#{{ page.title }}"><span class="octicon octicon-link"></span></a>{{ page.title }}</h2>
 
-<p><a href="about.html">About Computer Programming</a> &nbsp;| &nbsp;<a href="allposts.html">All posts</a> &nbsp;| &nbsp;<a href="postlist.html">Post list</a></p>
+<p><a href="about.html">About Computer Science Principles</a> &nbsp;| &nbsp;<a href="allposts.html">All posts</a> &nbsp;| &nbsp;<a href="postlist.html">Post list</a></p>
 
-{% for post in site.categories.compprog %}
+{% for post in site.categories.csp offset:0 limit:10 %}
 <section>
 <p>
     <a href="{{ post.url }}">
