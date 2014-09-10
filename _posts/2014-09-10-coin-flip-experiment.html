@@ -1,0 +1,59 @@
+---
+  layout: post
+  title: Coin Flip Experiment
+  categories: csp
+---
+
+<p>In this lesson you will use a pre-built app, CoinFlipExperiment, to conduct an experiment aimed at determining how &lsquo;good&rsquo; App Inventor is at generating random numbers.</p>
+<p>The app will let you &lsquo;flip a coin&rsquo; N times and display the results. You should record and tally the results and calculate the average percentage of heads. The expectation is that as N gets large, the average should approach 50%. </p>
+<p><strong>Background
+</strong></p>
+<p> Here are some things you should know about how computers and computer languages (App Inventor) implement randomness: </p>
+<ul>
+  <li>Randomness is used in lots of programs, especially games (Android Mash) and simulations (Coin Flip).</li>
+  <li>Creating a truly random process is hard to do. And creating a truly random process in a computer is no exception.</li>
+  <li>Because creating true randomness is hard, computers use algorithms known as <em><strong>pseudo random number generators (PRNGs)</strong></em> to simulate randomness. This is much easier to do than generating truly random numbers.</li>
+  <li>PRNGs generate a sequence of "randomly seeming" numbers.</li>
+  <li>PRNGs are <em><strong>models</strong></em> of true randomness. As such, they can be 'good' or 'bad' depending on how well they <em><strong>approximate</strong></em> true randomness. Much research by mathematicians and computer scientists goes into creating good PRNGs.</li>
+  <li>App Inventor uses a standard and well established PRNG, which should do a good job of modeling randomness.</li>
+</ul>
+<p><strong>The Experiment</strong></p>
+<p>Our CoinFlip app simulates flipping a coin. If you had a <strong><em>fair coin</em></strong> and you flipped it many, many times -- maybe a million times -- then if it were truly fair, you would expect it to come up "Heads" half the time. That's why we say for any coin flip, it has a 50:50 chance of coming up heads.</p>
+<p>App Inventor's <em><strong>random integer block</strong></em> uses its PRNG to generate a random sequence of integers. In our app, the sequence is between 1 and 2 inclusive. So, if the PRNG is good, it should generate a 1 half the time and a 2 half the time. And this, in turn, should let our Coin Flip app be a good model of flipping a coin.</p>
+<p><strong>Hypothesis</strong></p>
+<p>Our <strong><em>hypothesis</em></strong> is that App Inventor&rsquo;s random integer block is a good approximation of the process of randomly generating a 1 half the time and a 2 half the time.</p>
+<p>If you were testing that a particular coin was &ldquo;fair&rdquo;, you would flip it lots of times and record the number of heads and tails. Their ratio should come out 50:50. But you have to do a lot of flips.</p>
+<p>So, to test our hypothesis about App Inventor&rsquo;s random integer block, we have to perform a simulated &ldquo;coin flip&rdquo; lots of times. To help with this, we will use the <em>Coin Flip Experiment</em> app, which will let us repeatedly &ldquo;flip&rdquo; a coin. The app uses an algorithm that uses the random integer block. If the random integer block is a good approximation of randomness, we would expect that when it is used to model the process of flipping a coin, it would make the odds of getting a &ldquo;Heads&rdquo; or &ldquo;Tails&rdquo; 50:50.</p>
+<p>For our hypothesis to be true, the ratio between &ldquo;Heads&rdquo; and &ldquo;Tails&rdquo; in the app should approximate 50:50 as the number of trials gets large. The more trials we perform, the closer our ratio should be to 50:50.</p>
+<p>If the ratio does approach 50:50, that would validate our hypothesis. If it does not, that would prove that our hypothesis is invalid.</p>
+<p><strong>Download and Install the App</strong></p>
+<p>Here is a <a href="http://appinventor.cs.trincoll.edu/csp/week2/templates/CoinFlipExperiment/CoinFlipExperiment.aia">link to the source code</a>.</p>
+<p><strong>Reading the Source Code</strong></p>
+<p>Even though we haven&rsquo;t used loops yet in our own apps, you should be able to read this block and determine whether it is valid -- i.e., does it really flip the coin N times and correctly count the number of heads?</p>
+<p>Here are some things to notice in the code:</p>
+<ul>
+  <li>It responds to the <em>ButtonGo.Click</em> event.</li>
+  <li>It inputs something from <em>TextBox1.Text</em> and stores it in <em>global N</em>.</li>
+  <li>Before doing any calculations, it makes sure that the input was a number between 1 and 100.</li>
+  <li>It initializes the <em>global Heads</em> to 0. This variable is used to count heads.</li>
+  <li>It uses a <em>for range</em> loop to flip the coin <em>N</em> times.</li>
+  <li>For each flip it generates a <em>random integer</em> between 1 and 2 inclusive.</li>
+  <li>If the random integer is 1, it adds 1 to the <em>global Heads</em></li>
+  <li>When the loop finishes, It displays the number of <em>Heads</em> and <em>Tails</em>.</li>
+</ul>
+<p><strong>Experimental Procedure</strong></p>
+Our hypothesis for this experiment: <em><strong>App Inventor's PRNG provides a good model of randomness</strong></em>.
+<p>Perform the following steps.</p>
+<ol>
+  <li>Repeatedly run the app and record the number of heads and tails received in each trial. Do at least 20 runs. You should have at least 2000 or 3000 trials (coin flips).</li>
+  <li>Tally your results and calculate the percentage of heads for 100 trials, 500 trials, 1000 trials, 2000 trials.</li>
+  <li>Record your results. Use a table to keep your data well organized.</li>
+</ol>
+<p><strong>Reflection</strong></p>
+<p>Create a page named <strong>Reflection 10</strong> under the <em>Reflections</em> category of your portfolio and answer the following questions.</p>
+<ol>
+  <li>Do you notice any kind of trend as the number of trials (coin flips) increases? Discuss what you expected to happen and what you observed?</li>
+  <li>What does this experiment tell you about App Inventor&rsquo;s PRNG? Is it &lsquo;good&rsquo;?</li>
+  <li>How many trials should be performed in order to draw a conclusion one way or the other about our hypothesis?</li>
+  <li>Because we are using a coin flip app, this experiment really tests only that App Inventor's <em>random integer</em> block generates a 1 around half the time. Is this a sufficient test for App Inventor's PRNG? How might you improve this experiment to increase your confidence in App Inventor&rsquo;s PRNG?</li>
+</ol>
