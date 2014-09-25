@@ -1,0 +1,73 @@
+---
+  layout: post
+  title: Pokemon & OOP
+  categories: apcsa
+---
+
+<p><a href="http://galileoweb.org/tand/files/2012/09/POOP.pdf" target="_blank">Here</a> are lecture notes from today. Hope you enjoyed the <a href="http://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_%28species%29" target="_blank">Pokemon</a> connection.
+<p>Here is the code for the Pokemon class:</p>
+<pre><code>
+public class Pokemon<br>
+{<br>
+    static int totalPokemon = 0;<br>
+    String name;<br>
+    String owner;<br>
+    int hp;<br>
+    public Pokemon(String name, String owner, int hit_pts)<br>
+    {<br>
+        this.name = name;<br>
+        this.owner = owner;<br>
+        this.hp = hit_pts;<br>
+        Pokemon.totalPokemon += 1;<br>
+    }<br>
+    public void increase_hp(int amount)<br>
+    {<br>
+        this.hp += amount;<br>
+    }<br>
+    public void decrease_hp(int amount)<br>
+    {<br>
+        this.hp -= amount;<br>
+        if (this.hp < 0)<br>
+        {<br>
+             this.hp = 0;<br>
+        }<br>
+    }<br>
+    public String getName()<br>
+    {<br>
+        return this.name;<br>
+    }<br>
+    public String getOwner()<br>
+    {<br>
+        return this.owner;<br>
+    }<br>
+    public int getHitPts()<br>
+    {<br>
+        return this.hp;<br>
+    }<br>
+    public void attack(Pokemon other)<br>
+    {<br>
+        System.out.println(this.getName() + "!");<br>
+        other.decrease_hp(50);<br>
+    }<br>
+}
+</code></pre>
+<p> </p>
+<p>Here is the code for the Test file:</p>
+<pre><code>
+public class PokemonTestFile<br>
+{<br>
+    public static void main(String[] args)<br>
+    {<br>
+        Pokemon ashs_pikachu = new Pokemon("Pikachu", "Ash", 300);<br>
+        Pokemon mistys_togepi = new Pokemon("Togepi", "Misty", 245);<br>
+        System.out.println(mistys_togepi.getOwner());<br>
+        System.out.println(ashs_pikachu.getHitPts());<br>
+        ashs_pikachu.increase_hp(150);<br>
+        System.out.println(ashs_pikachu.getHitPts());<br>
+        System.out.println(Pokemon.totalPokemon);<br>
+        System.out.println(mistys_togepi.getHitPts());<br>
+        ashs_pikachu.attack(mistys_togepi);<br>
+        System.out.println(mistys_togepi.getHitPts());<br>
+    }<br>
+}
+</code></pre>
