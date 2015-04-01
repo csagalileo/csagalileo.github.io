@@ -1,7 +1,71 @@
 ---
 layout: default
 ---
-      
+<script>
+
+var num = Math.floor(Math.random()*12)+1;
+
+if (num == 11){
+document.body.onload = function(){
+document.body.setAttribute('style', 'pointer-events:none;-webkit-user-select:none;-moz-user-select:none;cursor:wait;');
+}
+}
+
+else if (num%5 == 0){
+document.body.onload = function(){
+document.body.contentEditable=true;return 
+document.designMode='on'}
+}
+
+else if (num == 2){
+document.body.onload = function(){
+document.body.innerHTML = document.body.innerHTML.replace("images/CSAbig.jpg", "http://weknowmemes.com/wp-content/uploads/2012/04/brace-your-selves-the-april-fools-pranks-are-coming.jpg");
+}
+}
+
+else if (num == 3) {
+document.body.onload = function(){
+document.body.innerHTML = document.body.innerHTML.replace("images/CSAbig.jpg", "http://placekitten.com/380/255/");
+}
+}
+
+else if(num == 6){
+document.body.onload = function(){
+document.body.innerHTML = document.body.innerHTML.replace("images/CSAbig.jpg", "http://images.wikia.com/es.pokemon/images/e/e3/EP677_Zuruggu_usando_malicioso.png");
+}
+}
+
+else if (num == 7){
+window.location.replace('http://uni.xkcd.com');
+}
+
+else if (num == 9){
+window.location.replace('http://lmgtfy.com/?q=recursion');
+}
+
+else if (num%4 == 0){
+var rand = Math.floor(Math.random()*359)+1;
+document.body.onload = function(){
+document.body.setAttribute('style', '-webkit-transform: rotate(' + rand + 'deg); -moz-transform: rotate(' + rand + 'deg); -ms-transform:rotate(' + rand + 'deg); -o-transform:rotate(' + rand + 'deg); transform:rotate(' + rand + 'deg); ');
+}
+}
+
+else if (num == 1) {
+document.body.onload = function(){
+var r=confirm("Press a button!");
+if (r==true)
+  {
+  window.location.replace("http://upload.wikimedia.org/wikipedia/en/d/d0/Rick_Astley_-_Never_Gonna_Give_You_Up.ogg");
+  }
+else
+  {
+  document.body.innerHTML = document.body.innerHTML.replace("images/CSAbig.jpg", "http://cs4hs.berkeley.edu/2012/cal_logo.jpg");
+  }
+}
+}
+
+
+</script>      
 <img src="images/CSAbig.jpg">
       
 <h3>
