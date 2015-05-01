@@ -1,0 +1,76 @@
+---
+  layout: post
+  title: Cryptography - Securing the Internet
+  categories: csp
+---
+
+<p>This lesson focuses on the modern cryptographic systems that are used to 
+secure the Internet.  It describes how the <i>Diffie-Hellman</i> algorithm solves
+the <i>key exchange problem</i>, a crucial step in making the Internet possible.  
+Without the ability to securely exchange secret keys, it would be impossible to conduct
+financial transactions over a network.  As we shall see, it is the <i>intractability</i> of
+solving a certain <i>one-way math function</i> that makes Diffie-Hellman possible.
+
+</p><p>It also describes the <i>Rivest-Shamir-Adleman (RSA)</i> <i>public key</i>
+algorithm.  In this case we&#39;ll see that it&#39;s the <i>intractability</i> of the <i>prime
+factorization</i> problem that makes RSA possible. 
+
+</p><p>The lesson concludes by describing the handshake that takes place between your
+browser and a web server whenever a secure transaction is involved.  Secure transactions
+include accessing a Web page through the <i>HTTPs</i> protocol.  Or exchanging 
+information through the Internet&#39;s <i>Secure Socket Level (SSL)</i>.  As we will see
+both <i>symmetric</i> and <i>public key</i> algorithms are used in this process.
+
+</p><p>The lesson will also describe the Internet&#39;s <i>trust model</i> -- i.e., a model
+that uses <i>digital certificates</i> to ensure that your browser can trust Google or 
+Amazon when their servers share their public keys with the browsers.
+</p>
+
+<p>The system that guarantees the security of the Internet is an amazingly complex and fascinating system that pulls together many of the
+concepts we&#39;ve been studying in this course. 
+</p>
+
+
+
+<a href="https://youtu.be/ppyb_T2iH1E">Part 1: Diffie-Hellman Key Exchange (VIDEO)</a>
+<p>This video includes video clips from Brit Cruise&#39;s excellent explanation
+  of the <i>Diffie-Hellman key exchange algorithm</i>.  You may wish to
+  pause the video where suggested to try the hands-on color-mixing demo
+  below.
+  
+</p><strong>Activity:  Diffie-Hellman Exchange Secret Color Demo</strong>
+
+<p>This Web app provides an implementation of the <i>color-mixing analogy</i>
+presented in the Brit Cruise video.  You can select a shared public color and then your
+own private (secret) color.  When you click &quot;Show Shared Secret!&quot; the app will 
+display the secret color that it shares with you. 
+
+</p><p>The app will also give you an opportunity to use the <i><b>hexadecimal
+number system</b></i> that we talked back in Unit 2.  Colors are represented
+in an RGB system -- i.e., by mixing Red (R), Green (G), and Blue (B) primary colors
+in varying quantities.  The mixtures are represented by 6-digit hexadecimal numbers,
+where the first two digits represent the amount of red, the next two represent the 
+amount of green, and the last two represent the about of blue.  For example, pure
+<font color="red">red</font> is <font color="red">FF0000</font>.  In 
+this case FF is the maximum amount of 
+red (equal to 255 in decimal).
+The hex number <font color="#00FF00">00FF00</font> would represent 
+pure <font color="green">green</font>.  
+If you mix lots of blue and green, <font color="#00FFFF">00FFFF</font>, you should 
+get <font color="#00FFFF">aqua</font>.  If you mix lots of red with some green, 
+<font color="#ff8500">FF8500</font>, you should get
+<font color="ff8500">orange</font>. 
+
+</p><p>Give it a try.  Just your hex numbers into the text boxes and click the 
+&quot;Show Shared Secret!&quot; button.
+
+<iframe height="450" src="https://appinventor.trincoll.edu/csp/diffiehellmancolor/" style="border: 0;" title="" width="650"></iframe>
+</p>
+
+<p><a href="https://youtu.be/_iiHvsFv-eg">Part 2: RSA and HTTPs (VIDEO)</a></p>
+<p><strong>Reflection </strong></p>
+<p>Create a new page named <em><strong>Reflection 36</strong></em> under the <em>Reflections</em> category of your portfolio and write brief answers to the following questions.</p>
+<ol>
+  <li>Explain in your own words how public key encryption is not symmetric.</li>
+  <li>Cryptography relies on <em>open standards</em> - protocol or standard that is publicly available. Why are open standards necessary?</li>
+</ol>
