@@ -1,0 +1,13 @@
+---
+  layout: post
+  title: PRNG
+  categories: csp
+---
+
+<p>Create a page named <strong>Reflection 12</strong> under the <em>Reflections</em> category of your portfolio and answer the following questions.</p>
+<ol>
+  <li>Consider the following Dilbert cartoon Would it be possible for a PRNG to spit out 6 <em>NINE</em>s in a row? <a href="http://dilbert.com/strips/comic/2001-10-25/" target="_blank">Link to Dilbert Cartoon</a></li>
+  <li>Are slot machines fair? Why or why not?</li>
+  <li>Is it possible to devise a method that would allow you to win consistently on a slot machine?</li>
+</ol>
+

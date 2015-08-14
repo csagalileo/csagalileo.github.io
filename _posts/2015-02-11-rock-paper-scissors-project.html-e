@@ -1,0 +1,24 @@
+---
+  layout: post
+  title: Rock Paper Scissors Project
+  categories: ecs
+---
+
+<img src="http://galileoweb.org/tand/files/2013/02/RockPaperScissorsIntro.jpg">
+<p>In this project, you will make a simulation of a game of Rock, Paper, Scissors. Create two sprites of your choice, one to represent the human player and one to represent the computer.</p>
+<ul>
+  <li>The sprite for the human player should ask for a choice of Rock, Paper, or Scissors from the user.</li>
+  <li>The sprite for the computer should randomly choose Rock, Paper, or Scissors.</li>
+  <li>Keep track of the number of wins for the human player, number of wins for the computer, and the number of ties.</li>
+  <li>When a player/sprite wins a round, they gain one point. If they have the same throw, it is a tie.</li>
+</ul>
+<p>Once you get the basic simulation working, you can enhance it by doing anything you think would make it more cool. Here are some ideas:</p>
+<ul>
+  <li>change the sprite costumes based on what throw is chosen by the player/sprite</li>
+  <li>let the user choose how many points it takes to win</li>
+  <li>announce the winner&rsquo;s name</li>
+  <li>create button sprites for the human player to choose from</li>
+  <li>create a computer player with strategy instead of randomness</li>
+  <li>add more throw options (as in the <a href="http://en.wikipedia.org/wiki/Rock-paper-scissors-lizard-Spock" target="_blank">lizard-Spock</a> version)</li>
+</ul>
+<p> When you are done, click on <strong>Share</strong> to share your project. Add your project to the <a href="http://scratch.mit.edu/studios/934324/" target="_blank">Rock Paper Scissors Project studio</a>.</p>

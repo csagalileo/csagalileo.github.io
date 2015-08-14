@@ -1,0 +1,56 @@
+---
+  layout: post
+  title: Pokemon Trainer Test File
+  categories: apcsa
+---
+
+<p>Here is a new test file if you want to test if your <code>Trainer</code> class works. Keep in mind my method names may be different from your method names. Also note that this test file is fairly simple and does not test for every possible situation.</p>
+<pre><code>
+public class PokemonTestFile
+{
+    public static void main(String[] args)
+    {
+        Pokemon ashs_pikachu = new Pokemon("Pikachu", "none", 300);
+        Pokemon mistys_togepi = new Pokemon("Togepi", "none", 245);
+        System.out.println(mistys_togepi.getOwner());
+  
+        Trainer ash = new Trainer("Ash");
+        Trainer misty = new Trainer("Misty");
+        System.out.println(Trainer.totalTrainer);
+  
+        ash.addPokemon(ashs_pikachu);
+        misty.addPokemon(mistys_togepi);
+
+        System.out.println(ash.getNumPokemon());
+        System.out.println(misty.getNumPokemon());
+
+        System.out.println(ash.getPokemon(0).getName());
+        System.out.println(misty.getPokemon(0).getName());
+
+        System.out.println(ashs_pikachu.getOwner());
+        System.out.println(mistys_togepi.getOwner());
+
+        ash.earnBadge();
+        System.out.println(ash.getBadges());
+
+        ash.addMoney(100);
+        System.out.println(ash.getMoney());
+  
+        ash.loseMoney(50);
+        System.out.println(ash.getMoney());
+  
+        ash.changeName("Pokemon Master");
+        System.out.println(ash.getName());
+  
+        System.out.println(ashs_pikachu.getHitPts());
+        ashs_pikachu.increase_hp(150);
+        System.out.println(ashs_pikachu.getHitPts());
+  
+        System.out.println(Pokemon.totalPokemon);
+  
+        System.out.println(mistys_togepi.getHitPts());
+        ashs_pikachu.attack(mistys_togepi);
+        System.out.println(mistys_togepi.getHitPts());
+    }
+}
+</code></pre>

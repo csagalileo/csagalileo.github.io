@@ -1,0 +1,15 @@
+---
+  layout: post
+  title: Coin Flip
+  categories: csp
+---
+
+<p>To get started, <a href="http://ai2.appinventor.mit.edu/?repo=appinventor.cs.trincoll.edu/csp/gcb/CoinFlipMediaOnly/CoinFlipMediaOnly.asc" target="_blank">open App Inventor with the Coin Flip Media Only template</a>. This will open a project that contains the images you will need in this lesson. Then use the <em>Save As</em> option to rename your project to <em>CoinFlip</em>. (Be patient. It sometimes takes a moment to retrieve and open the project.)</p>
+<p>If you prefer, you can work through the <a href="https://docs.google.com/document/d/11urXHm0zZOiZmKs5fhW_fFkhO_QFs6aouO-ytHF0NYU" target="_blank">Text Version</a> of the tutorial. Or you can follow along with this <a href="http://youtu.be/42N55k043cM" target="_blank">video tutorial</a>.</p>
+<p>Reflection: Create a page named <strong>Reflection 9</strong> under the <em>Reflections</em> category of your portfolio and answer the following questions.</p>
+<ol>
+  <li>Write an <em>if/else statement</em> to express the following real life situation. Mary likes ice cream and always chooses chocolate unless there is no chocolate in which case she chooses strawberry. But if there&rsquo;s no strawberry either then she settles for vanilla, which, for some reason, is always available. (HINT: You may need to put together more than 1 if/else statement to do this.)</li>
+  <li>Give another example from real life where you use if/else logic to make a decision.</li>
+  <li>What enables us to simulate coin flipping in this app is App Inventor&rsquo;s random-integer block. This block constitutes a <em><strong>model of randomness </strong></em>-- an abstraction of real randomness such as <em>really</em> flipping a coin. How might we use the CoinFlip app to test whether this is a good model of randomness?</li>
+</ol>
+<p><a href="http://www.wired.com/2012/06/pl_bravehairtech" target="_blank">This article</a> from Wired magazine explains how Disney's Pixar had to create a new hair simulator for their animated film <em>Brave</em> in order to simulate curly hair. Randomness was used to generate this simulation of hair - and to enable creativity in other fields.</p>

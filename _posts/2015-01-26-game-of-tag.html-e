@@ -1,0 +1,6 @@
+---
+  layout: post
+  title: Game of Tag
+  categories: ecs
+---
+<p>Create the Game of Tag as demonstrated in class. Make sure each sprite has its own set of controls and that you implement collision detection for the sprites. Add your own creative touch to it by choosing your own sprites and a relevant backdrop. Add your project to the <a href="http://scratch.mit.edu/studios/875808/" target="_blank">Game of Tag studio</a>.</p>

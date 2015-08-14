@@ -1,0 +1,9 @@
+---
+  layout: post
+  title: Recursive Tree Project
+  categories: ecs
+---
+
+<p>This week we&rsquo;ll be looking at how to solve a computer science problem <strong>recursively</strong>. The big idea behind recursion is that you can use a block inside of itself! We&rsquo;re going to practice planning and coding recursive blocks using the example of a tree.</p>
+<p>For this project, our goal is to draw a tree using blocks inside of itself. Follow the steps provided in the document to complete your project: <a href="recursion_scratch.pdf" target="_blank">Recursive Tree</a></p>
+<p>When you are done, click on <strong>Share</strong> to share your project. Add your project to the <a href="http://scratch.mit.edu/studios/1016814/" target="_blank">Recursive Tree project studio</a>.</p>

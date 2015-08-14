@@ -1,0 +1,15 @@
+---
+  layout: post
+  title: I Have A Dream
+  categories: csp
+---
+
+<p>
+Download the <a href="http://www.appinventor.org/starterApps/IHaveADreamStarter.aia" target="_blank">IHaveADreamStarter.aia</a> project source file. Follow the <a href="http://www.appinventor.org/apps2/IHaveADream/IHaveADream.pdf#page=3" target="_blank">I Have A Dream</a> tutorial (start with importing the starter app). Ignore the section about setting up the AI2 Companion; you will use the emulator instead.</p>
+
+<p>Reflection: Start a new reflection in your portfolio called <strong>Reflection 3</strong>. Respond to the following prompts:
+<ul>
+  <li>Why are "if" blocks used in the "I Have a Dream" app?</li>
+  <li>What are some of the elements that make up the <em>UI</em> for a car? An ATM machine?</li>
+  <li>Is it possible to create an app without event driven programming? Explain.</li>
+</ul>

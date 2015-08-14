@@ -1,0 +1,26 @@
+---
+  layout: post
+  title: Heuristic Evaluation
+  categories: csp
+---
+
+<p>We will now look at one way that you can evaluate an application interface: <strong>heuristic evaluation</strong>.</p>
+<p>Find an application that you can run on your cell phone or computer. We recommend going to an app store for iOS, Android, or finding a web application. You are free to choose the kind of app you study, but make sure you describe it in the report that you will put in your portfolio.</p>
+<p>Your reflection (<strong>Reflection 21</strong>) should contain separate sections for each major part of the application. In each section, describe which heuristics (<strong>choose 5</strong>) the interface violated. For each problem, state:</p>
+<ol>
+  <li>Which of the <strong><a href="http://www.useit.com/papers/heuristic/heuristic_list.html" target="_blank">Ten Usability Heuristics</a></strong> is violated.</li>
+  <li>Argue why the interface violates the heuristic (1-3 sentences).</li>
+  <li>Rate the <strong><a href="http://www.useit.com/papers/heuristic/severityrating.html" target="_blank">severity</a></strong> of the violation and explain your rating in one sentence (by referring to <em>frequency, impact,</em> and <em>persistence</em> of the problem as suggested by Nielsen).</li>
+</ol>
+<p>Include <strong>screenshots</strong> in your description as evidence of the problem. Annotating screenshots with arrows or callouts can be especially effective.</p>
+<p>For examples how these heuristics apply to mobile applications, you may want to look at <a href="http://www.touchytalk.com/iphone-app-usability-heuristics/" target="_blank">Suzanne Ginsburg&rsquo;s iPhone App Usability Heuristics</a>.</p>
+<p> </p>
+<p>Here is an example of a <strong>single</strong> violation in an interface – the <a href="http://www.apple.com/downloads/dashboard/transportation/bartplanner.html" rel="nofollow">BART Planner Widget</a> for OS X.</p>
+<h3>Main Screen</h3>
+<p><a href="http://vis.berkeley.edu/courses/cs160-sp12/wiki/index.php/File:Bart_planner_he.png"><img src="http://vis.berkeley.edu/courses/cs160-sp12/wiki/images/7/7d/Bart_planner_he.png" alt="Bart planner he.png" width="352" height="256"></a></p>
+<p><strong>Heuristic: Consistency and Standards</strong></p>
+<p><strong>Explanation</strong></p>
+<p>The interface offers inconsistent ways to change different trip options. While a dropdown box to choose departure time and a button to reverse stations are available on the main screen, the origin and destination stations cannot be changed on this screen. To change these options, the user must click on the &ldquo;i&rdquo; icon in the top bar (which only becomes visible on mouse rollover).</p>
+<p><strong>Severity</strong></p>
+<p>3 = Major usability problem: important to fix, so should be given high priority<br>
+  I rank this problem as major because it occurs <em>frequently</em> – every time the user wants to change stations; and because it is <em>persistent</em> – there is no way for the user to change application behavior to put all controls on the same page.</p>

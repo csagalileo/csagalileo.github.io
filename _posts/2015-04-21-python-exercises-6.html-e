@@ -1,0 +1,9 @@
+---
+  layout: post
+  title: Python Exercises 6
+  categories: csp
+---
+
+<p>Read the &ldquo;<a href="http://interactivepython.org/courselib/static/GalileoAOIT/Lists/lists.html" target="_blank">Lists</a>&rdquo; chapter section in the Interactive Python textbook. Lists are similar to strings; strings have characters as elements but the elements of a list can be any type and for any one list, the items can be of different types. Again, this chapter is relatively long but please read though it. <strong>Complete exercises #2-11 </strong>at the end of the chapter.</p>
+
+<p>In your portfolios, create a new Reflections page called <strong>Python Exercises 6</strong>, and write your answers for <strong>exercises #2-11</strong>.</p>

@@ -1,0 +1,28 @@
+---
+  layout: post
+  title: Persistent Data
+  categories: csp
+---
+
+<p>This lessons focuses on <em><strong>data persistence</strong></em>. It enhances the Android Mash game by adding a TinyDb component, which enables the app to remember a person's best score. </p>
+<p><strong>Objectives:</strong> In this lesson you will learn to</p>
+<ul>
+  <li>create an app that saves the player&rsquo;s high score between sessions;</li>
+  <li>learn about the concept of <strong><em>persistent data</em></strong>;</li>
+  <li>learn how to access App Inventor&rsquo;s TinyDB component.</li>
+</ul>
+<p>Open App Inventor with the <a href="http://ai2.appinventor.mit.edu/?repo=templates.appinventor.mit.edu/trincoll/csp/unit6/templates/TinyDBTemplate/TinyDBTemplate.asc" target="_blank">TinyDb Template</a> in a separate tab and follow along with the tutorial. Once the project opens use <em>Save As</em> to rename your project <strong>AndroidMashTinyDb</strong>. Note: If the blocks don&rsquo;t appear well in the Blocks Editor, right-click on the background and use the Arrange Vertically option. </p>
+<ul>
+  <li><a href="https://docs.google.com/document/d/10Viw0wyGqBjSjZYA7irsOOPGnN-2BVfhk6svXovl7UU" target="_blank">Text tutorial</a></li>
+  <li><a href="https://www.youtube.com/watch?v=svQV5WPNS5o" target="_blank">Video tutorial</a></li>
+</ul>
+<p><strong>Mini-Enhancement: Try Storing a Value in a TinyDB</strong></p>
+<p>Whenever the player achieves a top score, store the current date in the TinyDb. <br />
+  <br />
+<em>Hints:</em> You don&rsquo;t need a second TinyDB for this task. You just need a second tag, e.g., &ldquo;date&rdquo;. To get the current date and time, you can use the <a href="http://ai2.appinventor.mit.edu/reference/components/sensors.html#Clock" target="_blank">Clock component</a>, which is named <em>AndroidTimer</em>. The following blocks will return a text formatted something like this: MM/DD/YY HH/MM/SS AM. </p>
+<p><img src="DateNow.png" width="400" /></p>
+<p><strong>Reflection</strong></p>
+<p>Create a page named <strong><em>Reflection 27</em></strong> under the <em>Reflections</em> category of your portfolio and answer the following questions.</p>
+<ul>
+  <li>What does it mean to say that data is <em><strong>persistent</strong></em>?</li>
+  <li>Describe the differences between data stored in a <strong><em>global variable</em></strong> and in a <strong><em>TinyDb</em></strong>.</li></ul>

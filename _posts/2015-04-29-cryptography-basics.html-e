@@ -1,0 +1,172 @@
+---
+  layout: post
+  title: Cryptography Basics
+  categories: csp
+---
+
+<p><i>Cryptography</i> means <i>secret writing</i>. It is the art and science of
+sending secret messages and it has been used by generals and governments and 
+everyday people practically since the invention of written language. 
+
+</p><p>As we will see in the next lesson, modern cryptographic techniques are essential
+to guaranteeing the security of our transactions on the Internet.  Cryptography plays a
+role whenever you make an online purchase at Amazon or provide your password to
+Google.  If we couldn&#39;t rely on those transactions being secure -- i.e., being encrypted
+using some cryptographic algorithm -- we really wouldn&#39;t have the Internet as we know
+it today.
+
+</p><p>This lesson focuses on some of the classical ciphers, going all the way back to 
+one of the first ciphers, the Caesar cipher, which Julius Caesar used in 34 B.C.  Like the
+other ciphers we study in this lesson, it is what is known as a <i>symmetric cipher</i>,
+which means that the same <i>key</i> is used both for <i>encrypting</i> and 
+<i>decrypting</i> messages.   As we will also see, all ciphers consist of two parts,
+the <i>key</i> and their <i>algorithm</i>.  And it is the key, not the algorithm,
+that allows the cipher to create secret messages. In fact, in modern cryptography the
+algorithms are all based on <i>open standards</i> that are created by teams of 
+experts, discussed openly and adopted and maintained by standards organizations.
+
+</p><p>So, let&#39;s take a look at some of the classical ciphers and some of the basic 
+principles of cryptography.  There are several hands-on activities in this lesson, where
+you&#39;ll have a chance to practice encrypting and decrypting messages and analyzing
+ciphers.
+
+</p>
+
+<p><a href="https://youtu.be/7Tfw_-QRiAs">Part 1: Caesar Cipher (VIDEO)</a>
+  
+</p>
+<p><strong>Activity: Caesar Cipher</strong>
+  
+</p>
+<iframe height="300" src="https://appinventor.trincoll.edu/csp/caesarcipher/" style="border: 0;" title="Caesar Cipher" width="650"></iframe>
+
+<ol>
+<li><b>By Hand:</b> Use the Caesar cipher to encrypt your name.  Use 
+a key of 3 on the first try.  Then use the script above to check your answer.</li><li><b>Brute force search</b>.  A <i><b>brute force</b></i> search
+for a Caesar key would be to test every possible key.  How many keys would you 
+have to test?
+
+<p>Use brute force search to <b><i>crack</i></b> the 
+following message. What is the key?
+</p><blockquote>
+<pre>YTNP HZCV JZF OTO TE! 
+</pre>
+</blockquote>
+<br/>
+</li></ol>
+
+<p><a href="https://youtu.be/uvCYeWUoXPo">Part 2: Simple Substitution Cipher (VIDEO)</a>
+
+
+</p>
+<p><strong>Activity: Simple Substitution Cipher</strong>
+  
+  
+</p>
+<iframe height="350" src="https://appinventor.trincoll.edu/csp/simplesubstitution/" style="border: 0;" title="" width="650"></iframe>
+<br/>
+
+<ol>
+<li><b>By Hand:</b> Use the Simple Substitution cipher to encrypt your name. 
+Choose your own keyword to create a cipher alphabet.   
+Then use the script to check your result.
+
+</li><li><b>Decrypt:</b> The following word,  <b><i>SIRTQSMTCKJ</i></b>, 
+was encrypted with the keyword <b><i>simple</i></b>.  Can you decrypt it?
+
+</li><li><b>Brute force attack.</b> How many keys (arrangements of the alphabet) 
+would you have to try to perform a brute force attack?
+
+</li></ol>
+
+<p><a href="https://youtu.be/4d9cmN1xTDs">Part 3: Frequency Analysis (VIDEO)</a>
+  
+</p>
+<p><strong>Activity: Frequency Analysis</strong>
+  
+</p>
+<iframe height="400" src="https://appinventor.trincoll.edu/csp/frequencies/" style="border: 0;" title="" width="675"></iframe>
+
+<ol>
+<li><b>Frequency analysis:</b> One of the following messages was encrypted 
+using a <i>substitution cipher</i> and the other with a <i>transposition cipher</i>.
+Can you identify which is which? 
+Paste the messages into the frequency analyzer tool (above) and observe their
+frequency histograms?. 
+
+<br/><br/><b>Text 1.</b>
+<pre> 
+nybfx ymjgj xytky nrjxn ybfxy mjbtw xytky nrjx nybfx ymjfl jtkbn xitrn ybfxy mjflj 
+tkktt qnxms jxxn ybfxy mjjut hmtkg jqnjk nybfx ymjju thmtk nshwj izqny dnyb fxymj 
+xjfxt stkqn lmyny bfxym jxjfx tstki fwpsj xxny bfxym jxuwn sltkm tujny bfxym jbnsy 
+jwtki jxufn wbjm fijaj wdymn slgjk twjzx bjmfi stymn slgjk twjzx bjbj wjfqq ltnsl inwjh 
+yytmj fajsb jbjwj fqqlt nslin wjhy ymjty mjwbf dnsxm twyym jujwn tibfx xtkfw qnpjy 
+mjuwj xjsy ujwnt iymfy xtrjt knyxs tnxnj xyfzy mtwny njxns xnxyj itsny xgjn slwjh jnaji 
+ktwlt titwk twjan qnsym jxzuj wqfyn ajijl wjjt khtru fwnxt stsqd
+</pre>
+
+<br/><b>Text 2.</b> 
+<pre>ttbti swhot istta osmwh gflhs tsecf liaho ondia henit ahena nwtpnf ewtie fpree rhbou 
+hnhbo uerli deovw rlode oeasr hrdsa itrei ttein ittie ntote gceoo rrits etegc psoya hsfmt 
+sesfm iahew dtseo oiewh pheet tecir uytss sohts ssoks isero oisen oeawa vtnee watne 
+ewagn rtenw egnit htwih tpiao reeet eoaoo sieuo tiiei ieidg dfvih pliee omrol setet wtese 
+iotao siaoo fwphe lwtof wtofs tsipt wtsid egfed gfweo gtaea grehn oeofl psrdm fssri 
+sdbnv foone avefi nweoi arowg fiaef nsteb isefc tieag ieare ahgha hrdhy irsoi rseli ceeli 
+ctryt ewskh nphst oahss nsrer oelur droan
+</pre>
+
+</li>
+
+</ol>
+
+<p><a href="https://youtu.be/Vzp6_Dnxh14">Part 4: Vigenere Cipher (VIDEO)</a>
+  
+</p>
+<p><strong>Activity: Vigenere Cipher</strong>
+  
+</p>
+<iframe height="400" src="https://appinventor.trincoll.edu/csp/vigenerecipher/" style="border: 0;" title="" width="650"></iframe><br/>
+
+<ol>
+<li><b>By Hand:</b> Use the Vigenere cipher to encrypt your name.  Choose
+your own keyword.</li><li><b>Decrypt</b> the following message, which was encrypted 
+using Vigenere cipher with
+the keyword <i>zebras</i>. 
+
+<blockquote>
+<pre>SLJJ IK OSMPADOLBSELHG 
+</pre>
+</blockquote>
+<br/>
+</li>
+
+
+<li><b>Frequency analysis:</b> Use the <i>Frequency Analyzer</i> tool (above) to
+count the letter frequencies in the following text, which is the same text that was
+encrypted in an earlier exercise.  In this case it was encrypted using Vigenere
+cipher.  What differences do you observe from the histograms you used in the previous
+exercise. 
+<blockquote>
+<pre>sabjt zdffj tgexj dekhx xrslg ixfrk ssgki edwj kwsrx ivayd sgnik csnzt ozwuy esfip wfgnp 
+jjhfd wtzt ozwuy ewosd yoxai mzexh xxrsl gifgo ugsgz nuqie llasc jkws rxivs wzwpe 
+oxhki kilve tkhwr ibjof njbik fdwt ztozw uyeko vjegg elpge asabj tzdaj etwqs gueko ejiw 
+wgeev vwqcu yifff fwojd ytnez zhoft zhrhs exnvf lsod afies kphfi ffhji eusxp vandr xvwwq 
+ibcly nmoxd aqidk tzds uyejv ezznk gsskt zdtfi igcab jsgee scicd xivpj dwfet hdvj fdlge 
+ujoed sgztk msjji wrxbl tznvj kiwrm ojiks iefna swcv iffvf teaui ewojf spuoj essvv akmok 
+hwryq vrdzx jmevd ksve gegpd psqmt fngmp z
+</pre>
+</blockquote>
+</li>
+</ol>
+
+
+<p><a href="https://youtu.be/hqa-iJg9D-I">Part 5: Perfect Secrecy and the Key Exchange Problem (VIDEO)</a>
+</p>
+<p>&nbsp;</p>
+<p><strong>Reflection:</strong>
+  Create a new page named <em><strong>Reflection 35</strong></em> under the <em>Reflections</em> category of your portfolio and write brief answers to the following questions.
+</p>
+<ol>
+  <li>Explain briefly how the following substitution ciphers can be broken: Caesar cipher, Simple substitution cipher, Vigenere cipher.</li>
+  <li>Define symmetric encryption.</li>
+</ol>

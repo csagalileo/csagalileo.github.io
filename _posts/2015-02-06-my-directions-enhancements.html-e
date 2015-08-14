@@ -1,0 +1,21 @@
+---
+  layout: post
+  title: My Directions Enhancements
+  categories: csp
+---
+
+<p>There are a number of enhancements you could implement to improve this app.</p>
+<ol>
+  <li>In its current form, the destination addresses are created by the programmer. Add a Textbox and a Button to the UI to enable the user to input their own destination addresses. Addresses entered by the user should be added to the destinations list. This will make it possible to share the app with friends.</li>
+  <li>Improve the presentation of the search results by using or modifying one or more additional API arguments in the Map&rsquo;s URL.</li>
+  <li><strong>Advanced:</strong> Add a TinyDb to the app so that the user&rsquo;s destinations will persist. Addresses saved in the TinyDb will be there the next time the app is used.  <br />
+    <img height="100px;" src="MyDirectionsTinyDB.png" width="624px;" /><br />
+    <br />
+    <strong>HINT 1:</strong> Lists (as well as numbers and strings) can be stored in a TinyDb. So you can store the entire destinations list as one element. Determine when and how to store the destinations. Then, determine when and how to retrieve the destinations.  <br />
+    <br />
+    <strong>HINT 2:</strong> The destinations should be retrieved from the TinyDb when the app is initialized. Here&rsquo;s how:  <br />
+    <br />
+    <em>NOTE:</em> This can be tricky to understand. The first time the app is run, there definitely won&rsquo;t be any &lsquo;addresses&rsquo; stored in the TinyDb. You can specify how to handle the empty data situation with the valueIfTagNotThere parameter. In the example, we set global destinations to a default fixed list so the first time the app runs it will have some sample destinations You could also put a create empty list in valueIfTagNotThere if you wanted the destinations list empty to start. This problem won&rsquo;t arise once the user has stored some addresses in the TinyDb.</li>
+</ol>
+
+<p>Add your app with enhancements to your portfolio.</p>

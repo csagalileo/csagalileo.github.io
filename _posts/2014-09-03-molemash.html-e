@@ -1,0 +1,17 @@
+---
+  layout: post
+  title: MoleMash
+  categories: csp
+---
+
+<p>In this project, you will create an Android app version of the classic game of whack-a-mole. This project will allow you to start using procedures (also known as functions), a fundamental tool for applying abstraction to your programs.
+</p>
+<ul>
+  <li><a href="http://appinventor.mit.edu/explore/ai2/molemash.html" target="_blank">MoleMash Tutorial</a> </li>
+</ul>
+<p>Reflection: Create a page named <strong>Reflection 6</strong> under the Reflections category of your portfolio and answer the following questions. </p>
+<ul>
+  <li>MoleMash presents a new type of event which you haven't encountered before. What is that new event? How often is it triggered?  </li>
+  <li>Consider the apps you've developed so far. Can you list all the different events your apps have responded to? What other events do you think an app can respond to? Explore some of the components in App Inventor and see what event handlers they have.  </li>
+  <li>What are the advantages of writing procedures in programming? Consider the procedures you wrote for your MoleMash app.</li>
+</ul>

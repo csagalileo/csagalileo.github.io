@@ -1,0 +1,18 @@
+---
+  layout: post
+  title: Magpie Chatbot Lab
+  categories: apcsa
+---
+
+<p>For this lab, you will explore some of the basics of NLP. As you explore this, you will work with a variety
+of methods of the <code>String</code> class and practice using the <code>if</code> statement. You will trace a complicated
+method to find words in user input.</p>
+<p>Download the <a href="MagpieStudentMaterials.zip" target="_blank">MagpieStudentMaterials.zip</a> file, which contains the Magpie Student Guide and Starter Code for each of the activities. Add the Java files to an Eclipse project. Complete each of the exercises and questions.</p>
+<p>The due date for all the activites is <strong>Friday, September 19th</strong>. Here is a suggested timeline for completing the lab:</p>
+<ul>
+  <li>Activity 1 - Friday</li>
+  <li>Activity 2 - Monday</li>
+  <li>Activity 3 - Tuesday</li>
+  <li>Activity 4 - Thursday</li>
+  <li>Activity 5 - Thursday</li>
+</ul>

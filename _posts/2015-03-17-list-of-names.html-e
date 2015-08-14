@@ -1,0 +1,14 @@
+---
+  layout: post
+  title: List of Names
+  categories: ecs
+---
+
+<p>The following script is intended to keep track of the names of the players of a game, but it has a bug! <strong>Find and fix the bug.</strong> Once you are done with it, you may find it useful in your other projects!</p>
+<p><a href="http://galileoweb.org/tand/files/2013/03/BuggyReadingList.jpg"><img alt="" src="http://galileoweb.org/tand/files/2013/03/BuggyReadingList.jpg" width="368" height="313" /></a></p>
+<p>After you fix that problem, we want to make the sprite <strong>read all of the names from our players list</strong>. This is a very common type of problem when dealing with lists: we want to do the same thing for each item in the list. To tackle this problem, we are going to use a variable called index to keep track of the position of the element in the list we are processing.</p>
+<p><a href="http://galileoweb.org/tand/files/2013/03/ReadPlayerList.jpg"><img alt="" src="http://galileoweb.org/tand/files/2013/03/ReadPlayerList.jpg" width="282" height="156" /></a></p>
+<p>Once you get the script above to work, try to make a script that will <strong>say all of the player names together</strong>, with the appropriate commas, spaces, and the word &ldquo;and&rdquo;, as shown below.</p>
+<p><a href="http://galileoweb.org/tand/files/2013/03/hello.png"><img alt="" src="http://galileoweb.org/tand/files/2013/03/hello.png" width="366" height="260" /></a></p>
+
+<p>When you are done, click on <strong>Share</strong> to share your project. Add your project to the <a href="http://scratch.mit.edu/studios/1044192/" target="_blank">List of Names project studio</a>.</p>
