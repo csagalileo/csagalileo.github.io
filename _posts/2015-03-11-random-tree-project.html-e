@@ -1,8 +1,0 @@
----
-  layout: post
-  title: Random Tree Project
-  categories: ecs
----
-
-<p>We want to make a tree that looks more random.</p>
-<p>Add a crazy-tree block that draws random trees to your Recursive Tree project: <a href="random_tree_scratch.pdf" target="_blank">Random Tree</a></p>
