@@ -7,6 +7,7 @@ title: Computer Science Principles
 <a name="{{ page.title }}" class="anchor" href="#{{ page.title }}"><span class="octicon octicon-link"></span></a>{{ page.title }}</h2>
 
 <p><a href="about.html">About Computer Science Principles</a> &nbsp;| &nbsp;<a href="allposts.html">All posts</a> &nbsp;| &nbsp;<a href="postlist.html">Post list</a></p>
+<p><a href="http://ai2.appinventor.mit.edu/" target="_blank">App Inventor</a> &nbsp;| &nbsp;<a href="https://classroom.google.com/" target="_blank">Google Classroom</a></p>
 
 {% for post in site.categories.csp offset:0 limit:10 %}
 <section>
@@ -14,10 +15,9 @@ title: Computer Science Principles
     <a href="{{ post.url }}">
       <h3>{{ post.title }}</h3>
     </a>
-	{{ post.content }} 
+	{{ post.content }}
 </p>
 </section>
 {% endfor %}
 
 <p><a href="allposts.html">All posts</a> &nbsp;| &nbsp;<a href="postlist.html">Post list</a></p>
-
