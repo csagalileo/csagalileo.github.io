@@ -1,0 +1,46 @@
+---
+  layout: post
+  title: Logo 1
+  categories: csp
+---
+
+<p>In this lesson you will design, implement, and test algorithms to draw simple shapes using a Logo-like commands. For example, you will write an algorithm to draw a face made up of squares and lines like the one in the picture on the left. </p>
+<p><strong>Objectives:</strong> In this lesson you will learn to:</p>
+<ul>
+  <li>use primitive <em>Logo</em> commands to draw simple shapes;</li>
+  <li>define simple procedures to simplify the drawing process.</li>
+</ul>
+<p>In our implementation of Logo, we&rsquo;ve replaced the Turtle with an Android. Here are the drawing commands you can use:</p>
+<ul>
+  <li>The <strong>forward</strong> command moves the Android <strong>forward by 10 pixels</strong>.</li>
+  <li>The <strong>turn</strong> command causes the Android to <strong>turn right by 90 degrees</strong>.</li>
+  <li>The <strong>penUp</strong> and <strong>penDown</strong> commands puts the Android's pen on or off the canvas.</li>
+</ul>
+<p><a href="http://en.wikipedia.org/wiki/Logo_(programming_language)" target="_blank">Logo</a> is a programming language that was invented in the 1960s by Seymour Papert primarily for educational use. Papert believed that we learn best when we are building our own knowledge and ideas – when we build tangible objects that help us create own mental models to understand the world around us.</p>
+<p>In this lesson the tangible objects you will build are algorithms for drawing simple shapes.</p>
+<p>Logo&rsquo;s best known feature is its turtle -- an actual picture of a turtle -- that the user can control by telling it how to move. As the turtle moves it leaves behind a trail -- in other words it draws. Imagine the trail left behind by an animal as it moves around in the sand on a beach. Logo can be used to create very sophisticated algorithms and hence very sophisticated drawings, such as the one at the top of this lesson.</p>
+<p><strong>Logo Commands</strong></p>
+<p>The Logo programming language consists of a set of primitive commands that controlled the turtle. You saw something like these commands in the Blockly Maze exercises that you did. Taken together these commands constitute an <em>abstraction</em> – a language – for drawing shapes.
+</p>
+<p>In this lesson we have deliberately created a fairly <em>weak abstraction</em> – one that lets you draw shapes, but only with some difficulty. As you're working on the shapes, think about how you would improve the drawing language; that is, help us think about a <em>better abstraction</em> for drawing shapes.</p>
+<p>To get started, <a href="http://ai2.appinventor.mit.edu/?repo=templates.appinventor.mit.edu/trincoll/csp/unit5/templates/LogoNoParamsTemplate/LogoNoParamsTemplate.asc" target="_blank">open App Inventor with the Logo 1 Template</a> in a separate tab and follow along with these tutorials. When the template opens, you will see a lot of collapsed blocks. <span id="docs-internal-guid-39ef5219-64db-37ef-3dde-eeaa1ea5a99e"><span tag="span"><strong><u>DO NOT OPEN OR EDIT THESE BLOCKS!</u></strong></span></span><br>
+  <br>
+You can either click on the links to view the video or <a href="https://docs.google.com/document/d/13_Y6ynzk_NESv4BgO4TkAByUr4Ttb20ZOOBp3hmygfk" target="_blank">click here</a> to read the tutorial.</p>
+<ul>
+  <li><a href="https://www.youtube.com/watch?v=71PN6EYx-Yc" target="_blank">What is an algorithm?</a></li>
+  <li><a href="https://www.youtube.com/watch?v=m63RTTbupLg" target="_blank">Program Logo with App Inventor</a></li>
+</ul>
+<p><strong>Exercises</strong></p>
+<ol>
+  <li>Use graph paper to help you  when designing your algorithms in the following exercises.</li>
+  <li>Design an algorithm to draw a 20-by-20 (pixels) square. Note: <strong>Designing</strong> an algorithm is not the same as <strong>programming</strong> it. You may first want to write it out by hand or write it on the board while working with a partner. Part of designing it is also figuring out what your design would do -- that is, mentally thinking of yourself as the Android and going through the steps of the algorithm and seeing what the result is. This is also an exercise you could do with your partner, taking turns being the turtle. After you have designed a good algorithm, implement it in App Inventor by modifying the draw() procedure to draw a 20-by-20 square.</li>
+  <li>Let&rsquo;s use a little <strong>abstraction</strong> here. Instead of just putting the steps of your algorithm into the <em>draw()</em> procedure, define a procedure named <em><strong>square20</strong></em> that draws a 20-by-20 square and then modify the draw() procedure so that it calls the <em>square20</em>procedure.
+    <p><strong>Procedural Abstraction</strong>: Defining procedures is a form of <strong>procedural abstraction</strong>. The procedure you define hides the details of the algorithm, replacing the details with a name (<em>draw20</em>) that you can simply call when you want to do that procedure.</p>
+    <p>One good reason for doing so is that you&rsquo;ll be able to use your procedures to solve other problems -- e.g., in this lesson, when you want to draw a face. In Logo, as in other languages, defining a procedure is a way of <strong>extending the language</strong>. For example, now that you have a draw20 procedure, you can use it just like any of the primitive commands -- forward, turn -- you started with.</p>
+  </li>
+  <li>Design an algorithm for drawing a 40-by-40 square. Then implement your algorithm by defining a procedure named <em>square40</em>that draws a 40-by-40 square. Then modify the <em>draw()</em> procedure so that it calls the <em>square40</em> procedure.</li>
+  <li>Design an algorithm for drawing a face with a large square for the head, 2 small squares for eyes, and a line for the mouth (nose optional). Design and define any other procedures you need to help simplify this problem.
+    <p><strong>Design first, then code:</strong> This algorithm will be quite a bit more complex than any of the others you&rsquo;ve done. You&rsquo;ll have to use the <em>penUp</em> procedure to lift the Android off of the drawing canvas. And you&rsquo;ll have to plan how far to move forward to get the eyes and mouth placed properly. You will definitely want to plan and test this algorithm on paper or on the board before trying to program it. <strong><em>Use your graph paper</em></strong> to help figure the distances.</p>
+    <p>Once you&rsquo;ve designed a correct algorithm, implement it by defining a procedure named drawFace that draws the face. Then test your code to make sure your got it right. Post a screenshot of your face drawing on your reflection.</p>
+  </li>
+</ol>
