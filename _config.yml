@@ -9,3 +9,6 @@ markdown: rdiscount
 permalink: none
 
 timezone: US/Pacific
+
+gems:
+  - jekyll-feed
