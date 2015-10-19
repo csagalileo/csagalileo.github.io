@@ -11,4 +11,5 @@ permalink: none
 timezone: US/Pacific
 
 gems:
+  - jekyll-sitemap
   - jekyll-feed
