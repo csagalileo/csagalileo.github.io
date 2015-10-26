@@ -1,0 +1,34 @@
+---
+  layout: post
+  title: Data Persistence Enhancements
+  categories: csp
+---
+
+<p>In this lesson you will complete several small programming projects that add enhancements to the Android Mash app. You will also learn how to apply some of the concepts you learned in the previous lessons as you work on challenging programming problems.</p>
+<p><strong>Objectives:</strong> In this lesson you will learn to:</p>
+<ul>
+  <li>create enhancements to the Android Mash game;</li>
+  <li>apply the concepts of <strong><em>data persistence</em></strong> and <strong><em>data sharing</em></strong>;</li>
+  <li>apply the concept of <strong><em>asynchronous</em></strong> data storage and retrieval;</li>
+  <li>use <strong><em>lists</em></strong> to store structured data;</li>
+  <li>extend your understanding of App Inventor&rsquo;s TinyDB and TInyWebDB components.</li>
+</ul>
+<p>For this lesson you can <a href="http://ai2.appinventor.mit.edu/" target="_blank">start App Inventor</a> and use the project you created in the previous lesson. Or, you can <a href="http://ai2.appinventor.mit.edu/?repo=templates.appinventor.mit.edu/trincoll/csp/unit6/templates/AndroidMashWebDbProjects/AndroidMashWebDbProjects.asc" target="_blank">start App Inventor with the Android Mash Db Projects Template</a>, which contains the solution to the previous lesson.</p>
+<p>In either case, you will want to rename your project <strong><em>Android Mash Version 2</em></strong> or something similar. Then complete the programming exercises and enhancements described below. If you get stuck, check out the <a href="https://youtu.be/gSgF2fDAA7A" target="_blank">solutions video</a>.</p>
+<ul>
+  <li><a href="https://docs.google.com/document/d/1JUXteddPCa8EMzJmzzvRNoxqDJWYcmAPMmbaZg5P5wk" target="_blank">Text version</a></li>
+  <li><a href="https://www.youtube.com/watch?v=gSgF2fDAA7A" target="_blank">Video solution</a></li>
+</ul>
+
+  <p>The two enhancements proposed here won&rsquo;t change the app&rsquo;s behavior, but they will produce a better designed app. Instead of using individual tags for each piece of data stored in the TinyDB or TinyWebDB, use a <em><strong>list</strong></em> to store all of the data associated with the game. This type of revision -- revising the program&rsquo;s code without changing its functionality -- is known as <strong><em>refactoring</em></strong>. It is done to improve the app&rsquo;s code, making it more efficient or easier to understand.</p>
+  <p>In this case, the proposed changes will do both. They will make your app more efficient by reducing the number of DB operations, especially TinyWebDB operations, which, as we know, take time because they have to access the Web. So instead of taking 2 or 3 operations to store and retrieve the player&rsquo;s name, score, and date, we will use just one operation. Using a list will also simplify the code, making it easier to read.</p>
+<ol>
+  <li><strong>Enhancement 1:</strong> Use a list instead of multiple tags to store both the player&rsquo;s score and date in the TinyDb. By using a list, all of the data can be associated with one tag and with one player. Your list could take the form <strong>[score, date]</strong>. Then the tag, say, &ldquo;ralph&rdquo; would be associated with a specific list such as [7, &ldquo;07/29/14 11:21:01 AM&rdquo;]. You would then use the various list functions (blocks) that you learned about in previous lessons to create and retrieve items from the list. <br />
+    <img src="PlayerList.png" alt="" width="400" /></li>
+  <li><strong>Enhancement 2:</strong> Use a list instead of multiple tags to store the player&rsquo;s name, score, and date in the TinyWebDB. In this case your list could take the form <strong>[name, score, date]</strong>. For example, a specific list could be [&ldquo;ralph&rdquo;, 7, &ldquo;07/29/14 11:21:01 AM&rdquo;]. It would be associated with a single tag, such as &ldquo;AndroidMashTopPlayerInfo&rdquo;. You would then use the same list functions (blocks) as in the previous example to create the list and retrieve its individual items.
+    <p>One tricky part of this problem is making sure that app works even when there is no data associated with the tag. If you don&rsquo;t do this correctly, you will get semantic errors.</p>
+    <p>Here&rsquo;s an example of how to correctly get the data of the form [name, score, date] from the TinyWebDB. You (1) need to check whether the data being received from TinyWebDB is for the right tag. Then (2) you need to make sure the data wasn&rsquo;t empty -- i.e., there was actually some data associated with that tag. If all is good, then (3) assign the list [name, score, date] to the global variable and (4) initialize the <em>topUniversalScore</em> variable.<img src="WebDbGotValueAnnotated.png" alt="" /></p>
+  </li>
+  <li>Create one or more of your own enhancements for your app.</li>
+</ol>
+<p>Submit your app with enhancements to Google Classroom.</p>
