@@ -1,0 +1,98 @@
+---
+layout: post
+title: Eclipse IDE
+categories: apcsa
+---
+
+<p>You will learn to use the Eclipse IDE today. Do the following for a Hello World program:</p>
+    <ol>
+      <li>Open Start Menu &gt; All Programs &gt; Programming tools &gt; Eclipse</li>
+      <li>Eclipse will ask you for a workspace. Choose a folder that you have access to (you may want to create one).</li>
+      <li>Close the Welcome tab if it is displayed.</li>
+      <li>Create a new Java Project by selecting <strong>File &gt; New &gt; Java Project</strong></li>
+      <li>Name your project &quot;Hello&quot; and click Finish.</li>
+      <li>Create a new Java file by selecting <strong>File &gt; New &gt; Class</strong></li>
+      <li>Name your file &quot;Hello&quot;. Make sure that the &quot;public static void main(String[] args)&quot; checkbox is checked. Click Finish.</li>
+      <li>Within the curly braces of the main method, add the following line:<br>
+        <pre><code>System.out.println(&quot;Hello world&quot;);</code></pre>
+      </li>
+      <li>Compile and run your program by selecting <strong>Run &gt; Run As &gt; Java Application</strong></li>
+      <li>Check that &quot;Hello world&quot; appears in the Eclipse console.</li>
+    </ol>
+<p>As you should see, the Eclipse IDE does a lot of the work for you. Continue using the Eclipse IDE to try the following code segments to determine what they print out. Print statements help you debug your program by showing you the changes in your variables as they run through the program. In the below code segments, you will see what is happening in each iteration of a loop.</p>
+<pre><code>
+for(int i = 0; i<20; i++) {
+  System.out.println(i);
+}
+</code></pre>
+<pre><code>
+for(int i = 1; i<20; i++) {
+  System.out.println(i);
+}
+</code></pre>
+<pre><code>
+for(int i = 5; i<20; i++) {
+  System.out.println(i);
+}
+</code></pre>
+<pre><code>
+for(int i = 0; i<20; i+=2) {
+  System.out.println(i);
+}
+</code></pre>
+<pre><code>
+for(int i = 0; i<20; i+=3) {
+  System.out.println(i);
+}
+</code></pre>
+<pre><code>
+for(int i = 0; i<21; i++) {
+  System.out.println(i);
+}
+</code></pre>
+<pre><code>
+for(int i = 0; i<25; i++) {
+  System.out.println(i);
+}
+</code></pre>
+<pre><code>
+for(int i = 20; i>0; i--) {
+  System.out.println(i);
+}
+</code></pre>
+<pre><code>
+for(int i = 20; i>5; i--) {
+  System.out.println(i);
+}
+</code></pre>
+<pre><code>
+for(int i = 0; i<20; i++) {
+  if (i%2 == 0){
+    System.out.println(i);
+  }
+}
+</code></pre>
+<pre><code>
+for(int i = 0; i<20; i++) {
+  if (i%2 == 0 && i%3 == 0){
+    System.out.println(i);
+  }
+}
+</code></pre>
+<pre><code>
+int sum = 0;
+for(int i = 0; i<10; i++) {
+  sum += i;
+  System.out.println(sum);
+}
+</code></pre>
+<pre><code>
+for(int i = 0; i<20; i++) {
+  for(int j = 0; i<20; i++) {
+    System.out.print(i*j);
+    System.out.print(" ");
+  }
+  System.out.println();
+}
+</code></pre>
+<p>For extra practice, try solving some of the problems at <a href="https://projecteuler.net/archives" target="_blank">Project Euler</a>.</p>
