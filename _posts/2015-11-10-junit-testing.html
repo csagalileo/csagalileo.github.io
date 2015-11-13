@@ -6,3 +6,29 @@ categories: apcsa
 
 <p>You will learn how to create JUnit test cases, similar to test cases you've seen on CodingBat. The lecture slides and worksheet are available on GitHub: <a href="https://github.com/galileo2015-16/JUnitTesting" target="_blank"> https://github.com/galileo2015-16/JUnitTesting</a></p>
 <p>Complete the JunitTesting Lab Worksheet and submit a pull request with your files.</p>
+<p>Update: I know you all need a lot of help and support for finishing up the JUnit Testing assignment so I'm posting a video lesson I recorded last year for you to watch: <a href="https://www.youtube.com/watch?v=RIQh5K4SHaM" target="_blank">https://www.youtube.com/watch?v=RIQh5K4SHaM</a><br>
+The video will briefly go over the worksheet, creating some test cases, and how to submit your assignment. I will also talk about tradeoffs you may make when writing test cases and where unit testing is used in real software development. Lastly, I will share my own experience writing unit tests for my fellowship at Cisco as a System Analyst in summer 2014.</p>
+<p>Also, for your reference, here is the code for the example BankAccountTest:<br>
+  <pre><code>
+    import static org.junit.Assert.*;
+    import org.junit.Test;
+
+    public class BankAccountTest {
+
+    	@Test
+    	public void testDeposit() {
+    		BankAccount ba = new BankAccount(100.00);
+    		ba.deposit(200.00);
+    		assertEquals(300.00, ba.money, 0.001);
+    	}
+
+    	@Test
+    	public void testWithdraw() {
+    		BankAccount ba = new BankAccount(9000.00);
+    		assertEquals(9000.00, ba.withdraw(9000.00), 0.001);
+    		assertEquals(0.00, ba.money, 0.001);
+    	}
+
+    }
+  </code></pre>
+</p>
