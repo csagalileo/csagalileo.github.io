@@ -30,52 +30,58 @@
 	<meta name="msapplication-TileColor" content="#ffc40d">
 	<meta name="msapplication-TileImage" content="/icons/mstile-144x144.png">
 	<meta name="msapplication-config" content="/icons/browserconfig.xml">
-  <style type="text/css">
-	.navbar{
-		margin-top: 20px;
-	}
-  </style>
 </head>
 
 <body>
-  
-    <nav role="navigation" class="navbar navbar-inverse">
-        <!-- Brand and toggle get grouped for better mobile display -->
+  <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
         <div class="navbar-header">
-            <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href="/" class="navbar-brand">Computer Science Academy</a>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Computer Science Academy</a>
         </div>
-        <!-- Collection of nav links, forms, and other content for toggling -->
-        <div id="navbarCollapse" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="/csacademy/ecs_brochure_20141209.pdf">Exploring CS <b class="caret"></b></a>
-                    <ul role="menu" class="dropdown-menu">
-                        <li><a href="/csacademy/ecs_brochure_20141209.pdf">About ECS</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="/csp/">CS Principles <b class="caret"></b></a>
-                    <ul role="menu" class="dropdown-menu">
-                        <li><a href="/csp/about.html">About CSP</a></li>
-                        <li><a href="/csp/allposts.html">All posts</a></li>
-                        <li><a href="/csp/postlist.html">Post list</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="/apcsa/">AP CS A <b class="caret"></b></a>
-                    <ul role="menu" class="dropdown-menu">
-                        <li><a href="/apcsa/about.html">About APCSA</a></li>
-                        <li><a href="/apcsa/allposts.html">All posts</a></li>
-                        <li><a href="/apcsa/postlist.html">Post list</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a href="/csacademy/ecs_brochure_20141209.pdf" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Exploring CS <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/csacademy/ecs_brochure_20141209.pdf">About ECS</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="/csp/" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">CS Principles <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/csp/">CSP Home</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/csp/about.html">About CSP</a></li>
+                <li><a href="/csp/allposts.html">All posts</a></li>
+                <li><a href="/csp/postlist.html">Post list</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="/apcsa/" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">AP CS A <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/apcsa/">APCSA Home</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="/apcsa/about.html">About APCSA</a></li>
+                <li><a href="/apcsa/allposts.html">All posts</a></li>
+                <li><a href="/apcsa/postlist.html">Post list</a></li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/resources/">Resources</a></li>
+            <li><a href="/csacademy/">About CSA</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
     </nav>
+
 
   <div class="wrapper">
     <header>
