@@ -30,11 +30,16 @@
 	<meta name="msapplication-TileColor" content="#ffc40d">
 	<meta name="msapplication-TileImage" content="/icons/mstile-144x144.png">
 	<meta name="msapplication-config" content="/icons/browserconfig.xml">
+  <style type="text/css">
+	.navbar{
+		margin-top: 20px;
+	}
+  </style>
 </head>
 
 <body>
   <div class="wrapper">
-    <!--<header>-->
+
       <nav role="navigation" class="navbar navbar-inverse">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -70,16 +75,11 @@
                     </ul>
                 </li>
             </ul>
-            <form role="search" class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input type="text" placeholder="Search" class="form-control">
-                </div>
-            </form>
         </div>
     </nav>
 
-
-	<nav>
+    <header>
+	  <nav>
         <h1><a href="/">Computer Science Academy</a></h1>
         <h2>Creative Problem Solving for the 21st Century</h2>
         <p><strong><a href="http://galileoweb.org">@ Galileo Academy of Science and Technology</a></strong></p>
@@ -89,14 +89,14 @@
         <p><a href="/csacademy/ecs_brochure_20141209.pdf">Exploring Computer Science</a></p>
         <p><a href="/csp/">Computer Science Principles</a></p>
         <p><a href="/apcsa/">AP Computer Science A</a></p>
-    	</strong></h3>
+    	  </strong></h3>
 
         <!--<hr>
         <h3><strong>
         <p>
         <a href="https://piazza.com" target="_blank">Piazza</a> &nbsp;| &nbsp;<a href="https://game.classcraft.com" target="_blank">Classcraft</a> &nbsp;| &nbsp;<a href="http://ghs-sfusd-ca.schoolloop.com/" target="_blank">SchoolLoop</a>
         </p>
-    	</strong></h3>-->
+    	  </strong></h3>-->
 
         <hr>
         <h4><strong>
@@ -107,14 +107,14 @@
         <!--<br>
         <a href="/tand.html">About Mr. Tan</a>-->
         </p>
-		</strong></h4>
+		    </strong></h4>
 
         <!--<h2>
         <a href="https://docs.google.com/forms/d/1M6kaarDEmEnASwJDsXwHgwLjchLf4dfwJ7LPemMjXF0/viewform" target="_blank">Sign up for CSA</a>
-      </h2>-->
+        </h2>-->
     </nav>
 
-    <!--</header>-->
+    </header>
     <section>
 
     {{ content }}
