@@ -1,0 +1,142 @@
+---
+  layout: post
+  title: Search Algorithms
+  categories: csp
+---
+
+<p>Search is a very important area of study in computer science. Just think of how
+often you search for information on the Internet using Google or some other search
+engine.  It&#39;s remarkable how much information Google&#39;s algorithms search through and
+how fast they deliver the results.<br>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/BNHR6IQJGZs" frameborder="0" allowfullscreen></iframe>
+
+</p>
+<p>So, as the video described, when you do a Google search, you aren&#39;t actually
+searching the Web, you&#39;re searching Google&#39;s index of the Web.  Google&#39;s
+<i>spider programs</i> are constantly traversing the web, collecting millions of
+web pages and organizing them into an <i>index</i>.  When you do a Web search
+Google&#39;s algorithms are searching that index.
+
+</p>
+<p>What&#39;s the best algorithm for searching an index?  An index is an <i>ordered</i>
+collection.  Think of the index that comes  at the back of a textbook.  It is organized
+in alphabetical order. Each entry in the index refers to some page in the book.
+
+</p>
+<p>Because indexes are ordered, searching them can be done very efficiently.
+To illustrate this, let&#39;s look at an analogous problem – that of guessing a secret number.
+</p>
+
+<h3>Guessing Game:  I&#39;ll Guess Your Secret Number</h3>
+
+<center>
+<iframe height="350" src="https://appinventor.trincoll.edu/binaryguess/" style="border: 0;" title="Binary Search" width="450"></iframe>
+</center>
+
+One way to look at this game is that we are searching for a number in a
+list of numbers.  Our search made use of the fact that numbers are ordered. The
+feedback we received – &quot;too high&quot; or &quot;too low&quot; –  was based on that
+order.
+<p></p>
+
+<p>The algorithm used in this game is known as <i><b>binary search</b></i> –
+ so called because it repeatedly divides the search space into two parts.   It keeps the
+half that possibly contains the secret number and throws away or ignores the other half.
+Binary search is an example of a <b>divide and conquer</b> approach to solving the problem,
+so-called, because it breaks the big problem into smaller problems and works on the
+smaller problems.
+
+</p><p>Here&#39;s a summary of the algorithm in pseudocode:
+
+</p><h3>Pseudocode for Binary Search for a Target Number in  a List of Numbers</h3>
+
+<blockquote>
+<pre>Repeat until your guess is correct or until you run out of numbers in the list.
+    Guess that the target number is the middle number in the list.
+    If the guess is too high,
+       Cut off the top half of the list.
+    If the guess is too low,
+       Cut off the bottom half of the list.
+    If the guess is correct,
+       Stop.
+</pre></blockquote>
+
+<p>Note that this algorithm accounts for the possibility that the Target
+number may not be in the list, which wasn&#39;t the case in our Guessing Game.
+
+
+</p><h3>Now You Guess My Secret Number</h3>
+
+<p>Can you apply the <i><b>binary search</b></i> algorithm?
+In this version of the game the computer will pick a secret number
+and you will try to guess it.
+
+</p><p>If you understand the binary search algorithm, you should be able
+to guess a secret number between 1 and 100 in at most 7 guesses.  And
+you should be able to guess a number between 1 and 1000 in at most
+10 guesses.   Give it a try!
+</p>
+
+<center>
+<iframe height="350" src="https://appinventor.trincoll.edu/binaryguess/game.html" style="border: 0;" title="Binary search 2" width="450"></iframe>
+</center>
+
+<h3>Sequential Search</h3>
+
+<p>What if you had to search a set of data that was <b>not sorted</b>?  Binary
+search won&#39;t work in that case.  To illustrate this problem, let&#39;s try a variation of our
+guessing game.  This time the app will only tell you if your guess is right or wrong, not
+whether it is too high or too low.  Try it.
+
+</p><center>
+<iframe height="350" src="https://appinventor.trincoll.edu/binaryguess/sequential.html" style="border: 0;" title="Sequential guessing" width="450"></iframe>
+<br/>
+</center>
+
+<p>As you can see from this game, if you don&#39;t know the order of the items you are
+going to search, you have no choice but to search them <i><b>sequentially</b></i>
+if you definitely want to find the secret number.
+
+</p><p>Here&#39;s a summary of the sequential search algorithm.  Let&#39;s suppose we have 16 boxes
+numbers 1 to 16, each containing a letter, but that the words are not in any particular
+order:</p>
+
+<table>
+<tbody><tr>
+<td>
+<b>Problem: Find the letter &#39;F&#39;</b>
+<table>
+<tbody><tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td></tr>
+<tr><td>U</td><td>E</td><td>Z</td><td>A</td><td>M</td><td>L</td><td>S</td><td>T</td><td>B</td></tr>
+</tbody>
+</table>
+</td>
+<td>
+<b>Pseudocode of Sequential Search Algorithm</b>
+<pre>Let <b>b</b> represent the box number to search, initially 1
+Repeat until you find &#39;F&#39; or run out of boxes to search
+    Look in box <i>b</i>.
+    If &#39;F&#39; is in box <i>b</i>, stop and report <i>b</i>&#39;s value.
+    Otherwise, add 1 to <i>b</i>
+If you don&#39;t find &#39;F&#39; in any box, report it not found.
+</pre>
+</td>
+</tr>
+</tbody></table>
+
+<p>So in this algorithm we are letting <i>b</i> keep track of what box we are searching. It
+starts at 1 and increases by 1 so that we will look at every box until we find
+&#39;F&#39; or run out of boxes.  If we find &#39;F&#39; we report what box it was in by reporting <i>b</i>&#39;s
+value.  If we don&#39;t find it, we report  that it wasn&#39;t found.
+
+</p><p>Searching for &#39;F&#39; in this set of boxes represents our
+<b><i>worst case scenario</i></b>
+because our algorithm would have to look in every box to conclude that &#39;F&#39; was not in the
+boxes.
+</p>
+<p>Answer the following questions on Google Classroom:</p>
+<ol>
+   <li>Suppose you have a deck of cards and you want to find the Ace of Spades. If the deck is shuffled, which is the best search algorithm to use and why?</li>
+   <li>What other examples of searching have you seen in the real world? Do they use sequential, binary, or some other search? </li>
+</ol>
