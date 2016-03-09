@@ -1,0 +1,212 @@
+---
+  layout: post
+  title: Sorting Algorithms
+  categories: csp
+---
+
+<p>This lesson will focus on different sorting algorithms and we will use a deck of
+cards in some of the examples.   If you have a deck of cards handy, it may
+help you understand the algorithms better.
+
+</p><p>Sorting is a very important area of study in computer science. As we saw in the previous
+lesson on <i>Search</i>, it is much more efficient to search a collection if its elements
+are in order.  <i>Sorting</i> is the process of putting objects in order. Sorting
+algorithms have been studied extensively by computer scientists.
+
+</p><p>One of simplest sorting algorithms is the <i>bubble sort</i>.  Here&#39;s a video
+that demonstrates a version of the bubble sort on a collection of 13 playing cards.
+As you watch it, see if you can discover the algorithm.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/f6bGSRYYVwo" frameborder="0" allowfullscreen></iframe>
+
+</p>
+<p>Bubble sort is an example of a <i><b>comparison sort</b></i>.  It repeatedly
+compares two cards, placing the smaller one on the left pile.   As you can see, bubble sort
+makes several <i>passes</i> through the cards?
+
+</p><p>The bubble sort is so-called because on each <i>pass</i> through the data,
+the highest value &quot;bubbles&quot; to the top.  For example, in the video, after the first pass,
+the <i>Ace</i> is placed on the sorted pile. On the second pass, a <i>Queen</i> is
+placed on the sorted pile.  And so on.
+
+</p><h3>Pseudocode for Bubble Sort</h3>
+
+<p>Here is a <i>pseudocode</i> description of the bubble sort as seen in the video:
+
+</p><pre><font color="blue"><b>To Bubble Sort a deck of N cards:</b></font>
+Place the unsorted deck, face down, in the right hand pile.
+<b>Repeat</b> N times
+    Put the top card of the right pile in your hand.
+    <b>Repeat</b> until there are no more cards in the right pile.
+        <b>If</b> the card in your hand &gt; the top card on the right pile
+            Place top card on the left pile.
+        <b>Else</b>
+            Place the hand card on the left pile.
+    When the pass is finished, put the card left in your hand on the sorted pile.
+    Move the left pile to the right pile.
+</pre>
+
+<h3>Merge Sort</h3>
+
+<p><i><b>Merge sort</b></i> is another comparison sorting algorithm,
+so called because it merges the cards into ever larger piles of cards.
+See if you can follow the algorithm.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/OW3Be5CvYgA" frameborder="0" allowfullscreen></iframe>
+
+</p><p>As you can see, merge sort starts with the cards in piles of 1 card each.
+Then on each pass, it merges them into piles of 2 cards, then 4 cards, then 8 cards,
+and so on,  until all the cards are merged into one sorted pile.   You probably also
+noticed that it was quite a bit faster than bubble sort.
+
+</p><h3>Pseudocode of Mergesort</h3>
+
+Here is a pseudocode description of merge sort as seen in the video:
+
+<p></p><pre><font color="blue">
+<b>To Merge Sort a deck of N cards:</b></font>
+Divide the cards into N piles containing one card each.
+<b>Repeat</b> until there is 1 pile containing all <i>N</i> cards:
+    Merge adjacent piles into new piles that are twice as big.
+</pre>
+
+<p>As you can see, <i>Merge sort</i>, like binary search, is another example of
+ a <b>divide and conquer</b> approach to solving the problem,
+so-called, because it breaks the big problem into smaller problems and works on the
+smaller problems.  In this case, the deck is divided into piles of 1 card each before
+merging the piles.
+
+</p>
+
+<h3>Bucket Sort: A Non Comparison Sort</h3>
+
+<p>Not all sorts are <i>comparison</i> sorts.   One example of a non-comparison sort,
+is the <i><b>bucket sort</b></i>, which uses some feature of the values being sorted
+to place them into distinct buckets.  The buckets are then combined together.
+
+</p><p>In this video, the buckets are the values of the cards -- i.e., 2, 3, Jack, Ace, and so on.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/LroZPmBGwDY" frameborder="0" allowfullscreen></iframe>
+<br/>
+<br/>
+
+</p><p>As you see, bucket sort does not compare one card with another.  Rather,
+it looks at the card&#39;s value and places it into the appropriate bucket.  Once all the cards
+are in their buckets, they are collected together in order.  This
+sort is the fastest of the three examples we&#39;ve considered.
+
+</p><h3>Pseudocode for Bucket Sort</h3>
+
+<p>In order for bucket sort to work, you would have to be able to perform some  calculation
+that would convert the item being sorted into a number that can be used to identify
+its bucket. For example,  we could use
+the following scheme to give numbers to our playing cards:
+
+</p><table>
+<tbody><tr><th>Card</th><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td>
+<td>9</td><td>10</td><td>Jack</td><td>Queen</td><td>King</td><td>Ace</td></tr>
+<tr><th>Bucket</th><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td>
+<td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td></tr>
+</tbody></table>
+
+<p>We have simply given numerical values (called <i>ranks</i>) to each of the face cards.
+ Now if we have 13 buckets, numbered 2 through 14, then we could use the following
+algorithm to bucket sort them:
+
+</p><p></p><pre><font color="blue">
+<b>To Bucket Sort a deck of N cards:</b></font>
+1. For each card in the deck, put it into the bucket indicated by its rank.
+2. Starting with the lowest numbered bucket, collect all the cards together.
+</pre>
+
+
+<h3>Radix Sort</h3>
+
+<p>Bucket sort is actually an example of a more general
+non-comparison sort called <i><b>radix</b></i>.  The word <i>radix</i> is another
+word for <i>base</i> and the original idea behind
+radix sorting is to sort numbers by their digits.
+
+</p><p>For example, suppose we want to sort
+the following list of base 10 2-digit numbers.  For convenience we will use leading 0s for
+numbers between 1 and 9:
+
+</p><pre>25 26 01 31 24 22 17 16 07 09
+</pre>
+
+<p>We begin by putting them in buckets based on their <i>least significant digit</i> –
+their rightmost digit.
+
+</p><table>
+<tbody><tr><td>Buckets</td><td>0s</td><td>1s</td><td>2s</td><td>3s</td><td>4s</td><td>5s</td><td>6s</td><td>7s</td>
+<td>8s</td><td>9s</td></tr>
+<tr><td>Values</td><td> </td><td>01</td><td>22</td><td> </td><td>24</td><td>25</td><td>26</td>
+<td>17</td><td> </td><td>09</td></tr>
+<tr><td> </td><td> </td><td>31</td><td> </td><td> </td><td> </td><td> </td><td>16</td>
+<td>07</td><td> </td><td> </td></tr>
+</tbody></table>
+
+<p>Now if we take the numbers out of the buckets from left to right and from top to bottom in each bucket we get
+the following list:
+
+</p><pre>01 31 22 24 25 26 16 17 07 09
+</pre>
+
+<p>Now let&#39;s put them into buckets by their left-most digit:
+
+</p><table>
+<tbody><tr><td>Buckets</td><td>0s</td><td>1s</td><td>2s</td><td>3s</td><td>4s</td><td>5s</td><td>6s</td><td>7s</td>
+<td>8s</td><td>9s</td></tr>
+<tr><td>Values</td><td>01</td><td>16</td><td>22</td><td>31</td><td> </td><td> </td><td> </td>
+<td> </td><td> </td><td> </td></tr>
+<tr><td> </td><td>07</td><td>17</td><td>24</td><td> </td><td> </td><td> </td><td> </td>
+<td> </td><td> </td><td> </td></tr>
+<tr><td> </td><td>09</td><td> </td><td>25</td><td> </td><td> </td><td> </td><td> </td>
+<td> </td><td> </td><td> </td></tr>
+<tr><td> </td><td> </td><td> </td><td>26</td><td> </td><td> </td><td> </td><td> </td>
+<td> </td><td> </td><td> </td></tr>
+</tbody></table>
+
+If we now take the numbers out of the buckets from left to right and from top to bottom we get the following sorted list:
+<pre>01  07 09 16 17 22 24 25 26 31
+</pre>
+
+<p>As you can probably see, we can sort numbers of any size by re-using the buckets as
+we sort them through successive passes starting with their rightmost digit and working to
+their leftmost digit.
+
+</p><p>
+
+Here&#39;s a really cool example of radix sort on the playground.  In this example, the kids are sorting
+3 digit numbers using 9 buckets.  First the sort by the ones digit. Then regroup in order.
+Then by the tens digit.  Then regroup in order. And then by the hundreds digit.
+Then regroup, at which point the numbers are sorted.
+(Notice there&#39;s on bucket for &#39;0&#39; in this example.  So none of their numbers contain a 0.
+<br/>
+
+<iframe width="420" height="315" src="https://www.youtube.com/embed/ibtN8rY7V5k" frameborder="0" allowfullscreen></iframe>
+
+
+
+</p>
+
+<h3>Recap</h3>To review all of the sort algorithms explained above, try taking a look through some animations of each sort. Go to <a href="http://www.sorting-algorithms.com/" target="_blank" title=""><span class="yui-non">Sorting Algorithms Visualizations.<br/></span><br/></a><h2>Questions</h2>
+<ul>
+<li>This discussion of <a href="http://en.wikipedia.org/wiki/Merge_sort">Merge Sort</a>
+includes a nice animation.
+</li><li>An accessible analysis of <a href="http://en.wikipedia.org/wiki/Radix_sort">Radix Sort</a>.
+</li><li>Even President Obama knows about bubble sort:
+<br/>
+<iframe width="420" height="315" src="https://www.youtube.com/embed/k4RRi_ntQc8" frameborder="0" allowfullscreen></iframe>
+</li>
+
+</ul>
+
+<h3>Reflection:</h3>
+
+<p>Answer the following questions on Google Classroom:</p>
+
+<ol>
+   <li>Bubble and Merge Sort are referred to as comparison sorts because the values of the two pieces of data are compared during each step. Why are the radix and bucket sort not comparison sorts?</li>
+   <li>Which sort do you think would be the fastest if you had to sort more than one deck of cards? Why?</li>
+</ol>
