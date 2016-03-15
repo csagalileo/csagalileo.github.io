@@ -1,0 +1,130 @@
+---
+  layout: post
+  title: Analyzing Algorithms
+  categories: csp2015
+---
+
+<strong><em>Searching and Sorting Experiments.</em></strong> In this lesson we are going to use Python to experiment with and analyze the algorithms we have been studying. You will be running two programs, one to test the search algorithms and one to test the sorting algorithms.
+        <p>This activity will resemble that of a scientific investigation. You'll run the programs repeatedly on different lists of data, record the running times of the algorithms, tabulate and graph your data, and then analyze the results. Can you figure out from the results, which algorithm is which?</p>
+        <p>Another way to look at this activity is as <em>quality assurance (QA)</em>. Many careers in the computing field start with assignments in QA. This is where you help software developers test and debug their programs.</p>
+        <p><strong>Objectives:</strong> In this lesson you will learn to :</p>
+<ul>
+          <li>conduct an empirical (experimental) investigation of basic search and sort algorithms;</li>
+          <li>think analytically about basic search and sort algorithms;</li>
+          <li>deepen your understanding of basic search and sort algorithms.</li>
+</ul>
+
+<strong>Introduction</strong>
+<p>In this lesson we want to continue our study of algorithms, including the following questions.</p>
+<ul>
+  <li>What is algorithm analysis?</li>
+  <li>What are the main categories for analyzing the running time of algorithms?</li>
+</ul>
+
+<p><strong>Search Experiment</strong></p>
+<p><strong><em>Empirical Search Analysis.</em></strong> In this activity you are going to use a Python program to experiment with and analyze the binary and sequential search algorithms. Search program is available here: <a href="search.py" target="_blank">search.py</a>
+</p>
+<ol>
+          <li>You will be performing a <strong>worst case</strong> analysis of the algorithms. Whenever you enter a number for the list size, the program will search for a number that is<em>not</em> in the list.</li>
+          <li>Test each search algorithm on lists of size 100, 200, ..., 100000 numbers. <strong>NOTE:</strong>Because these algorithms involve loops, you may have to wait a while for your program to finish.</li>
+          <li>Create a table and write the search time in milliseconds (ms) for each test case. You should have a total of 20 test cases, 10 for each algorithm.</li>
+          <li>Graph your results. You may want to use Google Sheets to generate your graph and copy the graph to your assignment doc.</li>
+          <li>Analyze your results to determine which algorithm is which. Which is the <em>binary</em> and which is the <em>sequential</em> search? Provide a clear description, referring to your graph and your tabulated data, to explain how you arrived at your conclusion.</li>
+</ol>
+
+<p><strong>Sort Experiment</strong></p>
+<p><strong><em>Empirical Sort Analysis.</em></strong> In this activity you are going to use a Python program to experiment with and analyze the bubble, merge, and bucket sort algorithms. Sorting program is available here: <a href="sorting.py" target="_blank">sorting.py</a>
+</p>
+<ol>
+          <li>Test each sort algorithm on lists of size 10, 20, ..., 10000 numbers. <strong>NOTE: </strong>Because these algorithms involve loops, you may have to wait a while for your program to finish.</li>
+          <li>Create a table and write the sorting time in milliseconds (ms) for each test case. You should have a total of 30 test cases, 10 for each algorithm.</li>
+          <li>Graph your results. You may want to use Google Sheets to generate your graph and copy the graph to your assignment doc.</li>
+          <li>Analyze your results to determine which algorithm is which. Which is the <em>bubble</em>, and which is the <em>merge</em>, and which is the <em>bucket</em> sort. Provide a clear description, referring to your graph and your tabulated data, to explain how you arrived at your conclusion.</li>
+</ol>
+
+<br>
+<br>
+
+<strong>Reflection: </strong>
+<p>Answer the following questions in Google classroom:</p>
+<ol>
+  <li>For a list of 500 numbers, at most how many guesses would it take using <strong>binary search</strong> to guess the secret number if after each guess you were told whether your guess was too high or too low or just right? Type your answer into the text box. <br>
+  </li>
+  <li>According to the following table, how many lookups would be required in the worst case to find a number in list of 10,000 elements using <strong><em>linear search</em></strong>? Type your answer in the text box. <br>
+    <br>
+    <img src="searchlookups.png" alt=""><br>
+    <br>
+  </li>
+  <li>According to the following table, how many lookups would be required in the worst case to find a number in a sorted list of 10000 elements using <strong><em>binary search</em></strong>? Type your answer in the text box. <br>
+    <img src="searchlookups.png" alt=""><br>
+    <br>
+  </li>
+  <li>The function shown in this graph is known as the <em>base-2 logarithm function</em>, y = log2(x). Which search algorithm behaves like this function? <br>
+    <br>
+  <img src="logcurve.png" alt=""><br>
+  <ul>
+  <li>Sequential search</li>
+  <li>Binary search</li>
+  </ul>
+  <br>
+  </li>
+  <li>A sort algorithm's <strong><em>efficiency </em></strong>refers to ______________________.
+    <ul>
+    <li>
+    how many comparisons are needed to sort the values.</li>
+    <li>
+    whether the algorithm correctly arranges the values in order.</li>
+    <li>
+    whether or not the algorithm contains a bug.</li>
+    <li>
+    how long it takes to arrange the values in order.</li>
+    <li>
+    how many swaps are needed to sort the values.</li>
+    </ul>
+    <br>
+  </li>
+  <li>To say that bucket sort is <em><strong>more efficient</strong> </em>than bubble sort means that _________________.
+  <ul>
+    <li>
+    for any size list, bucket sort will always be faster than bubble sort.</li>
+    <li>
+    as the size of the list grows, bucket sort will be faster than bubble sort.</li>
+    <li>
+    bucket sort requires fewer comparisons than bubble sort.</li>
+    <li>
+    bucket sort requires fewer swaps than bubble sort.</li>
+
+    </ul>
+    <br>
+  </li>
+  <li>Which of the following characteristics is true of <em><strong>bubble sort</strong></em>? Choose all that apply.
+<ol>
+    <li>
+    A comparison-based algorithm.</li>
+    <li>
+    Useful only for sorting numbers.
+    </li>
+    <li>
+    A quadratic algorithm.</li>
+    <li>
+    More efficient than bucket sort.</li>
+    <li>
+    Widely used to sort large data sets.</li>
+    </ol>
+    <br>
+  </li>
+  <li>Which of the following characteristics is true of <em><strong>bucket sort</strong></em>? Choose all that apply. <br>
+    <ul>
+    <li>A comparison-based algorithm.</li>
+      <li>
+    A quadratic algorithm.</li>
+    <li>
+    More efficient than bubble sort.
+    </li>
+    <li>
+  A linear algorithm</li>
+  </ul>
+  </li>
+
+  <li>Examine the <a href="http://www.sorting-algorithms.com/quick-sort" target="_blank">Quick Sort visualization</a>. Do you think quick sort has a similar efficiency to bubble, merge, or bucket sort? Why? Which of the scenarios presented (random, nearly sorted, reversed, few unique) is closest to a worst case scenario for heap sort?</li>
+</ol>
