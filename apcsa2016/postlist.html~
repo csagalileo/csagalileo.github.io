@@ -1,0 +1,18 @@
+---
+layout: default
+title: AP Computer Science A - Post list
+---
+
+<h2>
+<a name="{{ page.title }}" class="anchor" href="#{{ page.title }}"><span class="octicon octicon-link"></span></a>{{ page.title }}</h2>
+
+<p><a href="about.html">About AP Computer Science A</a> | <a href="allposts.html">All posts</a> | <a href="postlist.html">Post list</a></p>
+
+<ul>
+{% for post in site.categories.apcsa %}
+<li><a href="{{ post.url }}">{{ post.title }}</a> - {{ post.date | date: "%Y-%m-%d"}}</li>
+{% endfor %}
+</ul>
+
+<p><a href="allposts.html">All posts</a> | <a href="postlist.html">Post list</a></p>
+
