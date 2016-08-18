@@ -1,16 +1,15 @@
 ---
 layout: default
-title: Computer Science Principles - Post list
+title: AP Computer Science Principles - Post list
 ---
 
 <h2>
 <a name="{{ page.title }}" class="anchor" href="#{{ page.title }}"><span class="octicon octicon-link"></span></a>{{ page.title }}</h2>
 
-<p><a href="about.html">About Computer Science Principles</a> &nbsp;| &nbsp;<a href="allposts.html">All posts</a> &nbsp;| &nbsp;<a href="postlist.html">Post list</a></p>
-<p><a href="http://ai2.appinventor.mit.edu/" target="_blank">App Inventor</a> &nbsp;| &nbsp;<a href="https://classroom.google.com/" target="_blank">Google Classroom</a></p>
+<p><a href="about.html">About AP Computer Science Principles</a> &nbsp;| &nbsp;<a href="allposts.html">All posts</a> &nbsp;| &nbsp;<a href="postlist.html">Post list</a></p>
 
 <ul>
-{% for post in site.categories.csp %}
+{% for post in site.categories.apcsp %}
 	<li><a href="{{ post.url }}">{{ post.title }}</a> - {{ post.date | date: "%Y-%m-%d"}}</li>
 {% endfor %}
 </ul>
