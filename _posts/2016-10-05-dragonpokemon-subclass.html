@@ -1,0 +1,18 @@
+---
+  layout: post
+  title: DragonPokemon Subclass
+  categories: apcsa
+---
+
+<p>You will write a <code>DragonPokemon</code> class that is a subclass of the <code>Pokemon</code> superclass. Here are the things you should include in the <code>DragonPokemon</code> class:</p>
+<ul>
+  <li>It should be a subclass of the <code>Pokemon</code> superclass.</li>
+  <li>It should have instance variables for storing Pokemon <a href="http://bulbapedia.bulbagarden.net/wiki/Dragon_%28type%29" target="_blank">types</a> (note that Pokemon can have up to two types).</li>
+  <li>It should have multiple constructors depending on if a type is given when the object is instantiated.</li>
+  <li>It should have a method that prints out the Pokemon's types</li>
+  <li>Dragon-type Pokemon are powerful so you need to override their <code>attack</code> method to deal 200 damage instead of 50.</li>
+  <li>All Dragon-type Pokemon can use an attack called Dragon Rage. Write a new method called <code>dragonRage</code> that allows them to use the superclass's <code>attack</code> method to deal damage eight times (for a total of 400 damage) using Dragon Rage, but does not override/overload the <code>attack</code> method. The hit points of the other Pokemon should be printed out each time it does 50 damage. Use a for loop in this method.</li>
+  <li>All variables and methods in this subclass should be set to either <code>public</code> or <code>private</code>.</li>
+</ul>
+
+<p>Once you are finished with both the <code>Trainer</code> class and <code>DragonPokemon</code> class (and you have tested both thoroughly), make sure they are pushed to GitHub.</p>
