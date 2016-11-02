@@ -1,0 +1,59 @@
+---
+layout: post
+title: Quiz 4 Review
+categories: apcsa
+---
+
+<p>Quiz 4 will be on Monday, November 7th. It will cover for loops for arrays and strings as well as number representations (binary, hexadecimal, octal) and unit testing. Here are some review questions:</p>
+<ul>
+  <li>What is the hexadecimal (base-16) number that is equivalent to the binary (base-2) number 11011100?</li>
+  <li>(See hw2 for more example questions on binary, hexadecimal, etc.)</li>
+  <li>How do you test a method that does not return anything?</li>
+  <li>Why is unit testing beneficial?</li>
+  <li>Why is writing more tests better than writing just a few?</li>
+  <li>(Review JUnit Testing lesson slides.)</li>
+  <li><a href="http://programmedlessons.org/java5/Notes/chap42/chap42quizRev2.html" target="_blank">Multiple Choice Practice</a> with loops</li>
+  <li>What is the printed output of this code?<br>
+<pre><code>
+int[] arr = {3, 5, 8, 10, 3, 4, 5, 3};
+for(int i = 2; i < arr.length-2; i+=3)
+{
+    arr[i] = arr[i] - i + 1;
+}
+System.out.println(arr[1] +" "+ arr[2] +" "+ arr[4] +" "+ arr[5]);
+</code></pre>
+</li>
+<li>Write a method that returns an array of 30 random integers from 0 to 50.</li>
+<li>Write the <code>twoBOrNotTwoB</code> method with a <code>for</code> loop to that will return whether the String has exactly two 'b' characters in it.<br>
+<pre><code>
+public boolean twoBOrNotTwoB(String a) {
+
+
+}
+</code></pre>
+</li>
+<li>Write the <code>sumMod4Is3</code> method (with a <code>for</code> loop) to find and return the sum of all the values x in the given array where x mod 4 is 3. (i.e. if the remainder is 3 when dividing by 4)<br>
+<pre><code>
+public int sumMod4Is3 (int[] c) {
+
+
+}
+</code></pre>
+</li>
+<li>Write the <code>squareMultiplesOf5</code> method (with a <code>for</code> loop) to modify all the values in the array that are multiples of 5 by squaring them. The method must modify the given array and return the same array. (e.g. if the array is <code>{1,3,4,5,10}</code>, the modified array would be <code>{1,3,4,25,100}</code>)<br>
+<pre><code>
+public int[] squareMultiplesOf5(int[] b) {
+
+
+}
+</code></pre>
+</li>
+<li>Write the <code>shortestString</code> method (with a <code>for</code> loop) to find and return the length of the shortest string in a given array of Strings.  (e.g. if the array is <code>{"Halloween","Java","Testing","Number"}</code>, the method would return 4)<br>
+<pre><code>
+public int shortestString(String[] d) {
+
+
+}
+</code></pre>
+</li>
+</ul>
