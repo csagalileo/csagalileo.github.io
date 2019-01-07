@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)https://mobile-csp.org/webapps/search/binary.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Binary Search</title>
+  
+  <link rel="stylesheet" type="text/css" href="./binary_files/widget.css">
+
+  <script>
+  // Binary Guessing Game
+
+  var nGuesses = 0;
+  var max = 100;
+  var nMaxGuesses = 7; // For max = 100
+  var guess = 0;
+  var low = 0;
+  var high = 100;
+  var prompt='I\'ll guess your number (1-100)';
+
+  function log2(val) {
+    return Math.log(val)/Math.LN2;
+  }
+
+  // This starts and ends the game.  
+  // It is controlled by the label on the 'go' button.
+  function go() {
+    var label = document.getElementById("gobutton").value;
+    if (label.startsWith("Let")) {
+      max = parseInt(document.getElementById("max").value);
+      nMaxGuesses = Math.ceil(log2(max));
+      low = 1;
+      high = max;
+      guess = Math.floor((low + high) / 2);
+      prompt="I'll guess within " + nMaxGuesses + " guesses. I guess " + guess;
+      nGuesses = 1;
+      document.getElementById('promptlabel').innerHTML=prompt;
+      document.getElementById('nguesslabel').innerHTML='Number of Guesses: ' + nGuesses;;
+      document.getElementById("gobutton").value="Just right";
+    } else { // Label is 'Just right!'
+      if (nGuesses == 1) {
+	alert('Aha!!! I guessed your number in ' + nGuesses + ' guess! Pretty good, eh?');
+      } else {
+	alert('Aha!!! I guessed your number in ' + nGuesses + ' guesses! Pretty good, eh?');
+      }
+      document.getElementById("gobutton").value="Let's play!";
+    }
+  }
+
+  // My guess was too high. 
+  // Lop off the top half of the range
+  function tooHigh() {
+    high = guess - 1;
+    if (low <= high) {
+      guess = Math.floor((low + high) / 2);
+      prompt="I'll guess within " + nMaxGuesses + " guesses. I guess " + guess;
+      ++nGuesses;
+      document.getElementById('promptlabel').innerHTML=prompt;
+      document.getElementById('nguesslabel').innerHTML='Number of Guesses: ' + nGuesses;;
+    } else {
+      alert('Are you trying to trick me? I\'ve guessed all possible numbers.');
+      document.getElementById("gobutton").value="Let's play!";
+    }
+  }
+
+  // My guess was too low.
+  // Lop off the bottom half of the range.
+  function tooLow() {
+    low = guess + 1;
+    if (low <= high) {
+      guess = Math.floor((low + high) / 2);
+      prompt="I'll guess within " + nMaxGuesses + " guesses. I guess " + guess;
+      ++nGuesses;
+      document.getElementById('promptlabel').innerHTML=prompt;
+      document.getElementById('nguesslabel').innerHTML='Number of Guesses: ' + nGuesses;;
+    } else {
+      alert('Are you trying to trick me? I\'ve guessed all possible numbers.');
+      document.getElementById("gobutton").value="Let's play!";
+    }
+  }
+  </script>
+ </head>
+
+ <body>
+  <div class="center" style="width:500px">
+    <table class="container" style="width:500px; border:1px;">
+      <tbody><tr>
+	<td>
+          <img style="float:left; width:128px" src="./binary_files/android_mobileCSP-192.jpg" alt="Mobile CSP logo">
+	  <label style="font-size:1em">
+	    Think of a secret number between 1 and <i><b>max</b></i>. You can
+	    set the max up to 9999.  I'll guess the number in just a few guesses
+	    if you tell me whether my guess is <i><b>too high</b></i> or <i><b>too
+		low</b></i> or <i><b>just right</b></i>.
+          </label>
+	  <hr>
+	</td>
+      </tr>
+    </tbody></table>
+    <table class="widget" style="width:500px">
+      <tbody><tr>
+	<td>
+          <br>
+	  <label style="padding-top:5px"><b>I'll Guess Your Number Between 1 and </b></label>
+	  <input type="text" id="max" size="4" maxlength="4" value="100">
+	</td>
+      </tr>
+      <tr>
+	<td>
+          <br>
+	  <label id="promptlabel">Here's Where I'll Guess.</label>
+	  <br>
+	  <label id="nguesslabel">Number of Guesses: 0</label>
+	  <br><br>
+	  <input class="button" type="button" id="gobutton" value="Let&#39;s Play!" onclick="go()">
+	  <input class="button" type="button" value="Too High" onclick="tooHigh()">
+	  <input class="button" type="button" value="Too Low" onclick="tooLow()">
+          <br><br>
+	</td>
+      </tr>
+    </tbody></table>
+  </div>
+ 
+
+</body></html>

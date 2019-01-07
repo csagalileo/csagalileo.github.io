@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)https://mobile-csp.org/webapps/search/sequential.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Sequential Search</title>
+    
+    <link rel="stylesheet" type="text/css" href="./sequential_files/widget.css">
+
+    <script>
+      // Sequential Guessing Game 
+      // In this version the person guesses but
+      // the computer just says right/wrong
+
+      var nGuesses = 0;
+      var max = 10;
+      var nMaxGuesses = 20; // For max = 100
+      var guess = 0;
+      var prompt='You guess my secret number (1-20)';
+      var secret = 0;
+
+      function log2(val) {
+        return Math.log(val)/Math.LN2;
+      }
+
+      // This starts and ends the game.  
+      // It is controlled by the label on the 'go' button.
+      function go() {
+        var label = document.getElementById("gobutton").value;
+        if (label.startsWith("Let")) {
+          max = parseInt(document.getElementById("max").value);
+          nMaxGuesses = Math.ceil(log2(max));
+          secret = 1 + Math.round(Math.random()*(max-1));
+          low = 1;
+          high = max;
+          guess = Math.floor((low + high) / 2);
+          prompt="<br />I'm thinking of a number between 1 and " + max + ".<br /> Can you guess it?"
+          nGuesses = 0;
+          document.getElementById('promptlabel').innerHTML=prompt;
+          document.getElementById('nguesslabel').innerHTML="So far, you've had " + nGuesses + " guesses.";
+          document.getElementById('response').innerHTML="";
+          document.getElementById("gobutton").value = "Make guess";
+        } else { // Label is 'Make guess!'
+          var guess = document.getElementById("guess").value;
+          ++nGuesses;
+          document.getElementById('nguesslabel').innerHTML="So far, you've had " + nGuesses + " guesses.";
+          if (guess != secret) {
+            document.getElementById('response').innerHTML="<br />That guess was incorrect<br />";
+          } else {
+            var guessstr = (nGuesses <= 1) ? " guess." : " guesses.";
+            document.getElementById('response').innerHTML="Congratulations. You guessed my secret in " + nGuesses + guessstr + ".<br />";
+            document.getElementById("gobutton").value="Let's play!";
+          }
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div class="center" style="width:500px">
+      <table class="container" style="width:500px; border:1px;">
+	<tbody><tr>
+	  <td>
+	    <img style="float:left; width:128px" src="./sequential_files/android_mobileCSP-192.jpg" alt="Mobile CSP logo">
+	    <label style="font-size:1em">
+	      I'm thinking of a secret number between 1 and <i><b>max</b></i>. You can
+	      set the max up to 20.  Can you guess the number? I'll tell you whether
+	      you are <i><b>right</b></i> or <i><b>wrong</b></i>.
+            </label>
+            <hr>
+	  </td>
+	</tr>
+      </tbody></table>
+
+      <table class="widget" style="width:500px">
+	<tbody><tr>
+	  <td>
+	    <br>
+	    <label><b>I'll Pick a Secret Number Between 1 and </b></label>
+	    <input type="text" id="max" size="4" maxlength="4" value="10">
+	  </td>
+	</tr>
+	<tr>
+	  <td>
+	    <label id="promptlabel"><br>I'm thinking of a number between 1 and 10.<br> Can you guess it?</label>
+	    <br>
+	    <br>
+	    <label id="nguesslabel">So far, you've had 6 guesses.</label>
+	    <br>
+	    <hr>
+	    <label id="response"><br>That guess was incorrect<br></label>
+	    <br>
+	    <b>Your Guess:</b> <input type="text" id="guess" size="4" maxlength="4" value="0" onchange="go()">
+	    <input class="button" type="button" id="gobutton" value="Make guess" onclick="go()">
+	    <br><br>
+	  </td>
+	</tr>
+      </tbody></table>
+    </div>
+  
+
+</body></html>
