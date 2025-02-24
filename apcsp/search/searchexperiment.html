@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Algorithm Comparison</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        h1 { color: #4CAF50; }
+        .container { margin-top: 20px; }
+        input[type="number"], input[type="range"] { padding: 5px; font-size: 16px; }
+        .result { margin-top: 20px; }
+        button { padding: 10px 15px; font-size: 16px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #45a049; }
+        .array { font-family: monospace; color: #333; }
+    </style>
+</head>
+<body>
+
+    <h1>Empirical Test: Sequential vs Binary Search</h1>
+
+    <div class="container">
+        <label for="array-size">Array Size (1-1000000): </label>
+        <input type="number" id="array-size" min="1" max="1000000" value="1000">
+        <br><br>
+
+        <button onclick="testSearch()">Run Tests</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        // Generate a random unsorted array for sequential search
+        function generateArray(size) {
+            const array = [];
+            for (let i = 0; i < size; i++) {
+                array.push(Math.floor(Math.random() * size) + 1);  // Random integers between 1 and size
+            }
+            return array;
+        }
+
+        function sequentialSearch(array, target) {
+            let steps = 0;
+            for (let i = 0; i < array.length; i++) {
+                steps++;
+                if (array[i] === target) {
+                    return { found: true, steps };
+                }
+            }
+            return { found: false, steps };
+        }
+
+        function binarySearch(array, target) {
+            let steps = 0;
+            let left = 0, right = array.length - 1;
+
+            while (left <= right) {
+                steps++;
+                const mid = Math.floor((left + right) / 2);
+
+                if (array[mid] === target) {
+                    return { found: true, steps };
+                }
+
+                if (array[mid] < target) {
+                    left = mid + 1;
+                } else {
+                    right = mid - 1;
+                }
+            }
+
+            return { found: false, steps };
+        }
+
+        function testSearch() {
+            const arraySize = parseInt(document.getElementById("array-size").value);
+
+            // Generate a random target value between 1 and array size
+            const targetValue = Math.floor(Math.random() * arraySize) + 1;
+
+            // Generate a single random unsorted array
+            const unsortedArray = generateArray(arraySize);
+
+            // Create a sorted version of the array for binary search
+            const sortedArray = [...unsortedArray].sort((a, b) => a - b);
+
+            // Run sequential search on the unsorted array
+            const sequentialResult = sequentialSearch(unsortedArray, targetValue);
+            // Run binary search on the sorted array
+            const binaryResult = binarySearch(sortedArray, targetValue);
+
+            // Display results with Search 1 (Sequential) first and Search 2 (Binary) second
+            document.getElementById("result").innerHTML = `
+                <h2>Search Results</h2>
+                <p>Array size: ${arraySize}</p>
+                <p>Randomly generated target value: ${targetValue}</p>
+                <p><b>Search 1:</b> ${sequentialResult.found ? 'Found!' : 'Not Found'} in ${sequentialResult.steps} steps.</p>
+                <p><b>Search 2:</b> ${binaryResult.found ? 'Found!' : 'Not Found'} in ${binaryResult.steps} steps.</p>
+            `;
+
+            // Show portions of the arrays if size is greater than 100
+            if (arraySize > 100) {
+                const unsortedPreview = `Unsorted array is too large. First 10 elements: [${unsortedArray.slice(0, 10).join(', ')}] ... Last 10 elements: [${unsortedArray.slice(-10).join(', ')}]`;
+                const sortedPreview = `Sorted array is too large. First 10 elements: [${sortedArray.slice(0, 10).join(', ')}] ... Last 10 elements: [${sortedArray.slice(-10).join(', ')}]`;
+
+                document.getElementById("result").innerHTML += `
+                    <p>${unsortedPreview}</p>
+                    <p>${sortedPreview}</p>
+                `;
+            } else {
+                // If the array size is less than or equal to 100, show the whole array
+                document.getElementById("result").innerHTML += `
+                    <p><b>Unsorted Array (Search 1):</b></p>
+                    <p class="array">${unsortedArray.join(', ')}</p>
+
+                    <p><b>Sorted Array (Search 2):</b></p>
+                    <p class="array">${sortedArray.join(', ')}</p>
+                `;
+            }
+        }
+    </script>
+
+</body>
+</html>
