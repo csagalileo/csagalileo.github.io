@@ -99,9 +99,9 @@
             `;
 
             // Show portions of the arrays if size is greater than 100
-            if (arraySize > 100) {
-                const unsortedPreview = `Unsorted array is too large. First 10 elements: [${unsortedArray.slice(0, 10).join(', ')}] ... Last 10 elements: [${unsortedArray.slice(-10).join(', ')}]`;
-                const sortedPreview = `Sorted array is too large. First 10 elements: [${sortedArray.slice(0, 10).join(', ')}] ... Last 10 elements: [${sortedArray.slice(-10).join(', ')}]`;
+            if (arraySize > 1000) {
+                const unsortedPreview = `Unsorted array is too large to display. First 10 elements: [${unsortedArray.slice(0, 10).join(', ')}] ... Last 10 elements: [${unsortedArray.slice(-10).join(', ')}]`;
+                const sortedPreview = `Sorted array is too large to display. First 10 elements: [${sortedArray.slice(0, 10).join(', ')}] ... Last 10 elements: [${sortedArray.slice(-10).join(', ')}]`;
 
                 document.getElementById("result").innerHTML += `
                     <p>${unsortedPreview}</p>
@@ -110,10 +110,10 @@
             } else {
                 // If the array size is less than or equal to 100, show the whole array
                 document.getElementById("result").innerHTML += `
-                    <p><b>Unsorted Array (Search 1):</b></p>
+                    <p><b>Unsorted Array:</b></p>
                     <p class="array">${unsortedArray.join(', ')}</p>
 
-                    <p><b>Sorted Array (Search 2):</b></p>
+                    <p><b>Sorted Array:</b></p>
                     <p class="array">${sortedArray.join(', ')}</p>
                 `;
             }
