@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>OSI Model Matching</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      padding: 40px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .container {
+      display: flex;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: auto;
+      gap: 20px;
+    }
+    .column {
+      flex: 1;
+      background: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    .column h2 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .item {
+      background: #e0f7fa;
+      padding: 6px 10px;
+      margin: 6px 0;
+      border-radius: 6px;
+      cursor: grab;
+      user-select: none;
+    }
+    .dropzone {
+      border: 2px dashed #ccc;
+      border-radius: 6px;
+      background: #f1f8e9;
+      min-height: 60px;
+      padding: 8px;
+      margin: 6px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .label {
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+    .correct {
+      background-color: #c8e6c9 !important;
+    }
+    .incorrect {
+      background-color: #ffcdd2 !important;
+    }
+    button {
+      display: block;
+      margin: 30px auto 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+    .score {
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <h1>OSI Model Matching Activity</h1>
+<p style="text-align: center; max-width: 800px; margin: 0 auto 30px; font-size: 16px;">
+  Drag one <strong>description</strong> from the left column and one <strong>layer name</strong> from the right column into the matching dropzone next to each <strong>OSI layer number</strong> in the center column. 
+  You must place both the correct description and name into the same box for the match to count. 
+  Click <em>Check Answers</em> to see your score, or <em>Reset</em> to try again with shuffled items.
+</p>
+
+  <div class="container">
+    <div class="column">
+      <h2>Descriptions</h2>
+      <div id="descriptions"></div>
+    </div>
+
+    <div class="column">
+  <h2>Layer Numbers</h2>
+  <div class="label">Layer 7</div><div class="dropzone" data-layer="7"></div>
+  <div class="label">Layer 6</div><div class="dropzone" data-layer="6"></div>
+  <div class="label">Layer 5</div><div class="dropzone" data-layer="5"></div>
+  <div class="label">Layer 4</div><div class="dropzone" data-layer="4"></div>
+  <div class="label">Layer 3</div><div class="dropzone" data-layer="3"></div>
+  <div class="label">Layer 2</div><div class="dropzone" data-layer="2"></div>
+  <div class="label">Layer 1</div><div class="dropzone" data-layer="1"></div>
+</div>
+
+
+    <div class="column">
+      <h2>Layer Names</h2>
+      <div id="names"></div>
+    </div>
+  </div>
+
+  <button onclick="checkAnswers()">Check Answers</button>
+  <button onclick="resetActivity()">Reset</button>
+  <div class="score" id="score"></div>
+
+  <script>
+    const correctMatches = {
+      1: { desc: "desc1", name: "name1" },
+      2: { desc: "desc2", name: "name2" },
+      3: { desc: "desc3", name: "name3" },
+      4: { desc: "desc4", name: "name4" },
+      5: { desc: "desc5", name: "name5" },
+      6: { desc: "desc6", name: "name6" },
+      7: { desc: "desc7", name: "name7" }
+    };
+
+    const descriptionsData = [
+      { id: "desc1", text: "Transmits raw bit stream over physical medium." },
+      { id: "desc2", text: "Handles error detection and framing for node-to-node data transfer." },
+      { id: "desc3", text: "Determines how data is routed between devices." },
+      { id: "desc4", text: "Provides reliable data transfer with error checking and flow control." },
+      { id: "desc5", text: "Manages sessions and controls dialogues between computers." },
+      { id: "desc6", text: "Ensures data is in a usable format and handles encryption and translation." },
+      { id: "desc7", text: "Provides network services directly to user applications." }
+    ];
+
+    const namesData = [
+      { id: "name1", text: "Physical" },
+      { id: "name2", text: "Data Link" },
+      { id: "name3", text: "Network" },
+      { id: "name4", text: "Transport" },
+      { id: "name5", text: "Session" },
+      { id: "name6", text: "Presentation" },
+      { id: "name7", text: "Application" }
+    ];
+
+    let draggedItem = null;
+
+    function shuffle(array) {
+      return array.sort(() => Math.random() - 0.5);
+    }
+
+    function renderItems() {
+      const descContainer = document.getElementById("descriptions");
+      const nameContainer = document.getElementById("names");
+      descContainer.innerHTML = "";
+      nameContainer.innerHTML = "";
+
+      shuffle(descriptionsData).forEach(item => {
+        const div = document.createElement("div");
+        div.className = "item";
+        div.id = item.id;
+        div.textContent = item.text;
+        div.setAttribute("draggable", "true");
+        descContainer.appendChild(div);
+      });
+
+      shuffle(namesData).forEach(item => {
+        const div = document.createElement("div");
+        div.className = "item";
+        div.id = item.id;
+        div.textContent = item.text;
+        div.setAttribute("draggable", "true");
+        nameContainer.appendChild(div);
+      });
+
+      setupDragEvents();
+    }
+
+    function setupDragEvents() {
+      document.querySelectorAll('.item').forEach(item => {
+        item.addEventListener('dragstart', () => {
+          draggedItem = item;
+        });
+      });
+
+      document.querySelectorAll('.dropzone').forEach(zone => {
+        zone.addEventListener('dragover', e => e.preventDefault());
+        zone.addEventListener('drop', e => {
+          e.preventDefault();
+          if (draggedItem && !zone.contains(draggedItem)) {
+            zone.appendChild(draggedItem);
+          }
+        });
+      });
+    }
+
+    function checkAnswers() {
+      let score = 0;
+
+      document.querySelectorAll('.dropzone').forEach(zone => {
+        const layerNum = zone.getAttribute('data-layer');
+        const expected = correctMatches[layerNum];
+        const items = Array.from(zone.querySelectorAll('.item'));
+        const hasDesc = items.find(i => i.id === expected.desc);
+        const hasName = items.find(i => i.id === expected.name);
+
+        items.forEach(i => i.classList.remove('correct', 'incorrect'));
+
+        if (hasDesc && hasName && items.length === 2) {
+          hasDesc.classList.add('correct');
+          hasName.classList.add('correct');
+          score++;
+        } else {
+          items.forEach(i => i.classList.add('incorrect'));
+        }
+      });
+
+      document.getElementById('score').innerText = `You matched ${score} out of 7 correctly.`;
+    }
+
+    function resetActivity() {
+      document.querySelectorAll('.dropzone').forEach(zone => zone.innerHTML = "");
+      document.getElementById('score').innerText = "";
+      renderItems();
+    }
+
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', () => {
+      renderItems();
+    });
+  </script>
+</body>
+</html>
