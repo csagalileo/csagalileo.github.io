@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Security Controls Drag & Drop</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background: #f5f5f5;
+    }
+    h1 {
+        text-align: center;
+    }
+    .container {
+        display: flex;
+        gap: 20px;
+    }
+    #wordBank {
+        width: 30%;
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    }
+    .draggable {
+        padding: 8px;
+        margin: 6px 0;
+        background: #e3ecff;
+        border: 1px solid #7a9cff;
+        border-radius: 5px;
+        cursor: grab;
+    }
+    table {
+        border-collapse: collapse;
+        width: 70%;
+        background: white;
+        box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    }
+    th, td {
+        border: 1px solid #ccc;
+        padding: 10px;
+        min-height: 60px;
+        vertical-align: top;
+        text-align: center;
+    }
+    th {
+        background: #dfe7f3;
+    }
+    td.dropzone {
+        background: #fafafa;
+    }
+    td.dropzone.over {
+        background: #d0ffd0;
+    }
+    .correct {
+        background: #b6ffb6 !important;
+    }
+    .incorrect {
+        background: #ffb6b6 !important;
+    }
+    #resetBtn {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+</style>
+</head>
+<body>
+
+<h1>Security Controls Exercise</h1>
+
+<p style="max-width: 900px; margin: 0 auto 20px auto; font-size: 1.1em;">
+    <strong>Directions:</strong> Drag each security control example from the list on the left 
+    into the correct cell in the table based on its <em>Control Type</em> (rows) and 
+    <em>Control Function</em> (columns). When you drop an item into a cell, it will 
+    automatically check your answer and highlight green if correct or red if incorrect. 
+    If you place a new item into a cell that already contains one, the previous item will 
+    return to the list. Use the Reset button to start over at any time.
+</p>
+
+<div class="container">
+    <div id="wordBank">
+        <h3>Drag These Controls</h3>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Control Type ↓ / Function →</th>
+                <th>Technical</th>
+                <th>Managerial</th>
+                <th>Operational</th>
+                <th>Physical</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+</div>
+
+<button id="resetBtn">Reset</button>
+
+<script>
+// Table structure
+const controlTypes = [
+    "Preventative", "Deterrent", "Detective",
+    "Corrective", "Compensating", "Directive"
+];
+
+const controlFunctions = [
+    "Technical", "Managerial", "Operational", "Physical"
+];
+
+// Correct answers mapped by row/column (your updated examples)
+const correctAnswers = {
+    "Preventative-Technical": "Firewall, IPS, MFA solutions, antivirus software",
+    "Preventative-Managerial": "Hiring and termination, policies, separation of duties, data classification",
+    "Preventative-Operational": "Security awareness training",
+    "Preventative-Physical": "Fences, gates, locks",
+
+    "Deterrent-Technical": "Firewall rule configurations, update malware scanners",
+    "Deterrent-Managerial": "Employee background checks",
+    "Deterrent-Operational": "Periodic review of security policies, device logon warning banners",
+    "Deterrent-Physical": "Access control vestibule, signs, security guards",
+
+    "Detective-Technical": "Intrusion detection systems, honeypots",
+    "Detective-Managerial": "Review access rights, audit logs, and unauthorized changes",
+    "Detective-Operational": "Log analysis",
+    "Detective-Physical": "CCTV and surveillance camera logs",
+
+    "Corrective-Technical": "Patch a system, terminate process, reboot a system, quarantine a virus",
+    "Corrective-Managerial": "Implement a business continuity plan or incident response plan",
+    "Corrective-Operational": "Patching known vulnerabilities on hardware",
+    "Corrective-Physical": "Repair physical damage, re-issue access cards",
+
+    "Compensating-Technical": "Network isolation for IoT devices",
+    "Compensating-Managerial": "Increased data backups and monitoring",
+    "Compensating-Operational": "Requiring Multi-Factor-Authentication (MFA) on company devices",
+    "Compensating-Physical": "Robot sentries as a replacement or additional security layer to security guards",
+
+    "Directive-Technical": "Define password security complexity, mandate regular password changes",
+    "Directive-Managerial": "Outlines consequences for non-compliance",
+    "Directive-Operational": "Define data classification and handling procedures",
+    "Directive-Physical": "Restricting physical media access – no BYOD, disabling unused USB and ethernet ports"
+};
+
+// Word bank items
+const examples = Object.values(correctAnswers);
+
+// Shuffle helper
+function shuffle(array) {
+    return array.sort(() => Math.random() - 0.5);
+}
+
+// Build table
+const tableBody = document.getElementById("tableBody");
+controlTypes.forEach(type => {
+    const row = document.createElement("tr");
+    const header = document.createElement("th");
+    header.textContent = type;
+    row.appendChild(header);
+
+    controlFunctions.forEach(func => {
+        const cell = document.createElement("td");
+        cell.classList.add("dropzone");
+        cell.dataset.key = `${type}-${func}`;
+        cell.addEventListener("dragover", dragOver);
+        cell.addEventListener("dragleave", dragLeave);
+        cell.addEventListener("drop", dropItem);
+        row.appendChild(cell);
+    });
+
+    tableBody.appendChild(row);
+});
+
+// Populate word bank with random order
+function loadWordBank() {
+    wordBank.innerHTML = "<h3>Drag These Controls</h3>";
+    shuffle(examples).forEach(text => {
+        const div = document.createElement("div");
+        div.classList.add("draggable");
+        div.textContent = text;
+        div.draggable = true;
+        div.addEventListener("dragstart", dragStart);
+        wordBank.appendChild(div);
+    });
+}
+
+const wordBank = document.getElementById("wordBank");
+loadWordBank();
+
+// Drag & Drop handlers
+let draggedItem = null;
+
+function dragStart(e) {
+    draggedItem = this;
+}
+
+function dragOver(e) {
+    e.preventDefault();
+    this.classList.add("over");
+}
+
+function dragLeave() {
+    this.classList.remove("over");
+}
+
+function dropItem() {
+    this.classList.remove("over");
+
+    // If cell already has an item, move it back to the word bank
+    if (this.firstChild) {
+        const oldItem = this.firstChild;
+        oldItem.classList.remove("correct", "incorrect");
+        wordBank.appendChild(oldItem);
+    }
+
+    // Place new item
+    if (draggedItem) {
+        this.appendChild(draggedItem);
+    }
+
+    autoCheck(this, draggedItem);
+}
+
+// Auto-check only the most recently dropped item
+function autoCheck(cell, item) {
+    const key = cell.dataset.key;
+    const correct = correctAnswers[key];
+    const placed = item.textContent.trim();
+
+    item.classList.remove("correct", "incorrect");
+
+    if (placed === correct) {
+        item.classList.add("correct");
+    } else {
+        item.classList.add("incorrect");
+    }
+}
+
+// Reset
+document.getElementById("resetBtn").onclick = () => {
+    document.querySelectorAll("td.dropzone").forEach(cell => {
+        if (cell.firstChild) {
+            wordBank.appendChild(cell.firstChild);
+        }
+        cell.classList.remove("correct", "incorrect");
+    });
+    loadWordBank();
+};
+</script>
+
+</body>
+</html>
