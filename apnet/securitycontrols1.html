@@ -64,7 +64,14 @@
         padding: 10px 20px;
         font-size: 16px;
     }
+    #screenshotBtn {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+    }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 </head>
 <body>
 
@@ -99,6 +106,7 @@
 </div>
 
 <button id="resetBtn">Reset</button>
+<button id="screenshotBtn">Take Screenshot</button>
 
 <script>
 // Table structure
@@ -248,8 +256,20 @@ document.getElementById("resetBtn").onclick = () => {
     });
     loadWordBank();
 };
+
+document.getElementById("screenshotBtn").onclick = () => {
+    const tableArea = document.querySelector(".container");
+
+    html2canvas(tableArea).then(canvas => {
+        const link = document.createElement("a");
+        link.download = "security_controls_table.png";
+        link.href = canvas.toDataURL();
+        link.click();
+    });
+};
 </script>
 
 </body>
 </html>
+
 
