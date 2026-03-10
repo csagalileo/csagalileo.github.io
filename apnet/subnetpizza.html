@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Subnetting Pizza Visualizer</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: #0f172a;
+      color: #e5e7eb;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      min-height: 100vh;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .app {
+      background: #020617;
+      border-radius: 16px;
+      padding: 24px 28px;
+      max-width: 1100px;
+      width: 100%;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
+      border: 1px solid #1f2937;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 24px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 1.6rem;
+      color: #f97316;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 1.1rem;
+      color: #e5e7eb;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      margin-bottom: 4px;
+      color: #d1d5db;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #374151;
+      background: #020617;
+      color: #e5e7eb;
+      font-size: 0.9rem;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin-top: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, #f97316, #fb923c);
+      color: #111827;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .mode-toggle {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .mode-toggle button {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      background: #1e293b;
+      color: #e5e7eb;
+      border: 1px solid #334155;
+    }
+
+    .mode-toggle button.active {
+      background: #f97316;
+      color: #111827;
+      border-color: #fb923c;
+    }
+
+    .pizza {
+      position: relative;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 20%, #fed7aa, #f97316 55%, #b45309 100%);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+      border: 6px solid #78350f;
+    }
+
+    .slice-line {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 50%;              /* center → edge */
+      height: 2px;
+      background: rgba(15, 23, 42, 0.9);
+      transform-origin: 0 50%; /* pivot at center */
+    }
+
+    .slice-label {
+      position: absolute;
+      font-size: 0.7rem;
+      color: #f9fafb;
+      font-weight: 600;
+    }
+
+    .results {
+      margin-top: 10px;
+      max-height: 260px;
+      overflow-y: auto;
+    }
+
+    .subnet-card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 10px;
+      padding: 8px 10px;
+      border: 1px solid #1f2937;
+      margin-bottom: 6px;
+      font-size: 0.8rem;
+    }
+
+    .error {
+      color: #fca5a5;
+      font-size: 0.8rem;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 900px) {
+      .app {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+
+  <!-- LEFT SIDE -->
+  <div>
+    <h1>Subnetting Pizza</h1>
+
+    <!-- MODE SELECTOR -->
+    <div class="mode-toggle">
+      <button id="equalModeBtn" class="active">Equal Slices</button>
+      <button id="vlsmModeBtn">Uneven Slices (VLSM)</button>
+    </div>
+
+    <!-- EQUAL MODE -->
+    <div id="equalMode">
+      <label>Network (CIDR)</label>
+      <input id="equalNetwork" value="192.168.10.0/24">
+
+      <label>Bits to borrow</label>
+      <select id="equalBits">
+        <option value="1">1 bit → 2 subnets</option>
+        <option value="2" selected>2 bits → 4 subnets</option>
+        <option value="3">3 bits → 8 subnets</option>
+        <option value="4">4 bits → 16 subnets</option>
+      </select>
+
+      <button id="equalBtn">Slice the Pizza</button>
+      <div id="equalError" class="error"></div>
+      <div id="equalResults" class="results"></div>
+    </div>
+
+    <!-- VLSM MODE -->
+    <div id="vlsmMode" style="display:none;">
+      <label>Network (CIDR)</label>
+      <input id="vlsmNetwork" value="192.168.10.0/24">
+
+      <label>Host requirements (comma separated)</label>
+      <input id="vlsmHosts" value="100,50,20,10">
+
+      <button id="vlsmBtn">Bake the VLSM Pizza</button>
+      <div id="vlsmError" class="error"></div>
+      <div id="vlsmResults" class="results"></div>
+    </div>
+  </div>
+
+  <!-- RIGHT SIDE (PIZZA) -->
+  <div style="text-align:center;">
+    <h2>Pizza View</h2>
+    <div class="pizza" id="pizza"></div>
+  </div>
+
+</div>
+
+<script>
+function usableHosts(network, broadcast) {
+  if (broadcast - network < 2) {
+    return { first: "N/A", last: "N/A", count: 0 };
+  }
+  return {
+    first: intToIp(network + 1),
+    last: intToIp(broadcast - 1),
+    count: (broadcast - network - 1)
+  };
+}
+
+    
+  /* Utility functions */
+  function parseCIDR(cidr) {
+    const parts = cidr.split("/");
+    if (parts.length !== 2) return null;
+    const ip = parts[0].trim();
+    const prefix = parseInt(parts[1], 10);
+    if (isNaN(prefix) || prefix < 0 || prefix > 32) return null;
+    const octets = ip.split(".");
+    if (octets.length !== 4) return null;
+    const nums = octets.map(o => parseInt(o, 10));
+    if (nums.some(n => isNaN(n) || n < 0 || n > 255)) return null;
+    const ipInt =
+      (nums[0] << 24) |
+      (nums[1] << 16) |
+      (nums[2] << 8) |
+      nums[3];
+    return { ipInt: ipInt >>> 0, prefix, ipStr: ip };
+  }
+
+  function intToIp(int) {
+    return [
+      (int >>> 24) & 0xff,
+      (int >>> 16) & 0xff,
+      (int >>> 8) & 0xff,
+      int & 0xff
+    ].join(".");
+  }
+
+function renderPizza(slices) {
+  const pizza = document.getElementById("pizza");
+  pizza.innerHTML = "";
+
+  let angleStart = -90; // start at top
+
+  slices.forEach((slice) => {
+    const angle = slice.angle;
+
+    // boundary line
+    const line = document.createElement("div");
+    line.className = "slice-line";
+    line.style.transform = `rotate(${angleStart}deg)`;
+    pizza.appendChild(line);
+
+    // label
+    const label = document.createElement("div");
+    label.className = "slice-label";
+    const midAngle = angleStart + angle / 2;
+    const rad = midAngle * Math.PI / 180;
+    const r = 90;
+    const centerX = 130;
+    const centerY = 130;
+    const x = centerX + r * Math.cos(rad);
+    const y = centerY + r * Math.sin(rad);
+    label.style.left = x + "px";
+    label.style.top = y + "px";
+    label.textContent = slice.label;
+    pizza.appendChild(label);
+
+    angleStart += angle;
+  });
+}
+
+
+  /* Equal slices mode */
+  document.getElementById("equalBtn").onclick = () => {
+    const cidr = document.getElementById("equalNetwork").value;
+    const bits = parseInt(document.getElementById("equalBits").value, 10);
+    const error = document.getElementById("equalError");
+    const results = document.getElementById("equalResults");
+    error.textContent = "";
+    results.innerHTML = "";
+
+    const base = parseCIDR(cidr);
+    if (!base) {
+      error.textContent = "Invalid CIDR.";
+      return;
+    }
+
+    const newPrefix = base.prefix + bits;
+    if (newPrefix > 30) {
+      error.textContent = "New prefix too long (must be ≤ /30).";
+      return;
+    }
+
+    const total = 1 << bits;
+    const blockSize = 1 << (32 - newPrefix);
+    const hostCount = blockSize - 2;
+
+    const slices = [];
+    for (let i = 0; i < total; i++) {
+      const net = (base.ipInt + i * blockSize) >>> 0;
+      const bc = (net + blockSize - 1) >>> 0;
+
+      const { first, last, count } = usableHosts(net, bc);
+
+const card = document.createElement("div");
+card.className = "subnet-card";
+card.innerHTML = `
+  <strong>Subnet ${i}</strong><br>
+  Network: ${intToIp(net)}/${newPrefix}<br>
+  Broadcast: ${intToIp(bc)}<br>
+  Usable hosts: ${first} – ${last}<br>
+  Count: ${count}
+`;
+results.appendChild(card);
+
+
+      slices.push({ angle: 360 / total, label: i });
+    }
+
+    renderPizza(slices);
+  };
+
+/* VLSM mode */
+document.getElementById("vlsmBtn").onclick = () => {
+  const cidr = document.getElementById("vlsmNetwork").value;
+  const hostsRaw = document.getElementById("vlsmHosts").value;
+  const error = document.getElementById("vlsmError");
+  const results = document.getElementById("vlsmResults");
+  error.textContent = "";
+  results.innerHTML = "";
+
+  const base = parseCIDR(cidr);
+  if (!base) {
+    error.textContent = "Invalid CIDR.";
+    return;
+  }
+
+  // Base block size
+  const baseBlock = 1 << (32 - base.prefix);
+
+  let hosts = hostsRaw
+    .split(",")
+    .map(h => parseInt(h.trim(), 10))
+    .filter(h => h > 0);
+
+  if (hosts.length === 0) {
+    error.textContent = "Enter valid host requirements.";
+    return;
+  }
+
+  // Sort largest → smallest
+  hosts.sort((a, b) => b - a);
+
+  let currentIP = base.ipInt;
+  const allocations = [];
+  let totalAllocated = 0;
+
+  for (let i = 0; i < hosts.length; i++) {
+    const needed = hosts[i];
+
+    // Determine required block size
+    let bits = 0;
+    while ((1 << bits) - 2 < needed) bits++;
+    const prefix = 32 - bits;
+    const blockSize = 1 << bits;
+
+    const net = currentIP;
+    const bc = currentIP + blockSize - 1;
+
+    allocations.push({
+      index: i,
+      net,
+      bc,
+      prefix,
+      blockSize,
+      hosts: needed
+    });
+
+    totalAllocated += blockSize;
+    currentIP += blockSize;
+  }
+
+  const slices = [];
+
+  // Add allocated slices
+  allocations.forEach(a => {
+    const angle = (a.blockSize / baseBlock) * 360;
+
+    const { first, last, count } = usableHosts(a.net, a.bc);
+
+const card = document.createElement("div");
+card.className = "subnet-card";
+card.innerHTML = `
+  <strong>Subnet ${a.index}</strong><br>
+  Hosts needed: ${a.hosts}<br>
+  Network: ${intToIp(a.net)}/${a.prefix}<br>
+  Broadcast: ${intToIp(a.bc)}<br>
+  Usable hosts: ${first} – ${last}<br>
+  Count: ${count}<br>
+  Block size: ${a.blockSize}
+`;
+results.appendChild(card);
+
+
+    slices.push({ angle, label: a.index });
+  });
+
+  // Add unused slice if any space remains
+  const remaining = baseBlock - totalAllocated;
+  if (remaining > 0) {
+    const angle = (remaining / baseBlock) * 360;
+
+    const card = document.createElement("div");
+    card.className = "subnet-card";
+    card.innerHTML = `
+      <strong>Unused Space</strong><br>
+      Block size: ${remaining}<br>
+      (${remaining} addresses unallocated)
+    `;
+    results.appendChild(card);
+
+    slices.push({ angle, label: "unused" });
+  }
+
+  renderPizza(slices);
+};
+
+
+  /* Mode switching */
+  document.getElementById("equalModeBtn").onclick = () => {
+    document.getElementById("equalMode").style.display = "block";
+    document.getElementById("vlsmMode").style.display = "none";
+    document.getElementById("equalModeBtn").classList.add("active");
+    document.getElementById("vlsmModeBtn").classList.remove("active");
+  };
+
+  document.getElementById("vlsmModeBtn").onclick = () => {
+    document.getElementById("equalMode").style.display = "none";
+    document.getElementById("vlsmMode").style.display = "block";
+    document.getElementById("vlsmModeBtn").classList.add("active");
+    document.getElementById("equalModeBtn").classList.remove("active");
+  };
+
+  // initial render (equal mode default)
+  document.getElementById("equalBtn").click();
+</script>
+</body>
+</html>
