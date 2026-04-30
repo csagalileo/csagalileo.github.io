@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AP Networking Flashcards (Mobile)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #020617;
+      --bg-alt: #020617;
+      --card-bg: #020617;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.15);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --danger: #f97373;
+      --hard: #facc15;
+      --border: #1f2937;
+      --radius: 16px;
+      --shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #111827 0, #020617 55%, #000 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    header {
+      padding: 10px 14px 6px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.05rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    header p {
+      margin: 0;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .tagline {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .top-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 14px 4px;
+      gap: 8px;
+      background: rgba(15, 23, 42, 0.96);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+    }
+
+    .top-controls button {
+      border: none;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.75rem;
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .top-controls button span.icon {
+      font-size: 0.9rem;
+    }
+
+    .top-controls button.primary {
+      background: linear-gradient(to right, #0ea5e9, #22c55e);
+      color: #0b1120;
+      font-weight: 600;
+      border: none;
+    }
+
+    .top-controls button.primary span.icon {
+      font-size: 0.9rem;
+    }
+
+    .top-controls button:active {
+      transform: scale(0.97);
+    }
+
+    .screen {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-container {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 10px 70px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 480px;
+      min-height: 60vh;
+      background: radial-gradient(circle at top left, #1f2937 0, #020617 55%);
+      border-radius: var(--radius);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      box-shadow: var(--shadow);
+      padding: 16px 16px 14px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      touch-action: pan-y;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.16), transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .pill {
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.9);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.7rem;
+      max-width: 70%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .pill span.dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .pill.hard {
+      border-color: rgba(250, 204, 21, 0.7);
+      color: #facc15;
+    }
+
+    .pill.hard span.dot {
+      background: #facc15;
+    }
+
+    .card-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
+      padding: 4px 2px;
+    }
+
+    .card-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .card-text {
+      font-size: 1.1rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      text-align: left;
+    }
+
+    .card-text.back {
+      font-size: 0.98rem;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 6px;
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .card-footer button {
+      border: none;
+      background: transparent;
+      color: var(--accent);
+      font-size: 0.75rem;
+      cursor: pointer;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .card-footer button:active {
+      transform: scale(0.97);
+    }
+
+    .bottom-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 6px 10px 10px;
+      background: linear-gradient(to top, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.9));
+      border-top: 1px solid rgba(148, 163, 184, 0.3);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 6px;
+    }
+
+    .nav-buttons button {
+      flex: 1;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--text);
+      font-size: 0.8rem;
+      padding: 8px 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .nav-buttons button.primary {
+      background: linear-gradient(to right, #0ea5e9, #22c55e);
+      border-color: transparent;
+      color: #0b1120;
+      font-weight: 600;
+    }
+
+    .nav-buttons button.danger {
+      border-color: rgba(248, 113, 113, 0.7);
+      color: var(--danger);
+    }
+
+    .nav-buttons button:active {
+      transform: scale(0.97);
+    }
+
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: var(--muted);
+      padding: 0 2px;
+    }
+
+    .meta span strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.96);
+      backdrop-filter: blur(10px);
+      z-index: 20;
+      display: none;
+      flex-direction: column;
+      padding: 12px;
+      gap: 10px;
+    }
+
+    .overlay-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .overlay-header h2 {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    .overlay-header button {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .overlay-section {
+      font-size: 0.8rem;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .overlay-section label {
+      font-size: 0.8rem;
+    }
+
+    .overlay-section input,
+    .overlay-section select {
+      width: 100%;
+      padding: 7px 9px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text);
+      font-size: 0.8rem;
+      outline: none;
+    }
+
+    .overlay-section small {
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .overlay-section .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .overlay-section .row label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .overlay-section input[type="checkbox"] {
+      accent-color: var(--accent);
+    }
+
+    .overlay-footer {
+      margin-top: auto;
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .overlay-footer button {
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--text);
+      font-size: 0.8rem;
+      padding: 7px 12px;
+      cursor: pointer;
+    }
+
+    .overlay-footer button.primary {
+      background: linear-gradient(to right, #0ea5e9, #22c55e);
+      border-color: transparent;
+      color: #0b1120;
+      font-weight: 600;
+    }
+
+    .preview-list {
+      max-height: 40vh;
+      overflow-y: auto;
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      padding: 8px 10px;
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .preview-list h3 {
+      margin: 0 0 4px;
+      font-size: 0.8rem;
+      color: #e5e7eb;
+    }
+
+    .preview-list ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 0.75rem;
+    }
+
+    .preview-list li {
+      padding: 2px 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 1px 6px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--accent);
+      font-size: 0.65rem;
+      margin-right: 4px;
+    }
+
+    .badge.hard {
+      background: rgba(250, 204, 21, 0.12);
+      color: var(--hard);
+    }
+
+    @media (min-width: 768px) {
+      body {
+        max-width: 520px;
+        margin: 0 auto;
+        border-left: 1px solid rgba(148, 163, 184, 0.3);
+        border-right: 1px solid rgba(148, 163, 184, 0.3);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AP Networking Flashcards</h1>
+    <p><span class="tagline">Mobile study mode</span> · Tap to flip · Swipe to move · Mark hard for later.</p>
+  </header>
+
+  <div class="top-controls">
+    <button id="searchFilterBtn"><span class="icon">🔍</span> Search & Filter</button>
+    <button id="shuffleBtn" class="primary"><span class="icon">🔀</span> Shuffle</button>
+  </div>
+
+  <div class="screen">
+    <div class="card-container">
+      <div class="card" id="card">
+        <div class="card-inner">
+          <div class="card-header">
+            <div class="pill" id="categoryPill">
+              <span class="dot"></span>
+              <span id="categoryLabel">Category</span>
+            </div>
+            <div class="pill hard" id="hardPill" style="display:none;">
+              <span class="dot"></span>
+              <span>Hard</span>
+            </div>
+          </div>
+          <div class="card-body" id="cardBody">
+            <div class="card-label" id="sideLabel">Front · Prompt</div>
+            <div class="card-text" id="cardText">Loading cards…</div>
+          </div>
+          <div class="card-footer">
+            <button id="flipBtn">Tap card or button to flip</button>
+            <button id="hardToggleBtn"><span class="icon">⭐</span> Mark hard</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-bar">
+    <div class="nav-buttons">
+      <button id="prevBtn"><span class="icon">◀</span> Prev</button>
+      <button id="nextBtn" class="primary">Next <span class="icon">▶</span></button>
+      <button id="hardOnlyBtn" class="danger">Hard only</button>
+    </div>
+    <div class="meta">
+      <span>Card <strong id="cardIndex">0</strong> / <strong id="cardTotal">0</strong></span>
+      <span>Hard: <strong id="hardCount">0</strong></span>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay">
+    <div class="overlay-header">
+      <h2>Search & Filter</h2>
+      <button id="closeOverlayBtn">✕</button>
+    </div>
+    <div class="overlay-section">
+      <label for="searchInput">Search</label>
+      <input id="searchInput" type="text" placeholder="Command, term, protocol, port, etc." />
+      <small>Matches in question or answer text.</small>
+    </div>
+    <div class="overlay-section">
+      <label for="categoryFilter">Category</label>
+      <select id="categoryFilter">
+        <option value="all">All categories</option>
+        <option value="CLI">CLI Commands</option>
+        <option value="Ports">Ports & Protocols</option>
+        <option value="Data">Data Movement & Fundamentals</option>
+        <option value="Types">Network Types & Topologies</option>
+        <option value="Media">Connections & Media</option>
+        <option value="Devices">Network Devices</option>
+        <option value="Addressing">Addressing & Subnetting</option>
+        <option value="Routing">Routing</option>
+        <option value="LAN">LAN Segmentation</option>
+        <option value="WAN">WAN Concepts</option>
+        <option value="Monitoring">Monitoring & Troubleshooting</option>
+        <option value="DeviceSecurity">Device Security</option>
+        <option value="OSILayers">OSI Layers</option>
+        <option value="TCPIPLayers">TCP/IP Layers</option>
+        <option value="NetworkSecurity">Network Security</option>
+        <option value="WirelessSecurity">Wireless Security</option>
+        <option value="Security">Security (All)</option>
+      </select>
+    </div>
+    <div class="overlay-section">
+      <div class="row">
+        <label><input type="checkbox" id="hardOnlyCheckbox" /> Hard only</label>
+        <small>Show only cards you've marked as hard.</small>
+      </div>
+    </div>
+    <div class="overlay-section">
+      <div class="preview-list">
+        <h3>Preview (current filter)</h3>
+        <ul id="previewList"></ul>
+      </div>
+    </div>
+    <div class="overlay-footer">
+      <button id="clearSearchBtn">Clear</button>
+      <button id="applyFiltersBtn" class="primary">Apply</button>
+    </div>
+  </div>
+
+  <script>
+    const flashcards = [
+      // CLI COMMANDS
+      { id: 1, category: "CLI", front: "Command: cd", back: "Changes the current directory.\n\nExamples:\n- cd /home/user/Documents\n- cd .. (move up one directory)" },
+      { id: 2, category: "CLI", front: "Command: ls", back: "Lists files and directories in the current location.\n\nUseful flags:\n- ls -l (long format)\n- ls -a (show hidden files)" },
+      { id: 3, category: "CLI", front: "Command: pwd", back: "Prints the current working directory (absolute path)." },
+      { id: 4, category: "CLI", front: "Command: mkdir", back: "Creates a new directory.\n\nExample:\n- mkdir backups" },
+      { id: 5, category: "CLI", front: "Command: touch", back: "Creates an empty file or updates its timestamp.\n\nExample:\n- touch notes.txt" },
+      { id: 6, category: "CLI", front: "Command: cp", back: "Copies files or directories.\n\nExamples:\n- cp file1.txt file2.txt\n- cp -r dir1 dir2 (recursive copy)" },
+      { id: 7, category: "CLI", front: "Command: mv", back: "Moves or renames files.\n\nExamples:\n- mv oldname.txt newname.txt\n- mv file.txt /tmp/" },
+      { id: 8, category: "CLI", front: "Command: rm", back: "Removes files.\n⚠️ Dangerous.\n\nExamples:\n- rm file.txt\n- rm -r folder/ (recursive delete)" },
+      { id: 9, category: "CLI", front: "Command: cat", back: "Displays file contents.\n\nExample:\n- cat config.txt" },
+      { id: 10, category: "CLI", front: "Command: nano / vi", back: "Opens a text editor in the terminal to modify files." },
+      { id: 11, category: "CLI", front: "Command: ping", back: "Tests reachability and latency to another host.\n\nExample:\n- ping 8.8.8.8" },
+      { id: 12, category: "CLI", front: "Command: ipconfig (Windows)", back: "Shows IP address, gateway, DNS, and adapter status." },
+      { id: 13, category: "CLI", front: "Command: ifconfig / ip a (Linux)", back: "Displays or configures network interfaces." },
+      { id: 14, category: "CLI", front: "Command: tracert / traceroute", back: "Shows the path packets take to a destination." },
+      { id: 15, category: "CLI", front: "Command: nslookup", back: "Queries DNS to resolve domain names." },
+      { id: 16, category: "CLI", front: "Command: netstat", back: "Shows active connections, listening ports, and routing tables." },
+      { id: 17, category: "CLI", front: "Command: whoami", back: "Displays the current logged-in user." },
+      { id: 18, category: "CLI", front: "Command: sudo", back: "Executes a command with elevated privileges (run as another user, typically root)." },
+
+      // DATA MOVEMENT & FUNDAMENTALS
+      { id: 19, category: "Data", front: "Term: Data Packet", back: "A formatted unit of data carried across a network, containing headers (control information) and payload (actual data)." },
+      { id: 20, category: "Data", front: "Term: Frame", back: "Layer 2 data unit that contains MAC addresses, error checking, and payload." },
+      { id: 21, category: "Data", front: "Term: Bitrate", back: "The number of bits transmitted per second (bps)." },
+      { id: 22, category: "Data", front: "Term: Bandwidth", back: "The maximum data transfer capacity of a link." },
+      { id: 23, category: "Data", front: "Term: Latency", back: "The time it takes for data to travel from source to destination." },
+      { id: 24, category: "Data", front: "Term: Throughput", back: "The actual data transfer rate achieved on a network." },
+
+      // TYPES & TOPOLOGIES
+      { id: 25, category: "Types", front: "Term: LAN", back: "Local Area Network; connects devices in a limited area like a home, school, or office." },
+      { id: 26, category: "Types", front: "Term: WAN", back: "Wide Area Network; connects LANs across large geographic areas." },
+      { id: 27, category: "Types", front: "Term: MAN", back: "Metropolitan Area Network; spans a city or campus." },
+      { id: 28, category: "Types", front: "Term: PAN", back: "Personal Area Network; very short-range network (e.g., Bluetooth, wearables)." },
+      { id: 29, category: "Types", front: "Term: SOHO Network", back: "Small Office/Home Office network; simple LAN with basic routing and firewalling." },
+      { id: 30, category: "Types", front: "Topology: Star", back: "Devices connect to a central switch; most common modern LAN topology." },
+      { id: 31, category: "Types", front: "Topology: Bus", back: "All devices share a single communication line; mostly legacy." },
+      { id: 32, category: "Types", front: "Topology: Ring", back: "Devices form a circular path; data travels in one direction around the ring." },
+      { id: 33, category: "Types", front: "Topology: Mesh", back: "Devices interconnect with many redundant paths; often used in WANs for resilience." },
+
+      // MEDIA
+      { id: 34, category: "Media", front: "Term: Twisted Pair Cable (UTP/STP)", back: "Copper cabling used for Ethernet.\n- UTP: Unshielded Twisted Pair\n- STP: Shielded Twisted Pair (extra protection from interference)" },
+      { id: 35, category: "Media", front: "Term: Fiber Optic Cable", back: "Uses light to transmit data; high speed, long distance, and immune to electromagnetic interference." },
+      { id: 36, category: "Media", front: "Term: Coaxial Cable", back: "Copper cable with shielding; used for broadband and some older network technologies." },
+      { id: 37, category: "Media", front: "Term: RJ45 Connector", back: "Standard connector used for Ethernet cables." },
+      { id: 38, category: "Media", front: "Term: Ethernet", back: "Family of wired networking technologies (e.g., 100BASE-T, 1000BASE-T) used in LANs." },
+
+      // DEVICES
+      { id: 39, category: "Devices", front: "Device: Switch", back: "Layer 2 device that forwards frames based on MAC addresses; connects devices within a LAN." },
+      { id: 40, category: "Devices", front: "Device: Router", back: "Layer 3 device that forwards packets between networks using IP addresses." },
+      { id: 41, category: "Devices", front: "Device: Access Point (AP)", back: "Provides wireless connectivity to a wired network." },
+      { id: 42, category: "Devices", front: "Device: Modem", back: "Converts digital data to analog signals and vice versa for ISP connections." },
+      { id: 43, category: "Devices", front: "Device: Firewall (Basic)", back: "Filters traffic based on rules; can be hardware or software, often integrated into routers." },
+      { id: 44, category: "Devices", front: "Device: Repeater", back: "Regenerates signals to extend network distance." },
+      { id: 45, category: "Devices", front: "Device: Bridge", back: "Connects two LAN segments; predecessor to modern switches." },
+
+      // ADDRESSING (MAC + IP + SUBNETTING)
+      { id: 46, category: "Addressing", front: "Term: MAC Address", back: "48-bit hardware address burned into network interface cards; used for local delivery on a LAN." },
+      { id: 47, category: "Addressing", front: "Term: Broadcast MAC Address", back: "FF:FF:FF:FF:FF:FF; sent to all devices on a LAN segment." },
+      { id: 48, category: "Addressing", front: "Term: Unicast", back: "One-to-one communication between a single sender and a single receiver." },
+      { id: 49, category: "Addressing", front: "Term: Multicast", back: "One-to-many communication for a group of subscribed devices." },
+      { id: 50, category: "Addressing", front: "Term: IPv4 Address", back: "32-bit logical address written as dotted decimal (e.g., 192.168.1.1)." },
+      { id: 51, category: "Addressing", front: "Term: Subnet Mask", back: "Defines which bits of an IP address are network vs. host (e.g., 255.255.255.0)." },
+      { id: 52, category: "Addressing", front: "Term: Default Gateway", back: "Router address used by a host to reach external networks." },
+      { id: 53, category: "Addressing", front: "Term: DNS (Domain Name System)", back: "Resolves human-readable domain names (e.g., example.com) to IP addresses." },
+      { id: 54, category: "Addressing", front: "Term: DHCP (Dynamic Host Configuration Protocol)", back: "Automatically assigns IP addresses and network settings to devices." },
+      { id: 73, category: "Addressing", front: "Term: CIDR Notation", back: "Shorthand for subnet masks using a slash and number of network bits (e.g., /24)." },
+      { id: 74, category: "Addressing", front: "Term: Network Address", back: "First address in a subnet; identifies the network itself (not assignable to hosts)." },
+      { id: 75, category: "Addressing", front: "Term: Broadcast Address (IP)", back: "Last address in a subnet; used to send traffic to all hosts in that subnet." },
+      { id: 76, category: "Addressing", front: "Term: Host Range", back: "Usable IP addresses between the network and broadcast addresses." },
+      { id: 77, category: "Addressing", front: "Term: Subnetting", back: "Dividing a larger network into smaller networks to improve organization, performance, or security." },
+
+      // ROUTING
+      { id: 55, category: "Routing", front: "Term: Routing Table", back: "List of known networks and next hops that a router uses to forward packets." },
+      { id: 56, category: "Routing", front: "Term: Static Route", back: "Manually configured route that does not change unless edited by an administrator." },
+      { id: 57, category: "Routing", front: "Term: Default Route", back: "Catch-all route for unknown destinations (often written as 0.0.0.0/0)." },
+      { id: 58, category: "Routing", front: "Term: Hop", back: "Each router a packet passes through on its way to the destination." },
+
+      // PORTS & PROTOCOLS (NON-SECURITY)
+      { id: 59, category: "Ports", front: "Port 20/21 — Which protocol?", back: "FTP (File Transfer Protocol)\n- Port 20: data\n- Port 21: control" },
+      { id: 60, category: "Ports", front: "Port 22 — Which protocols?", back: "SSH (Secure Shell) and SFTP (Secure File Transfer over SSH)." },
+      { id: 61, category: "Ports", front: "Port 23 — Which protocol?", back: "Telnet (insecure remote access; legacy)." },
+      { id: 62, category: "Ports", front: "Port 25 — Which protocol?", back: "SMTP (Simple Mail Transfer Protocol) for sending email." },
+      { id: 63, category: "Ports", front: "Port 53 — Which protocol?", back: "DNS (Domain Name System) for name resolution (UDP/TCP)." },
+      { id: 64, category: "Ports", front: "Port 67/68 — Which protocol?", back: "DHCP (Dynamic Host Configuration Protocol)\n- 67: server\n- 68: client" },
+      { id: 65, category: "Ports", front: "Port 69 — Which protocol?", back: "TFTP (Trivial File Transfer Protocol); simple, often used for boot images." },
+      { id: 66, category: "Ports", front: "Port 80 — Which protocol?", back: "HTTP (Hypertext Transfer Protocol) for unencrypted web traffic." },
+      { id: 67, category: "Ports", front: "Port 110 — Which protocol?", back: "POP3 (Post Office Protocol v3) for email retrieval." },
+      { id: 68, category: "Ports", front: "Port 143 — Which protocol?", back: "IMAP (Internet Message Access Protocol) for email retrieval with server sync." },
+      { id: 69, category: "Ports", front: "Port 161/162 — Which protocol?", back: "SNMP (Simple Network Management Protocol)\n- 161: queries\n- 162: traps/notifications" },
+      { id: 70, category: "Ports", front: "Port 443 — Which protocol?", back: "HTTPS (HTTP Secure) for encrypted web traffic." },
+      { id: 71, category: "Ports", front: "Port 445 — Which protocol?", back: "SMB (Server Message Block) for file and printer sharing on Windows networks." },
+      { id: 72, category: "Ports", front: "Port 3389 — Which protocol?", back: "RDP (Remote Desktop Protocol) for remote graphical access to Windows systems." },
+
+      // LAN SEGMENTATION
+      { id: 78, category: "LAN", front: "Term: VLAN (Virtual LAN)", back: "Logically separates networks on the same physical switch; isolates broadcast domains." },
+      { id: 79, category: "LAN", front: "Term: Trunk Port", back: "Switch port that carries traffic for multiple VLANs between switches or to routers." },
+      { id: 80, category: "LAN", front: "Term: Access Port", back: "Switch port assigned to a single VLAN; used to connect end devices." },
+      { id: 81, category: "LAN", front: "Term: MAC Filtering (Switch)", back: "Allows or denies devices based on their MAC address." },
+      { id: 82, category: "LAN", front: "Term: Port Security (Switch)", back: "Limits which MAC addresses can use a switch port; can shut down or restrict the port on violations." },
+
+      // WAN
+      { id: 83, category: "WAN", front: "Term: ISP (Internet Service Provider)", back: "Company that provides access to the internet." },
+      { id: 84, category: "WAN", front: "Term: Public IP Address", back: "Globally routable address assigned by an ISP; reachable from the internet." },
+      { id: 85, category: "WAN", front: "Term: Private IP Address", back: "Non-routable internal address used inside networks (e.g., 192.168.x.x, 10.x.x.x)." },
+      { id: 86, category: "WAN", front: "Term: NAT (Network Address Translation)", back: "Translates private IP addresses to a public IP address (and back) for internet access." },
+
+      // MONITORING & TROUBLESHOOTING
+      { id: 87, category: "Monitoring", front: "Tool: Ping", back: "Tests reachability and latency to another host using ICMP echo requests." },
+      { id: 88, category: "Monitoring", front: "Tool: Traceroute", back: "Shows the path packets take to a destination by listing each hop." },
+      { id: 89, category: "Monitoring", front: "Tool: Netstat", back: "Displays active connections, listening ports, and routing information on a host." },
+      { id: 90, category: "Monitoring", front: "Tool: Packet Sniffer", back: "Captures and analyzes network traffic (e.g., Wireshark)." },
+      { id: 91, category: "Monitoring", front: "Process: Troubleshooting Steps", back: "Typical process:\n1. Identify the problem\n2. Establish a theory of probable cause\n3. Test the theory\n4. Establish a plan of action and implement the solution\n5. Verify full system functionality\n6. Implement preventive measures\n7. Document findings, actions, and outcomes" },
+
+      // DEVICE SECURITY
+      { id: 100, category: "DeviceSecurity", security: true, front: "Device Security: Strong Password Requirements", back: "Use long, unique passwords with mixed character types; avoid dictionary words; change when compromised or required by policy." },
+      { id: 101, category: "DeviceSecurity", security: true, front: "Device Security: Multi-Factor Authentication (MFA)", back: "Requires two or more factors: something you know (password), have (token), or are (biometrics)." },
+      { id: 102, category: "DeviceSecurity", security: true, front: "Device Security: Least Privilege", back: "Users receive only the minimum access needed to perform their tasks." },
+      { id: 103, category: "DeviceSecurity", security: true, front: "Device Security: Account Lockout Policy", back: "Temporarily disables an account after repeated failed login attempts to prevent brute-force attacks." },
+      { id: 104, category: "DeviceSecurity", security: true, front: "Device Security: Patching / Updates", back: "Installing vendor updates to fix vulnerabilities and improve security." },
+      { id: 105, category: "DeviceSecurity", security: true, front: "Device Security: Antivirus / Anti-Malware", back: "Scans for, detects, and removes malicious software." },
+      { id: 106, category: "DeviceSecurity", security: true, front: "Device Security: Disk Encryption", back: "Protects data at rest by encrypting the entire drive (e.g., BitLocker, FileVault)." },
+      { id: 107, category: "DeviceSecurity", security: true, front: "Device Security: Host-Based Firewall", back: "Filters traffic entering or leaving a single device." },
+
+      // SOCIAL ENGINEERING
+      { id: 108, category: "DeviceSecurity", security: true, front: "Social Engineering: Phishing", back: "Fraudulent messages designed to trick users into revealing sensitive information or clicking malicious links." },
+      { id: 109, category: "DeviceSecurity", security: true, front: "Social Engineering: Spear Phishing", back: "Targeted phishing aimed at a specific individual or organization." },
+      { id: 110, category: "DeviceSecurity", security: true, front: "Social Engineering: Pretexting", back: "Attacker invents a scenario (pretext) to trick someone into providing information or access." },
+      { id: 111, category: "DeviceSecurity", security: true, front: "Social Engineering: Shoulder Surfing", back: "Observing someone’s screen or keyboard to steal information." },
+
+      // OSI LAYERS
+      { id: 120, category: "OSILayers", front: "OSI Layer 1 (Physical)", back: "Transmits raw bits over physical media; includes cables, connectors, signaling." },
+      { id: 121, category: "OSILayers", front: "OSI Layer 2 (Data Link)", back: "Handles MAC addressing, frames, and error detection; includes switches and NICs." },
+      { id: 122, category: "OSILayers", front: "OSI Layer 3 (Network)", back: "Handles logical addressing and routing; includes IP and routers." },
+      { id: 123, category: "OSILayers", front: "OSI Layer 4 (Transport)", back: "Provides end-to-end communication; includes TCP (reliable) and UDP (unreliable)." },
+      { id: 124, category: "OSILayers", front: "OSI Layer 5 (Session)", back: "Manages sessions between applications (start, maintain, end connections)." },
+      { id: 125, category: "OSILayers", front: "OSI Layer 6 (Presentation)", back: "Translates, encrypts, and compresses data." },
+      { id: 126, category: "OSILayers", front: "OSI Layer 7 (Application)", back: "Interfaces with user applications (HTTP, DNS, SMTP, etc.)." },
+
+      // TCP/IP LAYERS
+      { id: 130, category: "TCPIPLayers", front: "TCP/IP Layer: Link", back: "Combines OSI Layers 1–2; handles physical transmission and MAC addressing." },
+      { id: 131, category: "TCPIPLayers", front: "TCP/IP Layer: Internet", back: "Equivalent to OSI Layer 3; handles IP addressing and routing." },
+      { id: 132, category: "TCPIPLayers", front: "TCP/IP Layer: Transport", back: "Equivalent to OSI Layer 4; includes TCP and UDP." },
+      { id: 133, category: "TCPIPLayers", front: "TCP/IP Layer: Application", back: "Combines OSI Layers 5–7; includes protocols like HTTP, DNS, SMTP." },
+
+      // NETWORK SECURITY CORE
+      { id: 140, category: "NetworkSecurity", security: true, front: "Security Concept: CIA Triad", back: "Confidentiality (prevent unauthorized access), Integrity (prevent tampering), Availability (ensure access)." },
+      { id: 141, category: "NetworkSecurity", security: true, front: "Security Concept: Defense in Depth", back: "Multiple layers of security controls to reduce risk if one layer fails." },
+      { id: 142, category: "NetworkSecurity", security: true, front: "Security Concept: Vulnerability", back: "A weakness that can be exploited by a threat." },
+      { id: 143, category: "NetworkSecurity", security: true, front: "Security Concept: Threat", back: "A potential cause of harm (e.g., attacker, malware, natural disaster)." },
+      { id: 144, category: "NetworkSecurity", security: true, front: "Security Concept: Risk", back: "Likelihood × impact of a threat exploiting a vulnerability." },
+
+      // NETWORK SECURITY CONTROLS
+      { id: 145, category: "NetworkSecurity", security: true, front: "Network Control: ACL (Access Control List)", back: "Rules that permit or deny traffic based on IP, port, or protocol." },
+      { id: 146, category: "NetworkSecurity", security: true, front: "Network Control: Segmentation", back: "Dividing a network into smaller parts (e.g., VLANs) to limit access and reduce attack spread." },
+      { id: 147, category: "NetworkSecurity", security: true, front: "Network Control: DMZ (Demilitarized Zone)", back: "Network area that hosts public-facing services while isolating internal systems." },
+      { id: 148, category: "NetworkSecurity", security: true, front: "Network Control: IDS (Intrusion Detection System)", back: "Monitors traffic for suspicious activity and alerts administrators." },
+      { id: 149, category: "NetworkSecurity", security: true, front: "Network Control: IPS (Intrusion Prevention System)", back: "Detects and blocks malicious traffic in real time." },
+
+      // WIRELESS SECURITY
+      { id: 150, category: "WirelessSecurity", security: true, front: "Wireless: WPA2 / WPA3", back: "Modern wireless encryption standards; WPA3 is the most secure commonly available option." },
+      { id: 151, category: "WirelessSecurity", security: true, front: "Wireless: SSID", back: "Wireless network name broadcast by an access point." },
+      { id: 152, category: "WirelessSecurity", security: true, front: "Wireless: MAC Filtering", back: "Allows or denies devices based on MAC address; weak security but useful for basic control." }
+    ];
+
+    const hardKey = "ap_networking_hard_cards_mobile";
+    let hardSet = new Set(JSON.parse(localStorage.getItem(hardKey) || "[]"));
+
+    let filteredCards = [...flashcards];
+    let currentIndex = 0;
+    let showingBack = false;
+    let filterState = {
+      search: "",
+      category: "all",
+      hardOnly: false
+    };
+
+    const cardEl = document.getElementById("card");
+    const cardTextEl = document.getElementById("cardText");
+    const sideLabelEl = document.getElementById("sideLabel");
+    const categoryLabelEl = document.getElementById("categoryLabel");
+    const categoryPillEl = document.getElementById("categoryPill");
+    const hardPillEl = document.getElementById("hardPill");
+    const cardIndexEl = document.getElementById("cardIndex");
+    const cardTotalEl = document.getElementById("cardTotal");
+    const hardCountEl = document.getElementById("hardCount");
+
+    const flipBtn = document.getElementById("flipBtn");
+    const hardToggleBtn = document.getElementById("hardToggleBtn");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const hardOnlyBtn = document.getElementById("hardOnlyBtn");
+    const shuffleBtn = document.getElementById("shuffleBtn");
+    const searchFilterBtn = document.getElementById("searchFilterBtn");
+
+    const overlay = document.getElementById("overlay");
+    const closeOverlayBtn = document.getElementById("closeOverlayBtn");
+    const searchInput = document.getElementById("searchInput");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const hardOnlyCheckbox = document.getElementById("hardOnlyCheckbox");
+    const previewList = document.getElementById("previewList");
+    const clearSearchBtn = document.getElementById("clearSearchBtn");
+    const applyFiltersBtn = document.getElementById("applyFiltersBtn");
+
+    function categoryName(cat) {
+      const map = {
+        CLI: "CLI Commands",
+        Ports: "Ports & Protocols",
+        Data: "Data Movement & Fundamentals",
+        Types: "Network Types & Topologies",
+        Media: "Connections & Media",
+        Devices: "Network Devices",
+        Addressing: "Addressing & Subnetting",
+        Routing: "Routing",
+        LAN: "LAN Segmentation",
+        WAN: "WAN Concepts",
+        Monitoring: "Monitoring & Troubleshooting",
+        DeviceSecurity: "Device Security",
+        OSILayers: "OSI Layers",
+        TCPIPLayers: "TCP/IP Layers",
+        NetworkSecurity: "Network Security",
+        WirelessSecurity: "Wireless Security",
+        Security: "Security (All)"
+      };
+      return map[cat] || cat;
+    }
+
+    function isSecurityCard(card) {
+      return !!card.security || ["DeviceSecurity", "NetworkSecurity", "WirelessSecurity"].includes(card.category);
+    }
+
+    function applyFilters() {
+      const { search, category, hardOnly } = filterState;
+      filteredCards = flashcards.filter(card => {
+        if (category !== "all") {
+          if (category === "Security") {
+            if (!isSecurityCard(card)) return false;
+          } else if (card.category !== category) {
+            return false;
+          }
+        }
+        if (hardOnly && !hardSet.has(card.id)) return false;
+        if (search) {
+          const text = (card.front + " " + card.back).toLowerCase();
+          if (!text.includes(search.toLowerCase())) return false;
+        }
+        return true;
+      });
+
+      if (filteredCards.length === 0) {
+        cardTextEl.textContent = "No cards match your filters. Adjust search or category.";
+        sideLabelEl.textContent = "No cards";
+        categoryLabelEl.textContent = "None";
+        hardPillEl.style.display = "none";
+        cardIndexEl.textContent = "0";
+        cardTotalEl.textContent = "0";
+        updatePreviewList();
+        return;
+      }
+
+      if (currentIndex >= filteredCards.length) currentIndex = 0;
+      showingBack = false;
+      renderCard();
+      updatePreviewList();
+    }
+
+    function renderCard() {
+      if (filteredCards.length === 0) return;
+      const card = filteredCards[currentIndex];
+      cardTextEl.textContent = showingBack ? card.back : card.front;
+      cardTextEl.className = "card-text" + (showingBack ? " back" : "");
+      sideLabelEl.textContent = showingBack ? "Back · Answer / Explanation" : "Front · Prompt";
+      categoryLabelEl.textContent = categoryName(card.category);
+      cardIndexEl.textContent = String(currentIndex + 1);
+      cardTotalEl.textContent = String(filteredCards.length);
+
+      const isHard = hardSet.has(card.id);
+      hardPillEl.style.display = isHard ? "inline-flex" : "none";
+      hardCountEl.textContent = String(hardSet.size);
+      hardToggleBtn.innerHTML = isHard ? '<span class="icon">⭐</span> Unmark hard' : '<span class="icon">⭐</span> Mark hard';
+    }
+
+    function updatePreviewList() {
+      previewList.innerHTML = "";
+      filteredCards.slice(0, 50).forEach(card => {
+        const li = document.createElement("li");
+        const badge = document.createElement("span");
+        badge.className = "badge" + (hardSet.has(card.id) ? " hard" : "");
+        badge.textContent = categoryName(card.category).split(" ")[0];
+        li.appendChild(badge);
+        li.appendChild(document.createTextNode(card.front));
+        previewList.appendChild(li);
+      });
+    }
+
+    function shuffleCards() {
+      for (let i = filteredCards.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [filteredCards[i], filteredCards[j]] = [filteredCards[j], filteredCards[i]];
+      }
+      currentIndex = 0;
+      showingBack = false;
+      renderCard();
+      updatePreviewList();
+    }
+
+    function saveHardSet() {
+      localStorage.setItem(hardKey, JSON.stringify(Array.from(hardSet)));
+    }
+
+    function openOverlay() {
+      searchInput.value = filterState.search;
+      categoryFilter.value = filterState.category;
+      hardOnlyCheckbox.checked = filterState.hardOnly;
+      overlay.style.display = "flex";
+      updatePreviewList();
+      searchInput.focus();
+    }
+
+    function closeOverlay() {
+      overlay.style.display = "none";
+    }
+
+    flipBtn.addEventListener("click", () => {
+      if (!filteredCards.length) return;
+      showingBack = !showingBack;
+      renderCard();
+    });
+
+    cardEl.addEventListener("click", (e) => {
+      if (e.target === flipBtn || e.target === hardToggleBtn) return;
+      if (!filteredCards.length) return;
+      showingBack = !showingBack;
+      renderCard();
+    });
+
+    hardToggleBtn.addEventListener("click", () => {
+      if (!filteredCards.length) return;
+      const card = filteredCards[currentIndex];
+      if (hardSet.has(card.id)) {
+        hardSet.delete(card.id);
+      } else {
+        hardSet.add(card.id);
+      }
+      saveHardSet();
+      renderCard();
+      updatePreviewList();
+    });
+
+    prevBtn.addEventListener("click", () => {
+      if (!filteredCards.length) return;
+      currentIndex = (currentIndex - 1 + filteredCards.length) % filteredCards.length;
+      showingBack = false;
+      renderCard();
+    });
+
+    nextBtn.addEventListener("click", () => {
+      if (!filteredCards.length) return;
+      currentIndex = (currentIndex + 1) % filteredCards.length;
+      showingBack = false;
+      renderCard();
+    });
+
+    hardOnlyBtn.addEventListener("click", () => {
+      filterState.hardOnly = !filterState.hardOnly;
+      hardOnlyBtn.classList.toggle("danger", !filterState.hardOnly);
+      hardOnlyBtn.textContent = filterState.hardOnly ? "All cards" : "Hard only";
+      applyFilters();
+    });
+
+    shuffleBtn.addEventListener("click", () => {
+      if (!filteredCards.length) return;
+      shuffleCards();
+    });
+
+    searchFilterBtn.addEventListener("click", openOverlay);
+    closeOverlayBtn.addEventListener("click", closeOverlay);
+
+    clearSearchBtn.addEventListener("click", () => {
+      searchInput.value = "";
+      categoryFilter.value = "all";
+      hardOnlyCheckbox.checked = false;
+      filterState = { search: "", category: "all", hardOnly: false };
+      applyFilters();
+      updatePreviewList();
+    });
+
+    applyFiltersBtn.addEventListener("click", () => {
+      filterState.search = searchInput.value.trim();
+      filterState.category = categoryFilter.value;
+      filterState.hardOnly = hardOnlyCheckbox.checked;
+      applyFilters();
+      closeOverlay();
+    });
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    cardEl.addEventListener("touchstart", (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    cardEl.addEventListener("touchend", (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const dx = touchEndX - touchStartX;
+      if (Math.abs(dx) > 50) {
+        if (dx < 0) {
+          nextBtn.click();
+        } else {
+          prevBtn.click();
+        }
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (overlay.style.display === "flex") return;
+      if (e.key === "ArrowRight") nextBtn.click();
+      else if (e.key === "ArrowLeft") prevBtn.click();
+      else if (e.key === " ") {
+        e.preventDefault();
+        flipBtn.click();
+      } else if (e.key.toLowerCase() === "h") {
+        hardToggleBtn.click();
+      }
+    });
+
+    applyFilters();
+  </script>
+</body>
+</html>
