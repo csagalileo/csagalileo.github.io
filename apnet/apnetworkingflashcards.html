@@ -2,15 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>AP Networking Flashcards (Mobile)</title>
+  <title>AP Networking Flashcards (Mobile + Animations)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
       --bg: #020617;
-      --bg-alt: #020617;
       --card-bg: #020617;
       --accent: #38bdf8;
-      --accent-soft: rgba(56, 189, 248, 0.15);
       --text: #e5e7eb;
       --muted: #9ca3af;
       --danger: #f97373;
@@ -98,10 +96,6 @@
       border: none;
     }
 
-    .top-controls button.primary span.icon {
-      font-size: 0.9rem;
-    }
-
     .top-controls button:active {
       transform: scale(0.97);
     }
@@ -135,6 +129,34 @@
       display: flex;
       flex-direction: column;
       touch-action: pan-y;
+      perspective: 1000px;
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.4s ease;
+    }
+
+    .card.flipped .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card-face {
+      position: absolute;
+      inset: 0;
+      padding: 16px 16px 14px;
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-back-face {
+      transform: rotateY(180deg);
     }
 
     .card::before {
@@ -144,14 +166,6 @@
       background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.16), transparent 55%);
       opacity: 0.9;
       pointer-events: none;
-    }
-
-    .card-inner {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
     }
 
     .card-header {
@@ -219,10 +233,6 @@
       text-align: left;
     }
 
-    .card-text.back {
-      font-size: 0.98rem;
-    }
-
     .card-footer {
       display: flex;
       justify-content: space-between;
@@ -246,6 +256,34 @@
 
     .card-footer button:active {
       transform: scale(0.97);
+    }
+
+    /* Swipe animations */
+    .card.swipe-left {
+      animation: swipeLeft 0.3s ease forwards;
+    }
+
+    .card.swipe-right {
+      animation: swipeRight 0.3s ease forwards;
+    }
+
+    @keyframes swipeLeft {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(-120%); opacity: 0; }
+    }
+
+    @keyframes swipeRight {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(120%); opacity: 0; }
+    }
+
+    .card.enter {
+      animation: enterCard 0.3s ease forwards;
+    }
+
+    @keyframes enterCard {
+      from { transform: translateX(120%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
     }
 
     .bottom-bar {
@@ -480,23 +518,46 @@
     <div class="card-container">
       <div class="card" id="card">
         <div class="card-inner">
-          <div class="card-header">
-            <div class="pill" id="categoryPill">
-              <span class="dot"></span>
-              <span id="categoryLabel">Category</span>
+          <div class="card-face card-front-face">
+            <div class="card-header">
+              <div class="pill" id="categoryPillFront">
+                <span class="dot"></span>
+                <span id="categoryLabelFront">Category</span>
+              </div>
+              <div class="pill hard" id="hardPillFront" style="display:none;">
+                <span class="dot"></span>
+                <span>Hard</span>
+              </div>
             </div>
-            <div class="pill hard" id="hardPill" style="display:none;">
-              <span class="dot"></span>
-              <span>Hard</span>
+            <div class="card-body">
+              <div class="card-label" id="sideLabelFront">Front · Prompt</div>
+              <div class="card-text" id="cardTextFront">Loading cards…</div>
+            </div>
+            <div class="card-footer">
+              <button id="flipBtnFront">Flip</button>
+              <button id="hardToggleBtnFront"><span class="icon">⭐</span> Mark hard</button>
             </div>
           </div>
-          <div class="card-body" id="cardBody">
-            <div class="card-label" id="sideLabel">Front · Prompt</div>
-            <div class="card-text" id="cardText">Loading cards…</div>
-          </div>
-          <div class="card-footer">
-            <button id="flipBtn">Tap card or button to flip</button>
-            <button id="hardToggleBtn"><span class="icon">⭐</span> Mark hard</button>
+
+          <div class="card-face card-back-face">
+            <div class="card-header">
+              <div class="pill" id="categoryPillBack">
+                <span class="dot"></span>
+                <span id="categoryLabelBack">Category</span>
+              </div>
+              <div class="pill hard" id="hardPillBack" style="display:none;">
+                <span class="dot"></span>
+                <span>Hard</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="card-label">Back · Answer / Explanation</div>
+              <div class="card-text" id="cardTextBack">Loading…</div>
+            </div>
+            <div class="card-footer">
+              <button id="flipBtnBack">Flip</button>
+              <button id="hardToggleBtnBack"><span class="icon">⭐</span> Mark hard</button>
+            </div>
           </div>
         </div>
       </div>
@@ -568,7 +629,6 @@
 
   <script>
     const flashcards = [
-      // CLI COMMANDS
       { id: 1, category: "CLI", front: "Command: cd", back: "Changes the current directory.\n\nExamples:\n- cd /home/user/Documents\n- cd .. (move up one directory)" },
       { id: 2, category: "CLI", front: "Command: ls", back: "Lists files and directories in the current location.\n\nUseful flags:\n- ls -l (long format)\n- ls -a (show hidden files)" },
       { id: 3, category: "CLI", front: "Command: pwd", back: "Prints the current working directory (absolute path)." },
@@ -588,7 +648,6 @@
       { id: 17, category: "CLI", front: "Command: whoami", back: "Displays the current logged-in user." },
       { id: 18, category: "CLI", front: "Command: sudo", back: "Executes a command with elevated privileges (run as another user, typically root)." },
 
-      // DATA MOVEMENT & FUNDAMENTALS
       { id: 19, category: "Data", front: "Term: Data Packet", back: "A formatted unit of data carried across a network, containing headers (control information) and payload (actual data)." },
       { id: 20, category: "Data", front: "Term: Frame", back: "Layer 2 data unit that contains MAC addresses, error checking, and payload." },
       { id: 21, category: "Data", front: "Term: Bitrate", back: "The number of bits transmitted per second (bps)." },
@@ -596,7 +655,6 @@
       { id: 23, category: "Data", front: "Term: Latency", back: "The time it takes for data to travel from source to destination." },
       { id: 24, category: "Data", front: "Term: Throughput", back: "The actual data transfer rate achieved on a network." },
 
-      // TYPES & TOPOLOGIES
       { id: 25, category: "Types", front: "Term: LAN", back: "Local Area Network; connects devices in a limited area like a home, school, or office." },
       { id: 26, category: "Types", front: "Term: WAN", back: "Wide Area Network; connects LANs across large geographic areas." },
       { id: 27, category: "Types", front: "Term: MAN", back: "Metropolitan Area Network; spans a city or campus." },
@@ -607,14 +665,12 @@
       { id: 32, category: "Types", front: "Topology: Ring", back: "Devices form a circular path; data travels in one direction around the ring." },
       { id: 33, category: "Types", front: "Topology: Mesh", back: "Devices interconnect with many redundant paths; often used in WANs for resilience." },
 
-      // MEDIA
       { id: 34, category: "Media", front: "Term: Twisted Pair Cable (UTP/STP)", back: "Copper cabling used for Ethernet.\n- UTP: Unshielded Twisted Pair\n- STP: Shielded Twisted Pair (extra protection from interference)" },
       { id: 35, category: "Media", front: "Term: Fiber Optic Cable", back: "Uses light to transmit data; high speed, long distance, and immune to electromagnetic interference." },
       { id: 36, category: "Media", front: "Term: Coaxial Cable", back: "Copper cable with shielding; used for broadband and some older network technologies." },
       { id: 37, category: "Media", front: "Term: RJ45 Connector", back: "Standard connector used for Ethernet cables." },
       { id: 38, category: "Media", front: "Term: Ethernet", back: "Family of wired networking technologies (e.g., 100BASE-T, 1000BASE-T) used in LANs." },
 
-      // DEVICES
       { id: 39, category: "Devices", front: "Device: Switch", back: "Layer 2 device that forwards frames based on MAC addresses; connects devices within a LAN." },
       { id: 40, category: "Devices", front: "Device: Router", back: "Layer 3 device that forwards packets between networks using IP addresses." },
       { id: 41, category: "Devices", front: "Device: Access Point (AP)", back: "Provides wireless connectivity to a wired network." },
@@ -623,7 +679,6 @@
       { id: 44, category: "Devices", front: "Device: Repeater", back: "Regenerates signals to extend network distance." },
       { id: 45, category: "Devices", front: "Device: Bridge", back: "Connects two LAN segments; predecessor to modern switches." },
 
-      // ADDRESSING (MAC + IP + SUBNETTING)
       { id: 46, category: "Addressing", front: "Term: MAC Address", back: "48-bit hardware address burned into network interface cards; used for local delivery on a LAN." },
       { id: 47, category: "Addressing", front: "Term: Broadcast MAC Address", back: "FF:FF:FF:FF:FF:FF; sent to all devices on a LAN segment." },
       { id: 48, category: "Addressing", front: "Term: Unicast", back: "One-to-one communication between a single sender and a single receiver." },
@@ -639,13 +694,11 @@
       { id: 76, category: "Addressing", front: "Term: Host Range", back: "Usable IP addresses between the network and broadcast addresses." },
       { id: 77, category: "Addressing", front: "Term: Subnetting", back: "Dividing a larger network into smaller networks to improve organization, performance, or security." },
 
-      // ROUTING
       { id: 55, category: "Routing", front: "Term: Routing Table", back: "List of known networks and next hops that a router uses to forward packets." },
       { id: 56, category: "Routing", front: "Term: Static Route", back: "Manually configured route that does not change unless edited by an administrator." },
       { id: 57, category: "Routing", front: "Term: Default Route", back: "Catch-all route for unknown destinations (often written as 0.0.0.0/0)." },
       { id: 58, category: "Routing", front: "Term: Hop", back: "Each router a packet passes through on its way to the destination." },
 
-      // PORTS & PROTOCOLS (NON-SECURITY)
       { id: 59, category: "Ports", front: "Port 20/21 — Which protocol?", back: "FTP (File Transfer Protocol)\n- Port 20: data\n- Port 21: control" },
       { id: 60, category: "Ports", front: "Port 22 — Which protocols?", back: "SSH (Secure Shell) and SFTP (Secure File Transfer over SSH)." },
       { id: 61, category: "Ports", front: "Port 23 — Which protocol?", back: "Telnet (insecure remote access; legacy)." },
@@ -661,27 +714,23 @@
       { id: 71, category: "Ports", front: "Port 445 — Which protocol?", back: "SMB (Server Message Block) for file and printer sharing on Windows networks." },
       { id: 72, category: "Ports", front: "Port 3389 — Which protocol?", back: "RDP (Remote Desktop Protocol) for remote graphical access to Windows systems." },
 
-      // LAN SEGMENTATION
       { id: 78, category: "LAN", front: "Term: VLAN (Virtual LAN)", back: "Logically separates networks on the same physical switch; isolates broadcast domains." },
       { id: 79, category: "LAN", front: "Term: Trunk Port", back: "Switch port that carries traffic for multiple VLANs between switches or to routers." },
       { id: 80, category: "LAN", front: "Term: Access Port", back: "Switch port assigned to a single VLAN; used to connect end devices." },
       { id: 81, category: "LAN", front: "Term: MAC Filtering (Switch)", back: "Allows or denies devices based on their MAC address." },
       { id: 82, category: "LAN", front: "Term: Port Security (Switch)", back: "Limits which MAC addresses can use a switch port; can shut down or restrict the port on violations." },
 
-      // WAN
       { id: 83, category: "WAN", front: "Term: ISP (Internet Service Provider)", back: "Company that provides access to the internet." },
       { id: 84, category: "WAN", front: "Term: Public IP Address", back: "Globally routable address assigned by an ISP; reachable from the internet." },
       { id: 85, category: "WAN", front: "Term: Private IP Address", back: "Non-routable internal address used inside networks (e.g., 192.168.x.x, 10.x.x.x)." },
       { id: 86, category: "WAN", front: "Term: NAT (Network Address Translation)", back: "Translates private IP addresses to a public IP address (and back) for internet access." },
 
-      // MONITORING & TROUBLESHOOTING
       { id: 87, category: "Monitoring", front: "Tool: Ping", back: "Tests reachability and latency to another host using ICMP echo requests." },
       { id: 88, category: "Monitoring", front: "Tool: Traceroute", back: "Shows the path packets take to a destination by listing each hop." },
       { id: 89, category: "Monitoring", front: "Tool: Netstat", back: "Displays active connections, listening ports, and routing information on a host." },
       { id: 90, category: "Monitoring", front: "Tool: Packet Sniffer", back: "Captures and analyzes network traffic (e.g., Wireshark)." },
       { id: 91, category: "Monitoring", front: "Process: Troubleshooting Steps", back: "Typical process:\n1. Identify the problem\n2. Establish a theory of probable cause\n3. Test the theory\n4. Establish a plan of action and implement the solution\n5. Verify full system functionality\n6. Implement preventive measures\n7. Document findings, actions, and outcomes" },
 
-      // DEVICE SECURITY
       { id: 100, category: "DeviceSecurity", security: true, front: "Device Security: Strong Password Requirements", back: "Use long, unique passwords with mixed character types; avoid dictionary words; change when compromised or required by policy." },
       { id: 101, category: "DeviceSecurity", security: true, front: "Device Security: Multi-Factor Authentication (MFA)", back: "Requires two or more factors: something you know (password), have (token), or are (biometrics)." },
       { id: 102, category: "DeviceSecurity", security: true, front: "Device Security: Least Privilege", back: "Users receive only the minimum access needed to perform their tasks." },
@@ -691,13 +740,11 @@
       { id: 106, category: "DeviceSecurity", security: true, front: "Device Security: Disk Encryption", back: "Protects data at rest by encrypting the entire drive (e.g., BitLocker, FileVault)." },
       { id: 107, category: "DeviceSecurity", security: true, front: "Device Security: Host-Based Firewall", back: "Filters traffic entering or leaving a single device." },
 
-      // SOCIAL ENGINEERING
       { id: 108, category: "DeviceSecurity", security: true, front: "Social Engineering: Phishing", back: "Fraudulent messages designed to trick users into revealing sensitive information or clicking malicious links." },
       { id: 109, category: "DeviceSecurity", security: true, front: "Social Engineering: Spear Phishing", back: "Targeted phishing aimed at a specific individual or organization." },
       { id: 110, category: "DeviceSecurity", security: true, front: "Social Engineering: Pretexting", back: "Attacker invents a scenario (pretext) to trick someone into providing information or access." },
       { id: 111, category: "DeviceSecurity", security: true, front: "Social Engineering: Shoulder Surfing", back: "Observing someone’s screen or keyboard to steal information." },
 
-      // OSI LAYERS
       { id: 120, category: "OSILayers", front: "OSI Layer 1 (Physical)", back: "Transmits raw bits over physical media; includes cables, connectors, signaling." },
       { id: 121, category: "OSILayers", front: "OSI Layer 2 (Data Link)", back: "Handles MAC addressing, frames, and error detection; includes switches and NICs." },
       { id: 122, category: "OSILayers", front: "OSI Layer 3 (Network)", back: "Handles logical addressing and routing; includes IP and routers." },
@@ -706,56 +753,51 @@
       { id: 125, category: "OSILayers", front: "OSI Layer 6 (Presentation)", back: "Translates, encrypts, and compresses data." },
       { id: 126, category: "OSILayers", front: "OSI Layer 7 (Application)", back: "Interfaces with user applications (HTTP, DNS, SMTP, etc.)." },
 
-      // TCP/IP LAYERS
       { id: 130, category: "TCPIPLayers", front: "TCP/IP Layer: Link", back: "Combines OSI Layers 1–2; handles physical transmission and MAC addressing." },
       { id: 131, category: "TCPIPLayers", front: "TCP/IP Layer: Internet", back: "Equivalent to OSI Layer 3; handles IP addressing and routing." },
       { id: 132, category: "TCPIPLayers", front: "TCP/IP Layer: Transport", back: "Equivalent to OSI Layer 4; includes TCP and UDP." },
       { id: 133, category: "TCPIPLayers", front: "TCP/IP Layer: Application", back: "Combines OSI Layers 5–7; includes protocols like HTTP, DNS, SMTP." },
 
-      // NETWORK SECURITY CORE
       { id: 140, category: "NetworkSecurity", security: true, front: "Security Concept: CIA Triad", back: "Confidentiality (prevent unauthorized access), Integrity (prevent tampering), Availability (ensure access)." },
       { id: 141, category: "NetworkSecurity", security: true, front: "Security Concept: Defense in Depth", back: "Multiple layers of security controls to reduce risk if one layer fails." },
       { id: 142, category: "NetworkSecurity", security: true, front: "Security Concept: Vulnerability", back: "A weakness that can be exploited by a threat." },
       { id: 143, category: "NetworkSecurity", security: true, front: "Security Concept: Threat", back: "A potential cause of harm (e.g., attacker, malware, natural disaster)." },
       { id: 144, category: "NetworkSecurity", security: true, front: "Security Concept: Risk", back: "Likelihood × impact of a threat exploiting a vulnerability." },
 
-      // NETWORK SECURITY CONTROLS
       { id: 145, category: "NetworkSecurity", security: true, front: "Network Control: ACL (Access Control List)", back: "Rules that permit or deny traffic based on IP, port, or protocol." },
       { id: 146, category: "NetworkSecurity", security: true, front: "Network Control: Segmentation", back: "Dividing a network into smaller parts (e.g., VLANs) to limit access and reduce attack spread." },
       { id: 147, category: "NetworkSecurity", security: true, front: "Network Control: DMZ (Demilitarized Zone)", back: "Network area that hosts public-facing services while isolating internal systems." },
       { id: 148, category: "NetworkSecurity", security: true, front: "Network Control: IDS (Intrusion Detection System)", back: "Monitors traffic for suspicious activity and alerts administrators." },
       { id: 149, category: "NetworkSecurity", security: true, front: "Network Control: IPS (Intrusion Prevention System)", back: "Detects and blocks malicious traffic in real time." },
 
-      // WIRELESS SECURITY
       { id: 150, category: "WirelessSecurity", security: true, front: "Wireless: WPA2 / WPA3", back: "Modern wireless encryption standards; WPA3 is the most secure commonly available option." },
       { id: 151, category: "WirelessSecurity", security: true, front: "Wireless: SSID", back: "Wireless network name broadcast by an access point." },
       { id: 152, category: "WirelessSecurity", security: true, front: "Wireless: MAC Filtering", back: "Allows or denies devices based on MAC address; weak security but useful for basic control." }
     ];
 
-    const hardKey = "ap_networking_hard_cards_mobile";
+    const hardKey = "ap_networking_hard_cards_mobile_anim";
     let hardSet = new Set(JSON.parse(localStorage.getItem(hardKey) || "[]"));
 
     let filteredCards = [...flashcards];
     let currentIndex = 0;
-    let showingBack = false;
-    let filterState = {
-      search: "",
-      category: "all",
-      hardOnly: false
-    };
+    let filterState = { search: "", category: "all", hardOnly: false };
 
     const cardEl = document.getElementById("card");
-    const cardTextEl = document.getElementById("cardText");
-    const sideLabelEl = document.getElementById("sideLabel");
-    const categoryLabelEl = document.getElementById("categoryLabel");
-    const categoryPillEl = document.getElementById("categoryPill");
-    const hardPillEl = document.getElementById("hardPill");
+    const cardInnerEl = cardEl.querySelector(".card-inner");
+    const cardTextFrontEl = document.getElementById("cardTextFront");
+    const cardTextBackEl = document.getElementById("cardTextBack");
+    const categoryLabelFrontEl = document.getElementById("categoryLabelFront");
+    const categoryLabelBackEl = document.getElementById("categoryLabelBack");
+    const hardPillFrontEl = document.getElementById("hardPillFront");
+    const hardPillBackEl = document.getElementById("hardPillBack");
     const cardIndexEl = document.getElementById("cardIndex");
     const cardTotalEl = document.getElementById("cardTotal");
     const hardCountEl = document.getElementById("hardCount");
 
-    const flipBtn = document.getElementById("flipBtn");
-    const hardToggleBtn = document.getElementById("hardToggleBtn");
+    const flipBtnFront = document.getElementById("flipBtnFront");
+    const flipBtnBack = document.getElementById("flipBtnBack");
+    const hardToggleBtnFront = document.getElementById("hardToggleBtnFront");
+    const hardToggleBtnBack = document.getElementById("hardToggleBtnBack");
     const prevBtn = document.getElementById("prevBtn");
     const nextBtn = document.getElementById("nextBtn");
     const hardOnlyBtn = document.getElementById("hardOnlyBtn");
@@ -816,11 +858,13 @@
         return true;
       });
 
-      if (filteredCards.length === 0) {
-        cardTextEl.textContent = "No cards match your filters. Adjust search or category.";
-        sideLabelEl.textContent = "No cards";
-        categoryLabelEl.textContent = "None";
-        hardPillEl.style.display = "none";
+      if (!filteredCards.length) {
+        cardTextFrontEl.textContent = "No cards match your filters. Adjust search or category.";
+        cardTextBackEl.textContent = "";
+        categoryLabelFrontEl.textContent = "None";
+        categoryLabelBackEl.textContent = "None";
+        hardPillFrontEl.style.display = "none";
+        hardPillBackEl.style.display = "none";
         cardIndexEl.textContent = "0";
         cardTotalEl.textContent = "0";
         updatePreviewList();
@@ -828,25 +872,26 @@
       }
 
       if (currentIndex >= filteredCards.length) currentIndex = 0;
-      showingBack = false;
+      cardEl.classList.remove("flipped");
       renderCard();
       updatePreviewList();
     }
 
     function renderCard() {
-      if (filteredCards.length === 0) return;
+      if (!filteredCards.length) return;
       const card = filteredCards[currentIndex];
-      cardTextEl.textContent = showingBack ? card.back : card.front;
-      cardTextEl.className = "card-text" + (showingBack ? " back" : "");
-      sideLabelEl.textContent = showingBack ? "Back · Answer / Explanation" : "Front · Prompt";
-      categoryLabelEl.textContent = categoryName(card.category);
+      cardTextFrontEl.textContent = card.front;
+      cardTextBackEl.textContent = card.back;
+      categoryLabelFrontEl.textContent = categoryName(card.category);
+      categoryLabelBackEl.textContent = categoryName(card.category);
+      const isHard = hardSet.has(card.id);
+      hardPillFrontEl.style.display = isHard ? "inline-flex" : "none";
+      hardPillBackEl.style.display = isHard ? "inline-flex" : "none";
+      hardToggleBtnFront.innerHTML = isHard ? '<span class="icon">⭐</span> Unmark hard' : '<span class="icon">⭐</span> Mark hard';
+      hardToggleBtnBack.innerHTML = hardToggleBtnFront.innerHTML;
       cardIndexEl.textContent = String(currentIndex + 1);
       cardTotalEl.textContent = String(filteredCards.length);
-
-      const isHard = hardSet.has(card.id);
-      hardPillEl.style.display = isHard ? "inline-flex" : "none";
       hardCountEl.textContent = String(hardSet.size);
-      hardToggleBtn.innerHTML = isHard ? '<span class="icon">⭐</span> Unmark hard' : '<span class="icon">⭐</span> Mark hard';
     }
 
     function updatePreviewList() {
@@ -868,7 +913,7 @@
         [filteredCards[i], filteredCards[j]] = [filteredCards[j], filteredCards[i]];
       }
       currentIndex = 0;
-      showingBack = false;
+      cardEl.classList.remove("flipped");
       renderCard();
       updatePreviewList();
     }
@@ -876,6 +921,74 @@
     function saveHardSet() {
       localStorage.setItem(hardKey, JSON.stringify(Array.from(hardSet)));
     }
+
+    function flipCard() {
+      cardEl.classList.toggle("flipped");
+    }
+
+    flipBtnFront.addEventListener("click", (e) => {
+      e.stopPropagation();
+      flipCard();
+    });
+    flipBtnBack.addEventListener("click", (e) => {
+      e.stopPropagation();
+      flipCard();
+    });
+
+    cardEl.addEventListener("click", (e) => {
+      if (e.target === hardToggleBtnFront || e.target === hardToggleBtnBack) return;
+      flipCard();
+    });
+
+    function toggleHard() {
+      if (!filteredCards.length) return;
+      const card = filteredCards[currentIndex];
+      if (hardSet.has(card.id)) {
+        hardSet.delete(card.id);
+      } else {
+        hardSet.add(card.id);
+      }
+      saveHardSet();
+      renderCard();
+      updatePreviewList();
+    }
+
+    hardToggleBtnFront.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleHard();
+    });
+    hardToggleBtnBack.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleHard();
+    });
+
+    function goPrev() {
+      if (!filteredCards.length) return;
+      currentIndex = (currentIndex - 1 + filteredCards.length) % filteredCards.length;
+      cardEl.classList.remove("flipped");
+      renderCard();
+    }
+
+    function goNext() {
+      if (!filteredCards.length) return;
+      currentIndex = (currentIndex + 1) % filteredCards.length;
+      cardEl.classList.remove("flipped");
+      renderCard();
+    }
+
+    prevBtn.addEventListener("click", () => goPrev());
+    nextBtn.addEventListener("click", () => goNext());
+
+    hardOnlyBtn.addEventListener("click", () => {
+      filterState.hardOnly = !filterState.hardOnly;
+      hardOnlyBtn.textContent = filterState.hardOnly ? "All cards" : "Hard only";
+      applyFilters();
+    });
+
+    shuffleBtn.addEventListener("click", () => {
+      if (!filteredCards.length) return;
+      shuffleCards();
+    });
 
     function openOverlay() {
       searchInput.value = filterState.search;
@@ -889,58 +1002,6 @@
     function closeOverlay() {
       overlay.style.display = "none";
     }
-
-    flipBtn.addEventListener("click", () => {
-      if (!filteredCards.length) return;
-      showingBack = !showingBack;
-      renderCard();
-    });
-
-    cardEl.addEventListener("click", (e) => {
-      if (e.target === flipBtn || e.target === hardToggleBtn) return;
-      if (!filteredCards.length) return;
-      showingBack = !showingBack;
-      renderCard();
-    });
-
-    hardToggleBtn.addEventListener("click", () => {
-      if (!filteredCards.length) return;
-      const card = filteredCards[currentIndex];
-      if (hardSet.has(card.id)) {
-        hardSet.delete(card.id);
-      } else {
-        hardSet.add(card.id);
-      }
-      saveHardSet();
-      renderCard();
-      updatePreviewList();
-    });
-
-    prevBtn.addEventListener("click", () => {
-      if (!filteredCards.length) return;
-      currentIndex = (currentIndex - 1 + filteredCards.length) % filteredCards.length;
-      showingBack = false;
-      renderCard();
-    });
-
-    nextBtn.addEventListener("click", () => {
-      if (!filteredCards.length) return;
-      currentIndex = (currentIndex + 1) % filteredCards.length;
-      showingBack = false;
-      renderCard();
-    });
-
-    hardOnlyBtn.addEventListener("click", () => {
-      filterState.hardOnly = !filterState.hardOnly;
-      hardOnlyBtn.classList.toggle("danger", !filterState.hardOnly);
-      hardOnlyBtn.textContent = filterState.hardOnly ? "All cards" : "Hard only";
-      applyFilters();
-    });
-
-    shuffleBtn.addEventListener("click", () => {
-      if (!filteredCards.length) return;
-      shuffleCards();
-    });
 
     searchFilterBtn.addEventListener("click", openOverlay);
     closeOverlayBtn.addEventListener("click", closeOverlay);
@@ -963,33 +1024,36 @@
     });
 
     let touchStartX = 0;
-    let touchEndX = 0;
 
     cardEl.addEventListener("touchstart", (e) => {
       touchStartX = e.changedTouches[0].screenX;
     });
 
     cardEl.addEventListener("touchend", (e) => {
-      touchEndX = e.changedTouches[0].screenX;
-      const dx = touchEndX - touchStartX;
+      const dx = e.changedTouches[0].screenX - touchStartX;
       if (Math.abs(dx) > 50) {
-        if (dx < 0) {
-          nextBtn.click();
-        } else {
-          prevBtn.click();
-        }
+        const direction = dx < 0 ? "left" : "right";
+        const cls = direction === "left" ? "swipe-left" : "swipe-right";
+        cardEl.classList.add(cls);
+        setTimeout(() => {
+          cardEl.classList.remove(cls);
+          if (direction === "left") goNext();
+          else goPrev();
+          cardEl.classList.add("enter");
+          setTimeout(() => cardEl.classList.remove("enter"), 300);
+        }, 300);
       }
     });
 
     document.addEventListener("keydown", (e) => {
       if (overlay.style.display === "flex") return;
-      if (e.key === "ArrowRight") nextBtn.click();
-      else if (e.key === "ArrowLeft") prevBtn.click();
+      if (e.key === "ArrowRight") goNext();
+      else if (e.key === "ArrowLeft") goPrev();
       else if (e.key === " ") {
         e.preventDefault();
-        flipBtn.click();
+        flipCard();
       } else if (e.key.toLowerCase() === "h") {
-        hardToggleBtn.click();
+        toggleHard();
       }
     });
 
