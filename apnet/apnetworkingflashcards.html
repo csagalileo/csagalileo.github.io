@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>AP Networking Flashcards (Mobile + Animations)</title>
+  <title>AP Networking Flashcards</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
@@ -258,7 +258,6 @@
       transform: scale(0.97);
     }
 
-    /* Swipe animations */
     .card.swipe-left {
       animation: swipeLeft 0.3s ease forwards;
     }
@@ -654,6 +653,8 @@
       { id: 22, category: "Data", front: "Term: Bandwidth", back: "The maximum data transfer capacity of a link." },
       { id: 23, category: "Data", front: "Term: Latency", back: "The time it takes for data to travel from source to destination." },
       { id: 24, category: "Data", front: "Term: Throughput", back: "The actual data transfer rate achieved on a network." },
+      { id: 160, category: "Data", front: "Protocol: TCP (Transmission Control Protocol)", back: "Connection-oriented protocol that provides reliable, ordered delivery of data.\n\nFeatures:\n- Uses acknowledgments and retransmissions\n- Provides flow control and congestion control\n- Used by HTTP/HTTPS, SSH, FTP, SMTP, etc." },
+      { id: 161, category: "Data", front: "Protocol: UDP (User Datagram Protocol)", back: "Connectionless protocol that sends datagrams without reliability or ordering.\n\nFeatures:\n- Lower overhead and faster than TCP\n- No acknowledgments or retransmissions\n- Used by DNS queries, streaming, VoIP, gaming, etc." },
 
       { id: 25, category: "Types", front: "Term: LAN", back: "Local Area Network; connects devices in a limited area like a home, school, or office." },
       { id: 26, category: "Types", front: "Term: WAN", back: "Wide Area Network; connects LANs across large geographic areas." },
@@ -693,11 +694,20 @@
       { id: 75, category: "Addressing", front: "Term: Broadcast Address (IP)", back: "Last address in a subnet; used to send traffic to all hosts in that subnet." },
       { id: 76, category: "Addressing", front: "Term: Host Range", back: "Usable IP addresses between the network and broadcast addresses." },
       { id: 77, category: "Addressing", front: "Term: Subnetting", back: "Dividing a larger network into smaller networks to improve organization, performance, or security." },
+      { id: 162, category: "Addressing", front: "IPv4 Class A", back: "Classful IPv4 network type.\n\nRange: 1.0.0.0 – 126.0.0.0\nDefault mask: 255.0.0.0 (/8)\nFirst bit pattern: 0\nUsed for very large networks (millions of hosts)." },
+      { id: 163, category: "Addressing", front: "IPv4 Class B", back: "Classful IPv4 network type.\n\nRange: 128.0.0.0 – 191.255.0.0\nDefault mask: 255.255.0.0 (/16)\nFirst bit pattern: 10\nUsed for medium-sized networks." },
+      { id: 164, category: "Addressing", front: "IPv4 Class C", back: "Classful IPv4 network type.\n\nRange: 192.0.0.0 – 223.255.255.0\nDefault mask: 255.255.255.0 (/24)\nFirst bit pattern: 110\nUsed for small networks (up to 254 hosts)." },
+      { id: 165, category: "Addressing", front: "IPv4 Class D", back: "Classful IPv4 address range used for multicast.\n\nRange: 224.0.0.0 – 239.255.255.255\nFirst bit pattern: 1110\nNot used for normal host addressing." },
+      { id: 166, category: "Addressing", front: "IPv4 Class E", back: "Classful IPv4 address range reserved for experimental use.\n\nRange: 240.0.0.0 – 255.255.255.255\nFirst bit pattern: 1111\nNot used for normal host addressing." },
 
       { id: 55, category: "Routing", front: "Term: Routing Table", back: "List of known networks and next hops that a router uses to forward packets." },
       { id: 56, category: "Routing", front: "Term: Static Route", back: "Manually configured route that does not change unless edited by an administrator." },
       { id: 57, category: "Routing", front: "Term: Default Route", back: "Catch-all route for unknown destinations (often written as 0.0.0.0/0)." },
       { id: 58, category: "Routing", front: "Term: Hop", back: "Each router a packet passes through on its way to the destination." },
+      { id: 167, category: "Routing", front: "Routing Protocol: RIP (Routing Information Protocol)", back: "Distance-vector routing protocol.\n\nKey points:\n- Metric: hop count (maximum 15 hops)\n- Periodic updates to neighbors\n- Simple but slow convergence and limited scalability." },
+      { id: 168, category: "Routing", front: "Routing Protocol: OSPF (Open Shortest Path First)", back: "Link-state routing protocol used in many enterprise networks.\n\nKey points:\n- Metric: cost (based on bandwidth)\n- Fast convergence\n- Supports areas and hierarchical design\n- Uses Dijkstra's shortest path algorithm." },
+      { id: 169, category: "Routing", front: "Routing Protocol: IS-IS (Intermediate System to Intermediate System)", back: "Link-state routing protocol similar to OSPF.\n\nKey points:\n- Common in large service provider networks\n- Uses TLVs (Type-Length-Value) for flexibility\n- Scales well in large environments." },
+      { id: 170, category: "Routing", front: "Routing Protocol: BGP (Border Gateway Protocol)", back: "Path-vector routing protocol that runs the global internet.\n\nKey points:\n- Exchanges routes between autonomous systems (ASes)\n- Uses AS-path and policies to choose routes\n- Highly scalable and policy-driven." },
 
       { id: 59, category: "Ports", front: "Port 20/21 — Which protocol?", back: "FTP (File Transfer Protocol)\n- Port 20: data\n- Port 21: control" },
       { id: 60, category: "Ports", front: "Port 22 — Which protocols?", back: "SSH (Secure Shell) and SFTP (Secure File Transfer over SSH)." },
@@ -738,7 +748,7 @@
       { id: 104, category: "DeviceSecurity", security: true, front: "Device Security: Patching / Updates", back: "Installing vendor updates to fix vulnerabilities and improve security." },
       { id: 105, category: "DeviceSecurity", security: true, front: "Device Security: Antivirus / Anti-Malware", back: "Scans for, detects, and removes malicious software." },
       { id: 106, category: "DeviceSecurity", security: true, front: "Device Security: Disk Encryption", back: "Protects data at rest by encrypting the entire drive (e.g., BitLocker, FileVault)." },
-      { id: 107, category: "DeviceSecurity", security: true, front: "Device Security: Host-Based Firewall", back: "Filters traffic entering or leaving a single device." },
+      { id: 107, category: "DeviceSecurity", security: true, front: "Device Security: Host-Based Firewall", back: "Host-based firewall installed on an individual device; filters traffic to and from that specific host." },
 
       { id: 108, category: "DeviceSecurity", security: true, front: "Social Engineering: Phishing", back: "Fraudulent messages designed to trick users into revealing sensitive information or clicking malicious links." },
       { id: 109, category: "DeviceSecurity", security: true, front: "Social Engineering: Spear Phishing", back: "Targeted phishing aimed at a specific individual or organization." },
@@ -769,6 +779,14 @@
       { id: 147, category: "NetworkSecurity", security: true, front: "Network Control: DMZ (Demilitarized Zone)", back: "Network area that hosts public-facing services while isolating internal systems." },
       { id: 148, category: "NetworkSecurity", security: true, front: "Network Control: IDS (Intrusion Detection System)", back: "Monitors traffic for suspicious activity and alerts administrators." },
       { id: 149, category: "NetworkSecurity", security: true, front: "Network Control: IPS (Intrusion Prevention System)", back: "Detects and blocks malicious traffic in real time." },
+      { id: 171, category: "NetworkSecurity", security: true, front: "Attack: MAC Flooding", back: "Attack that overwhelms a switch's MAC address table with many fake MAC entries.\n\nResult:\n- Switch runs out of table space\n- Begins flooding frames out all ports like a hub\n- Attacker can capture traffic not intended for them." },
+      { id: 172, category: "NetworkSecurity", security: true, front: "Attack: MAC Spoofing", back: "Attack where an attacker changes their device's MAC address to impersonate another device.\n\nUses:\n- Bypass MAC-based filters\n- Impersonate trusted hosts\n- Hijack network sessions or access." },
+      { id: 173, category: "NetworkSecurity", security: true, front: "Firewall Type: Network-Based Firewall", back: "Firewall deployed at the network perimeter or between network segments.\n\nKey points:\n- Monitors and filters traffic between devices or networks\n- Often implemented as a dedicated hardware or virtual appliance\n- Protects entire segments, not just a single host." },
+      { id: 174, category: "NetworkSecurity", security: true, front: "Firewall Type: Host-Based Firewall", back: "Firewall installed on an individual device (host).\n\nKey points:\n- Filters traffic to and from that specific device\n- Useful for endpoint protection\n- Enforces local security policies even if the network is untrusted." },
+      { id: 175, category: "NetworkSecurity", security: true, front: "Firewall Type: Stateless Firewall", back: "Firewall that makes decisions on each packet individually.\n\nKey points:\n- Uses simple rules based on IP, port, and protocol\n- Does not track connection state\n- Fast but less secure; cannot detect abnormal session behavior." },
+      { id: 176, category: "NetworkSecurity", security: true, front: "Firewall Type: Stateful Firewall", back: "Firewall that tracks the state of active connections.\n\nKey points:\n- Understands whether traffic is part of an existing, legitimate session\n- More secure than stateless firewalls\n- Can block packets that do not match an expected connection state." },
+      { id: 177, category: "NetworkSecurity", security: true, front: "Firewall Type: Hardware Firewall", back: "Dedicated physical device that filters network traffic.\n\nKey points:\n- Often used at the edge of a LAN or in small business routers\n- Offloads filtering from hosts\n- Provides strong isolation between networks." },
+      { id: 178, category: "NetworkSecurity", security: true, front: "Firewall Type: Next-Generation Firewall (NGFW)", back: "Advanced firewall that combines traditional firewall features with deep inspection.\n\nKey points:\n- Performs stateful inspection\n- Can do deep packet inspection and application awareness\n- Often includes intrusion prevention and TLS inspection\n- Controls traffic based on applications, not just ports." },
 
       { id: 150, category: "WirelessSecurity", security: true, front: "Wireless: WPA2 / WPA3", back: "Modern wireless encryption standards; WPA3 is the most secure commonly available option." },
       { id: 151, category: "WirelessSecurity", security: true, front: "Wireless: SSID", back: "Wireless network name broadcast by an access point." },
